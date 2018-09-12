@@ -26,7 +26,7 @@ def load_df():
 #    """
 #    df = utils.query_to_df(query)
 #    
-#    df = df.fillna('')
+    df = df.fillna('')
 
     return df
 
@@ -136,7 +136,7 @@ def description_to_matrix(df, method='parse'):
         X_train_synopsis = lb.fit_transform(ds['Synopsis'])
         X_train_meaning = lb.fit_transform(ds['Meaning'])
         X_train_cause = lb.fit_transform(ds['Probable Cause'])
-        X_train_react = lb.fit_transform(ds['Recommended Action'])/2
+        X_train_react = lb.fit_transform(ds['Recommended Action'])
         X_train_description = np.hstack((X_train_synopsis,X_train_meaning,X_train_cause,
                                       X_train_react))
     elif method == 'parse':
@@ -168,24 +168,30 @@ def msgid_to_matrix(df):
 
 
 # version encoder
-def version_transform(Sr):
-#    import re
+# version encoder
+def version_transform(df):
+    """
+    Transform and encode a version string number
+    :param df: a pandas series representing a version string in form of "XX.XX.XX.XX"
+    :return: a matrix with the same number of rows as df
+    """
     lb = LabelBinarizer()
-    n = Sr.shape[0]
-    k = 0 
+    num_rows = df.shape[0]
     part1 = []
     part2 = []
     part3 = []
     nonzeros = []
-    for k in range(n):
-        if (Sr[k]!=''):
-            part1.append(re.split(r'\W+',Sr[k])[0])
-            part2.append(re.split(r'\W+',Sr[k])[0]+re.split(r'\W+',Sr[k])[1])
-            part3.append(re.split(r'\W+',Sr[k])[0]+re.split(r'\W+',Sr[k])[1]+re.split(r'\W+',Sr[k])[2])
-            nonzeros.append(k)
-    X =  normalize(np.hstack((lb.fit_transform(part1),lb.fit_transform(part2),lb.fit_transform(part3))))
-    X_transform = np.zeros([n,X.shape[1]])
-    X_transform[nonzeros,:]=X
+    for rows in range(num_rows):
+        version_element = re.split(r'\W+', df.iloc[rows])
+        if len(version_element) == 4:
+            part1.append(version_element[0])
+            part2.append(version_element[0] + '.' + version_element[1])
+            part3.append(
+                version_element[0] + '.' + version_element[1] + '.' + version_element[2])
+            nonzeros.append(rows)
+    X = normalize(np.hstack((lb.fit_transform(part1), lb.fit_transform(part2), lb.fit_transform(part3))))
+    X_transform = np.zeros([num_rows, X.shape[1]])
+    X_transform[nonzeros, :] = X
     return X_transform
 
 def pde_version_to_matrix(df):
