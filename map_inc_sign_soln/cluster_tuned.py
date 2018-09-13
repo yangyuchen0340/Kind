@@ -14,87 +14,116 @@ from sklearn.preprocessing import LabelBinarizer,MultiLabelBinarizer, normalize
 #from cbrain import utils
 import re
 from sklearn.feature_extraction.text import CountVectorizer,TfidfVectorizer
+import sys
+sys.path.append('..')
+import KindAP
 #%% Data Loading
 def load_df():
-# method 1
     df=pd.read_csv('test_df.csv')
-# method 2
-#    query = r"""
-#    SELECT *
-#    FROM cbrain_dev.map_incident_signature_solution_TD_t yy, cbrain_dev.solution_TD_t sol
-#    WHERE sol.id=yy.solution_id AND yy.backtrace<>'';
-#    """
-#    df = utils.query_to_df(query)
-#    
     df = df.fillna('')
-
     return df
 
-#%% To Distance Matrix
-def backtrace_truncater(df,depth=10):
-    n = df.shape[0]
-    temp = []
-    for k in range(n):
-        bt_items = re.split(r'[,]',df.backtrace[k])[:depth]
-        temp.append(','.join(bt_items))
-    ds = pd.Series(temp)
-    return ds
 
-def backtrace_to_matrix(df):
-    # backtrace mistake encoder
-    # need to throw away .so
-    count_vect = CountVectorizer(token_pattern=r'(?u)\b\w\w\w+\b',ngram_range=(1,1))
-    temp = backtrace_truncater(df,depth=10)
-    X_train_backtrace = count_vect.fit_transform(temp).todense()
-    # tsvd = KernelPCA(n_components=1000,kernel='cosine')
-    # X_train_backtrace = tsvd.fit_transform(X_train_backtrace)
+def backtrace_truncater(df, depth=10):
+    """
+    Obtain certain depth of backtraces in the database
+    :param df: the original dataframe having backtrace feature
+    :param depth: depth of backtrace, default is 10.
+    :return: a pandas Series of backtraces with certain depth
+    """
+    num_rows = df.shape[0]
+    backtrace_list = []
+    for rows in range(num_rows):
+        backtrace_items = df.backtrace.iloc[rows].split(',')[:depth]
+        backtrace_list.append(','.join(backtrace_items))
+    output_df = pd.Series(backtrace_list)
+    return output_df
+
+
+def backtrace_encoder(df, backtrace_depth=10):
+    """
+    Transform and encode backtrace
+    :param df: the original dataframe having backtrace feature
+    :param backtrace_depth: the depth of backtrace required
+    :return: a numerical matrix indicating backtrace feature
+    """
+    count_vect = CountVectorizer(token_pattern=r'(?u)\b\w\w\w+\b', ngram_range=(1, 1))
+    backtrace_df = backtrace_truncater(df, depth=backtrace_depth)
+    X_train_backtrace = count_vect.fit_transform(backtrace_df).todense()
     return X_train_backtrace
 
+
 # site_id encoder
-def site_id_encoder(df):
-    n = df.shape[0]
+def site_id_to_df(df):
+    """
+    Transform and encode site_id
+    :param df: a dataframe with site_id column
+    :return: a dataframe with three columns, main_name, digit_name, and other_name
+    """
+    num_rows = df.shape[0]
     main_name = []
     digit_name = []
     other_name = []
-    for k in range(n):
-        s_items = re.split(r'(\d+|PROD|DEV|DR|TEST|TST|UAT|PRD)',df.site_id[k])
-        s_txt_items = [x for x in s_items if (x and (not x.isdigit()))]
-        main_name.append(s_txt_items[0][:5])
-        s_id_no = [str(int(x)) for x in s_items if (x and x.isdigit())]
-        digit_name.append(s_id_no)
-        other_name.append(s_txt_items[1:])
-    ds = pd.DataFrame({'main_name':main_name,'digit_name':digit_name,'other_name':other_name})
-    return ds
+    for rows in range(num_rows):
+        # Consider PROD|DEV|DR|TEST|TST|UAT|PRD as auxiliary names in site_id
+        # Use these key words to split site_id
+        items = re.split(r'(\d+|PROD|DEV|DR|TEST|TST|UAT|PRD)', df.site_id.iloc[rows])
+        # extract site_id and take the text part after splitting
+        txt_items = [x for x in items if (x and (not x.isdigit()))]
+        # the first five letters of the first text string is the main name
+        main_name.append(txt_items[0][:5])
+        id_items = [str(int(x)) for x in items if (x and x.isdigit())]
+        # take the digits in site_id
+        digit_name.append(id_items)
+        other_name.append(txt_items[1:])
+    output_df = pd.DataFrame({'main_name': main_name, 'digit_name': digit_name, 'other_name': other_name})
+    return output_df
 
-def site_id_to_matrix(df,method='parse'):
+
+def site_id_encoder(df, method='parse'):
+    """
+    Transform and encode site_id to matrix
+    :param df: a dataframe with site_id column
+    :param method: method of parsing site_id, including 'original' and 'parse'. The default is 'parse'.
+                   'original' means use encoder directly to raw data
+                   'parse' means use encoder after parsing
+    :return:
+    """
     lb = LabelBinarizer()
     if method == 'original':
         X_train_site_id = lb.fit_transform(df.site_id.tolist())
     else:
-        ds = site_id_encoder(df)
+        ds = site_id_to_df(df)
         mlb = MultiLabelBinarizer()
         X_main = lb.fit_transform(ds.main_name)
-        X_digit = mlb.fit_transform(ds.digit_name)/5
-        X_other = mlb.fit_transform(ds.other_name)/5
-        X_train_site_id = np.hstack((X_main,X_digit,X_other))
-        
-#    tsvd = KernelPCA(n_components=100,kernel='cosine')
-#    X_train_site_id = tsvd.fit_transform(X_train_site_id)
+        # decrease the influence of other 2 parts
+        X_digit = mlb.fit_transform(ds.digit_name) / 5
+        X_other = mlb.fit_transform(ds.other_name) / 5
+        X_train_site_id = np.hstack((X_main, X_digit, X_other))
     return X_train_site_id
 
+
 # description encoder
-def description_encoder(df):
-    n = df.shape[0]
+def description_to_df(df):
+    """
+    Transform and encode description
+    :param df: a dataframe with description column
+    :return: a dataframe with four columns: Synopsis, Meaning, Probable Cause and Recommended Action
+    """
+    num_rows = df.shape[0]
     synopsis = []
-    meaning =[]
+    meaning = []
     cause = []
     react = []
-    for k in range(n):
-        des_items_all = re.split(r'\n',df.description[k])
+    for rows in range(num_rows):
+        # Separate description by '\n' and take the non-empty part
+        des_items_all = re.split(r'\n', df.description.iloc[rows])
         des_items = [x for x in des_items_all if x]
+        # Bool variables to monitor whether the features are extracted or not
         add_meaning = False
         add_cause = False
         add_react = False
+        # The first line is regarded as synopsis
         if len(des_items) == 0:
             synopsis.append('')
             meaning.append('')
@@ -102,6 +131,7 @@ def description_encoder(df):
             react.append('')
             continue
         synopsis.append(des_items[0])
+        # Select Meaning, Probable Cause, and Recommended Action section by the starting word
         for j in range(len(des_items)):
             if des_items[j].startswith("Meaning:"):
                 meaning.append(des_items[j][len("Meaning: "):])
@@ -115,59 +145,77 @@ def description_encoder(df):
                 react.append(des_items[j][len("Recommended Action: "):])
                 add_react = True
                 continue
-        if add_meaning == False:
+        if not add_meaning:
             meaning.append("")
-        if add_cause == False:
+        if not add_cause:
             cause.append("")
-        if add_react == False:
+        if not add_react:
             react.append("")
-    ds = pd.DataFrame({'Synopsis':synopsis,'Meaning':meaning,
-                       'Probable Cause':cause, 'Recommended Action':react},
-                      index = df.incid)            
-    return ds
+    output_df = pd.DataFrame({'Synopsis': synopsis, 'Meaning': meaning,
+                              'Probable Cause': cause, 'Recommended Action': react},
+                             index=df.incid)
+    return output_df
 
-def description_to_matrix(df, method='parse'):
+
+def description_encoder(df, method='parse'):
+    """
+    Transform and encode description to matrix
+    :param df: a dataframe including description column
+    :param method: the method of parsing description, including 'original', 'paragraph', and 'parse'.
+                   The default value is 'parse'.
+                   'original' means use encoder directly to raw data
+                   'parse' means use encoder after parsing the 4 features: synopsis, meaning, probable cause and recommended action
+                   'paragraph' means considering the parsed features as labels instead of texts
+    :return: a matrix with the same number of rows as df
+    """
     tfidf = TfidfVectorizer(token_pattern=r'(?u)[a-zA-Z-][a-zA-Z-]+\b', max_df=0.5)
-    if method == 'original' :
+    if method == 'original':
         X_train_description = tfidf.fit_transform(df.description).todense()
     elif method == 'paragraph':
         lb = LabelBinarizer()
-        ds = description_encoder(df)
+        ds = description_to_df(df)
         X_train_synopsis = lb.fit_transform(ds['Synopsis'])
         X_train_meaning = lb.fit_transform(ds['Meaning'])
         X_train_cause = lb.fit_transform(ds['Probable Cause'])
         X_train_react = lb.fit_transform(ds['Recommended Action'])
-        X_train_description = np.hstack((X_train_synopsis,X_train_meaning,X_train_cause,
-                                      X_train_react))
+        X_train_description = np.hstack((X_train_synopsis, X_train_meaning, X_train_cause,
+                                         X_train_react))
     elif method == 'parse':
-        ds = description_encoder(df)
+        ds = description_to_df(df)
         X_train_synopsis = tfidf.fit_transform(ds['Synopsis'])
         X_train_meaning = tfidf.fit_transform(ds['Meaning'])
         X_train_cause = tfidf.fit_transform(ds['Probable Cause'])
         X_train_react = tfidf.fit_transform(ds['Recommended Action'])
-        X_train_description = hstack((X_train_synopsis,X_train_meaning,X_train_cause,
+        X_train_description = hstack((X_train_synopsis, X_train_meaning, X_train_cause,
                                       X_train_react)).todense()
     else:
         raise ValueError("Expect method name is not 'parse','original' and"
-                         "'paragraph'. Got a %s instead" % method)    
-#    tsvd = KernelPCA(kernel='cosine')
-#    X_train_description = tsvd.fit_transform(X_train_description)
+                         "'paragraph'. Got a %s instead" % method)
     return X_train_description
 
-#from sklearn import preprocessing
-def concatmpp_to_matrix(df):
-    count_vect=CountVectorizer(token_pattern=r'(?u)[0-9a-zA-Z-]+\b')
+
+def concatmpp_encoder(df):
+    """
+    Transform and encode concatmpp
+    :param df: a dataframe with concatmpp columns
+    :return: A matrix with the same number of rows as df representing concatmpp
+    """
+    count_vect = CountVectorizer(token_pattern=r'(?u)[0-9a-zA-Z-]+\b')
     X_train_concatmpp = count_vect.fit_transform(df.concatmpp.tolist()).todense()
     return X_train_concatmpp
 
+
 # msgid encoder
-def msgid_to_matrix(df):
+def msgid_encoder(df):
+    """
+    Transform and encode msgid
+    :param df: a dataframe with msgid
+    :return: a matrix with the same number of rows as df
+    """
     lb = LabelBinarizer()
     X_train_msgid = lb.fit_transform(df.msgid.tolist())
     return X_train_msgid
 
-
-# version encoder
 # version encoder
 def version_transform(df):
     """
@@ -194,52 +242,69 @@ def version_transform(df):
     X_transform[nonzeros, :] = X
     return X_transform
 
-def pde_version_to_matrix(df):
+def pde_version_encoder(df):
+    """
+    Transform and encode pde_version
+    :param df: a dataframe with a column pde_version
+    :return: a matrix with the same number of rows as df
+    """
     X_train_pde_version = version_transform(df.pde_version)
     return X_train_pde_version
 
-def dbs_version_to_matrix(df):
+
+def dbs_version_encoder(df):
+    """
+    Transform and encode dbs_version
+    :param df: a dataframe with a column dbs_version
+    :return: a matrix with the same number of rows as df
+    """
     X_train_dbs_version = version_transform(df.dbs_version)
     return X_train_dbs_version
 
 # group all training encoders
 def get_distance_matrix(df):
-    n = df.shape[0]
-    if 'backtrace' in df :
-        X_train_backtrace = backtrace_to_matrix(df)
+    """
+    Transform an input dataframe into matrix for clustering purpose
+    :param df: dataframe with map_signature information
+    :return: a numerical matrix with the same number of rows as df
+    """
+    num_rows = df.shape[0]
+    if 'backtrace' in df and df[df.backtrace != ''].shape[0] != 0:
+        X_train_backtrace = backtrace_encoder(df)
     else:
-        X_train_backtrace = np.empty([n,0])
-    if 'msgid' in df :
-        X_train_msgid = msgid_to_matrix(df)
+        X_train_backtrace = np.empty([num_rows, 0])
+    if 'msgid' in df:
+        X_train_msgid = msgid_encoder(df)
     else:
-        X_train_msgid = np.empty([n,0])
-    if 'concatmpp' in df :
-        X_train_concatmpp = concatmpp_to_matrix(df)
+        X_train_msgid = np.empty([num_rows, 0])
+    if 'concatmpp' in df:
+        X_train_concatmpp = concatmpp_encoder(df)
     else:
-        X_train_concatmpp = np.empty([n,0])
-    if 'pde_version' in df :
-        X_train_pde_version = pde_version_to_matrix(df)
+        X_train_concatmpp = np.empty([num_rows, 0])
+    if 'pde_version' in df:
+        X_train_pde_version = pde_version_encoder(df)
     else:
-        X_train_pde_version = np.empty([n,0])
-    if 'dbs_version' in df :
-        X_train_dbs_version = dbs_version_to_matrix(df)
+        X_train_pde_version = np.empty([num_rows, 0])
+    if 'dbs_version' in df:
+        X_train_dbs_version = dbs_version_encoder(df)
     else:
-        X_train_dbs_version = np.empty([n,0])
-    if 'description' in df :
-        X_train_description = description_to_matrix(df,method='parse')
+        X_train_dbs_version = np.empty([num_rows, 0])
+    if 'description' in df:
+        X_train_description = description_encoder(df, method='parse')
     else:
-        X_train_description = np.empty([n,0])
-    if 'site_id' in df :
-        X_train_site_id = site_id_to_matrix(df)
+        X_train_description = np.empty([num_rows, 0])
+    if 'site_id' in df:
+        X_train_site_id = site_id_encoder(df)
     else:
-        X_train_site_id = np.empty([n,0])
-## for non-sparse matrix
-# we can add and adjust weights here
-    X_train = np.hstack((4*X_train_backtrace, X_train_msgid, 
-                         X_train_concatmpp, X_train_pde_version, 
-                         X_train_dbs_version, X_train_description/4,
-                         X_train_site_id/4))
-    
+        X_train_site_id = np.empty([num_rows, 0])
+    # for non-sparse matrix
+    # we can add and adjust weights here
+    X_train = np.hstack((4 * X_train_backtrace, X_train_msgid,
+                         X_train_concatmpp, X_train_pde_version,
+                         X_train_dbs_version, X_train_description / 4,
+                         X_train_site_id / 4))
+    # Use kernel PCA with cosine kernel
+    # for dimension reduction, and better similarity
     tsvd = KernelPCA(kernel='cosine')
     X_train = tsvd.fit_transform(X_train)
     return X_train
@@ -294,9 +359,8 @@ def get_cluster(X_train,method,k=1000):
         hie = hie.fit(X_train)
         labels = hie.labels_
     elif method == 'KindAP':
-        import KindAP
         ki = KindAP.KindAP(n_clusters = k, algorithm = 'L', tol_in = 1e-5, 
-                           max_iter_in = 500, init= old_labels, if_print=True)
+                           max_iter_in = 500, if_print=True)
         ki = ki.fit(X_train)
         labels = ki.labels_
     else:
@@ -329,7 +393,7 @@ def explore_cluster(df,labels,lb):
     return output_cluster
 
 #%% Clustering Test
-method_name = "kmeans"
+method_name = "KindAP"
 labels = get_cluster(X_train,method_name)
 print (evaluate_cluster(y,labels))
 #%% Output clustering stats
