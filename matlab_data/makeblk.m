@@ -1,4 +1,21 @@
 function Z =makeblk(H,Uk,Zo,index)
+%====================================================================
+% Remove diagonality qualification of KindAP
+% Select the required Z that generates block diagonals when projecting H to
+% U
+%
+% Copyright: Yuchen Yang 2018
+%====================================================================
+% Input:
+% Uk: n by k column-orthonormal matrix
+%     (usually k eigenvectors of a Gram or Laplacian matrix)
+% H: n by k matrix; column-orthogonal for nonzero columns
+%     (usually rank deficient)
+% Zo: the original projection by MATLAB default
+%====================================================================
+% Output:
+% Z: the desired rotation
+%====================================================================
     col_full = find(sum(H~=0));
     U = Uk*Zo;
     k = size(Uk,2);
