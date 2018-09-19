@@ -1,4 +1,4 @@
-function [idx,idc,itr,err,H,V]=outlier_tolerant(Uk,mu,prt)
+function [idx,idc,itr,err,H,V]=kind_ot(Uk,mu,prt)
 %====================================================================
 % Solving K-indicators by Alternating Projection algorithm with 
 % Outlier-tolerant. (KindAP)
@@ -42,6 +42,7 @@ function [idx,idc,itr,err,H,V]=outlier_tolerant(Uk,mu,prt)
         U = Q*(Sr*Dr');
 % plan B
 % solve orthogonality constraints by admm/augmented Lag;
+% see another file
     end
     
     if prt
