@@ -13,7 +13,7 @@ function [idx,idc,itr,err,H,V,W,L,Z]=kind_ot_admm(Uk,mu,rho,prt)
 %     (usually k eigenvectors of a Gram or Laplacian matrix)
 % mu: the parameter of strength of outliers
 % rho: the parameter of augmented Lagrangian dual
-% prt: whether printing the residual curve or not
+% prt: whether printing the residuals or not
 %====================================================================
 % Output:
 % idc: indices detected as outliers
@@ -29,8 +29,8 @@ function [idx,idc,itr,err,H,V,W,L,Z]=kind_ot_admm(Uk,mu,rho,prt)
 %====================================================================
     % initialization
     max_itr = 50;  
-    e_abs = 1e-6;
-    e_rel = 1e-4;
+    e_abs = 1e-5;
+    e_rel = 1e-3;
     err = [];
     [n,k]=size(Uk);
     V = zeros(n,k);
@@ -56,6 +56,9 @@ function [idx,idc,itr,err,H,V,W,L,Z]=kind_ot_admm(Uk,mu,rho,prt)
         % stopping criteria
         prim_res = norm(W-A,'fro');
         dual_res = norm(S,'fro');
+        if prt
+            fprintf("Step: %2d, Primal Residual: %1.5e, Dual Residual: %1.5e, Objective: %1.5e\n",itr,prim_res,dual_res,err(end))
+        end
         prim_f = prim_res <= sqrt(n*k)*e_abs+max(k,norm(V,'fro'))*e_rel;
         dual_f = dual_res <= sqrt(n*k)*e_abs+norm(L,'fro')*e_rel;
         if prim_f && dual_f
@@ -68,6 +71,7 @@ function [idx,idc,itr,err,H,V,W,L,Z]=kind_ot_admm(Uk,mu,rho,prt)
         if prim_res < 0.1*dual_res
             rho=rho/2;
         end
+
     end
     % get the outliers
     idc = find(max(abs(V),[],2)~=0);
