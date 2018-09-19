@@ -1,10 +1,12 @@
 % initialization
-ac=[];
+% timing
 tc=[];
-ac_1=[];
 TC=[];
+% accuracy
+ac=[];
 AC=[];
-AC_1=[];
+% outliers dectection
+OT=[];
 % k is the number of cluster you want to test
 for k=100:10:100
     % d is the dimension of constructed data
@@ -20,7 +22,7 @@ for k=100:10:100
     addlink=0;
     % real nonnegative variables
     addnoise=1;
-    addoutliers=10;
+    addoutliers=100;
     if addray==0
         %point data
         M=[repmat(A1,m1,1);repmat(A2,m2,1)];
@@ -52,8 +54,15 @@ for k=100:10:100
         M=[M;sqrt(2)*rand(addoutliers,d)];
         [s,~,~]=svd(M,'econ');
         Uk=s(:,1:k);
-        [idx,idc]=outlier_tolerant(Uk,0.015,0);
-        fprintf('k=%d, outlier-tolerant KindAP finished.\n',k)
+        [idx,idc]=kind_ot_admm(Uk,0.01,1,0);
+        fprintf('k=%d, outlier-tolerant KindAP finished.\n',k);
+        % means of all added outliers, how many of them can be discovered
+        ot_recall = length(find(ismember(size(M,1)-addoutliers+1:size(M,1),idc)==1))/addoutliers;
+        % means of all detectd outliers, how many of them are indeed correct
+        ot_acc =  length(find(ismember(idc,size(M,1)-addoutliers+1:size(M,1))==1))/length(idc);
+        % means of other normal data, what is the clustering precision
+        non_ot_acc = sum(idxg == bestMap(idxg,idx(1:end-addoutliers)))/(size(M,1)-addoutliers);
+        OT=[OT,[ot_acc;non_ot_acc;ot_recall]];
     end
 
     % compare with k-means
@@ -73,25 +82,5 @@ for k=100:10:100
         AC = [AC sum(idxg == bestMap(idxg,idxlink))/size(M,1)];
     end
     
-    % TSNE
-    if addoutliers
-        fprintf('t-SNE ongoing.\n')
-        if ~exist('M2','var')
-            M2 = tsne(M);
-        end
-        fprintf('t-SNE finished.\n')
-        % plot
-        close all
-        scatter(M2(:,1),M2(:,2),'.');
-        hold on
-        scatter(M2(idc,1),M2(idc,2),'*');
-        hold on
-        scatter(M2(end-addoutliers:end,1),M2(end-addoutliers:end,2),'o');
-        axis off
-        legend({'All Data','Detected Outliers','Constructed Outliers'},'FontSize',15)
-        title('Synthetic Data with Outliers by Outlier-tolerant KindAP','FontSize',20)
-    end
+   
 end
-% cross validation by Python
-% IDX1=csvread('pred_kmeans.csv');
-% IDX1(1)=[];
