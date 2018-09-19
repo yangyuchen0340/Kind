@@ -71,7 +71,8 @@ function [idx,idc,itr,err,H,V,W,L,Z]=kind_ot_admm(Uk,mu,rho,prt)
     end
     % get the outliers
     idc = find(max(abs(V),[],2)~=0);
-    idx = index(max(abs(V),[],2)==0);
+    idx = index;
+%     idx = index(max(abs(V),[],2)==0);
 %     [~,id] = sort(sum(abs(Uk-W),2),'descend');
 %     idc = id(1:10);
 %     idx = index(id(11:end));

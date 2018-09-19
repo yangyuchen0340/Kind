@@ -19,7 +19,12 @@ function [idx,idc,itr,err,H,V]=kind_ot(Uk,mu,prt)
 % itr: number of iterations
 % err: the objective function value of outlier-tolerant K-indicators
 %====================================================================
-
+% The optimization problem is formulated as follows:
+% argmin_{H,Z,V} 1/2||VZ-H||_F^2+mu||V-Uk||_{2,1}
+% s.t. W,H,V in R^{n*k} (the same shape as give orthonormal matrix Uk) 
+%      Z in R^{k*k}, Z^Z=I, H^H=I, H>=0
+%      V^TV=I
+%====================================================================
     max_itr = 10;  
     err = [];
     idc_old = [];
@@ -49,21 +54,6 @@ function [idx,idc,itr,err,H,V]=kind_ot(Uk,mu,prt)
         figure;
         plot(err,'-r');
         title('The iterative value of 1/2||V-HZ^T||_F^2+\mu||V-U_k||_{2,1}');
-    end
-end
-
-% Solve soft thresholding with l2 norm
-function X=prox_l2(T,mu)
-    X = zeros(size(T));
-    for i=1:size(T,1)
-        t=T(i,:);
-        nrm=norm(t,2);
-        if nrm<mu
-            x=zeros(size(t));
-        else
-            x=(1-mu/nrm)*t;
-        end
-        X(i,:)=x;
     end
 end
     
