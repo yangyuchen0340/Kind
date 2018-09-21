@@ -81,8 +81,7 @@ function [gerr,idx,repeat,H,Z]=kind_ap(Uk,id,prt)
     [val,ind]= max(N,[],2);
     H = sparse(1:n,ind,val,n,k,n);
     % get the clustering indices
-    [i,j]=find(H);
-    idx(i)=j;
+    idx = ind;
 
     % draw the results
     if prt

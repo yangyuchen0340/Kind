@@ -8,7 +8,7 @@ AC=[];
 % outliers dectection
 OT=[];
 % k is the number of cluster you want to test
-for k=10:10:10
+for k=10:10:50
     % d is the dimension of constructed data
     d=512;
     % m1,m2 refers to the multiplicity of data clouds
@@ -18,7 +18,7 @@ for k=10:10:10
     A2=sqrt(2)*randn(k/2,d);
     % boolean variables
     addray=0;
-    addkmeans=0;
+    addkmeans=1;
     addlink=0;
     addplot=1;
     % real nonnegative variables
