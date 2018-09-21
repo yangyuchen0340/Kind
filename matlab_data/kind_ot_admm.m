@@ -28,7 +28,7 @@ function [idx,idc,itr,err,H,V,W,L,Z]=kind_ot_admm(Uk,mu,rho,prt)
 %      W-V-Uk=0, W^TW=I
 %====================================================================
     % initialization
-    max_itr = 50;  
+    max_itr = 100;  
     e_abs = 1e-5;
     e_rel = 1e-3;
     err = [];
