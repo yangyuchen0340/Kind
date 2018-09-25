@@ -8,7 +8,7 @@ AC=[];
 % outliers dectection
 OT=[];
 % k is the number of cluster you want to test
-for k=10:10:50
+for k=50:10:50
     % d is the dimension of constructed data
     d=512;
     % m1,m2 refers to the multiplicity of data clouds
@@ -17,7 +17,7 @@ for k=10:10:50
     A1=sqrt(2)*randn(k/2,d);
     A2=sqrt(2)*randn(k/2,d);
     % boolean variables
-    addray=0;
+    addray=1;
     addkmeans=1;
     addlink=0;
     addplot=1;
@@ -29,12 +29,12 @@ for k=10:10:50
         M=[repmat(A1,m1,1);repmat(A2,m2,1)];
     else
         %ray data;
-        M=[kron(A1,randi(100,[m1,1]));kron(A2,randi(100,[m2,1]))];
+        M=[kron(randi(100,[m1,1]),A1);kron(randi(100,[m2,1]),A2)];
     end
     % add some perturbation
     if addnoise
-       noise=randn(size(M))-0.5;
-       M=M+addnoise*normr(noise);
+        noise=randn(size(M))-0.5;
+        M=M+addnoise*normr(noise)*randi(10);
     end
 
     % generate ground truth
@@ -52,12 +52,16 @@ for k=10:10:50
     % outlier detection
     if addoutliers
         % add some outliers
-        M=[M;sqrt(2)*rand(addoutliers,d)];
+        if addray
+            M=[M;sqrt(2)*rand(addoutliers,d)*randi(100)];
+        else
+            M=[M;sqrt(2)*rand(addoutliers,d)];
+        end
         [s,~,~]=svd(M,'econ');
         Uk=s(:,1:k);
         % The selection of mu is interesting, depending on n and k
         % Set the last parameter to be 1 if you want detailed results
-        [idx,idc]=kind_ot_admm(Uk,0.001,1,0);
+        [idx,idc]=kind_ot_admm(Uk,0.002,1,0);
         fprintf('k=%d, outlier-tolerant KindAP finished.\n',k);
         % means of all added outliers, how many of them can be discovered
         ot_recall = length(find(ismember(size(M,1)-addoutliers+1:size(M,1),idc)==1))/addoutliers;
@@ -73,9 +77,9 @@ for k=10:10:50
         ts=cputime;
         [IDX,~,~] = kmeans(M,k,'Start','plus','Replicates',10);
         TC = [TC cputime-ts];
-        AC = [AC sum(idxg == bestMap(idxg,IDX))/size(M,1)];
-        AC_1 = [AC_1 sum(idxg(1:m1*k/2) == bestMap(idxg(1:m1*k/2),IDX(1:m1*k/2)))/(m1*k/2)];
+        AC = [AC sum(idxg == bestMap(idxg,IDX(1:end-addoutliers)))/(size(M,1)-addoutliers)];
         % csvwrite('pred_kmeans_matlab.csv',IDX)
+        fprintf('k=%d, K-means finished.\n',k)
     end
     if addlink==1
         ts=cputime;
