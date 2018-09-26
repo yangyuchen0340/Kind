@@ -17,13 +17,13 @@ for k=50:10:50
     A1=sqrt(2)*randn(k/2,d);
     A2=sqrt(2)*randn(k/2,d);
     % boolean variables
-    addray=1;
+    addray=0;
     addkmeans=1;
     addlink=0;
     addplot=1;
     % real nonnegative variables
-    addnoise=1;
-    addoutliers=10;
+    addnoise=10;
+    addoutliers=100;
     if addray==0
         %point data
         M=[repmat(A1,m1,1);repmat(A2,m2,1)];
@@ -34,7 +34,7 @@ for k=50:10:50
     % add some perturbation
     if addnoise
         noise=randn(size(M))-0.5;
-        M=M+addnoise*normr(noise)*randi(10);
+        M=M+addnoise*normr(noise);
     end
 
     % generate ground truth
@@ -55,13 +55,13 @@ for k=50:10:50
         if addray
             M=[M;sqrt(2)*rand(addoutliers,d)*randi(100)];
         else
-            M=[M;sqrt(2)*rand(addoutliers,d)];
+            M=[M;sqrt(2)*randn(addoutliers,d)];
         end
         [s,~,~]=svd(M,'econ');
         Uk=s(:,1:k);
         % The selection of mu is interesting, depending on n and k
         % Set the last parameter to be 1 if you want detailed results
-        [idx,idc]=kind_ot_admm(Uk,0.002,1,0);
+        [idx,idc]=kind_ot_admm(Uk,0.01,1,0);
         fprintf('k=%d, outlier-tolerant KindAP finished.\n',k);
         % means of all added outliers, how many of them can be discovered
         ot_recall = length(find(ismember(size(M,1)-addoutliers+1:size(M,1),idc)==1))/addoutliers;
