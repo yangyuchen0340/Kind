@@ -1,3 +1,6 @@
+% test the synethic data for KindAP/KindOT/kmeans/hierarchy
+% for ray-shaped, blob-shaped with different number of clusters
+% copyright: Yuchen Yang 2018
 % initialization
 % timing
 tc=[];
@@ -23,7 +26,7 @@ for k=50:10:50
     addplot=1;
     % real nonnegative variables
     addnoise=10;
-    addoutliers=100;
+    addoutliers=10;
     if addray==0
         %point data
         M=[repmat(A1,m1,1);repmat(A2,m2,1)];
@@ -61,7 +64,7 @@ for k=50:10:50
         Uk=s(:,1:k);
         % The selection of mu is interesting, depending on n and k
         % Set the last parameter to be 1 if you want detailed results
-        [idx,idc]=kind_ot_admm(Uk,0.01,1,0);
+        [idx,idc]=kind_ot_admm(Uk,0.1,1,0);
         fprintf('k=%d, outlier-tolerant KindAP finished.\n',k);
         % means of all added outliers, how many of them can be discovered
         ot_recall = length(find(ismember(size(M,1)-addoutliers+1:size(M,1),idc)==1))/addoutliers;
@@ -89,16 +92,23 @@ for k=50:10:50
         AC = [AC sum(idxg == bestMap(idxg,idxlink))/size(M,1)];
     end
     if addplot
+        close all
         M2 = s(:,1:2)*D(1:2,1:2);
         scatter(M2(:,1),M2(:,2),'.');
         hold on
-        scatter(M2(idc,1),M2(idc,2),'*');
-        hold on
-        scatter(M2(end-addoutliers+1:end,1),M2(end-addoutliers+1:end,2),'o');
-        hold on
-        axis off
-        legend({'All Data','Detected Outliers','Constructed Outliers'},'FontSize',15)
-        title('Synthetic Data with Outliers by ADMM-KindOT','FontSize',20)
+        if addoutliers
+            scatter(M2(idc,1),M2(idc,2),'*');
+            hold on
+            scatter(M2(end-addoutliers+1:end,1),M2(end-addoutliers+1:end,2),'o');
+            hold on
+            axis off
+            legend({'All Data','Detected Outliers','Constructed Outliers'},'FontSize',15)
+            title('Synthetic Data with Outliers by ADMM-KindOT','FontSize',20)
+        else
+            axis off
+            legend({'All Data'},'FontSize',15)
+            title(sprintf('Synthetic Data by KindAP with accuracy %3.2f',100*ac(end)),'FontSize',20)
+        end
     end
    
 end

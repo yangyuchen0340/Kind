@@ -17,7 +17,7 @@ function [gerr,idx,repeat,H,Z]=kind_ap(Uk,id,prt)
 % repeat: number of outer iterations
 % gerr: the objective function value of outlier-tolerant K-indicators
 %====================================================================
-% initialization
+    % initialization
     [n,k]=size(Uk);
     % maximum inner iteration numbers
     max_in=5000;
@@ -41,7 +41,7 @@ function [gerr,idx,repeat,H,Z]=kind_ap(Uk,id,prt)
             % project N to U
             % might be further accelerated
             T = Uk'*N;
-            [S,D,V]=svds(T,k,'largest','Tolerance',1e-10);
+            [S,D,V]=svds(T,k,'largest','Tolerance',1e-10);        
             Z = S*V';
             % stopping criteria: err_new = norm(U-N,'fro');
             err_new = norm(diag(D)-1);
@@ -53,7 +53,7 @@ function [gerr,idx,repeat,H,Z]=kind_ap(Uk,id,prt)
         % N project onto H
         % maximum element in each row
         [val,ind]= max(N,[],2);
-        H = sparse(1:n,ind,val,n,k,n);
+        H = sparse(1:n,ind,ones(n,1),n,k,n);
 
         % normalization is not necessary
         % normc will harm zero columns
@@ -79,7 +79,8 @@ function [gerr,idx,repeat,H,Z]=kind_ap(Uk,id,prt)
     end
 
     [val,ind]= max(N,[],2);
-    H = sparse(1:n,ind,val,n,k,n);
+    % can also use H = sparse(1:n,ind,val,n,k,n);
+    H = sparse(1:n,ind,ones(n,1),n,k,n);
     % get the clustering indices
     idx = ind;
 
