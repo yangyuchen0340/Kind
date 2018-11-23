@@ -6,19 +6,22 @@ function [idx,H,dUH,out] = KindAP(Uk,k,options)
 % Reference: "Data clustering: K-means versus K-indicators"
 % Feiyu Chen, Liwei Xu, Taiping Zhang, Yin Zhang
 % Last modified by Y.Z. 09/23/2016
-%
+% Copyright: Feiyu Chen, Yuchen Yang, Yin Zhang. 2018
+% Last modified by Yuchen Yang. 11/23/2018
 %====================================================================
 % Input:
-% Uk: n by k column-orthonormal matrix
+% Uk: n by k (in most cases column-orthonormal) matrix
 %     (usually k eigenvectors of a Gram or Laplacian matrix)
 % k: the number of clusters
 % options: a struct for parameters with the fields
 %    -- U     : an orthonormal, k-D basis in span(U) [default: Uk]
 %    -- tol   : tolerance for inner stopping rule    [default: 1e-3]
 %    -- runkm : run kmeans starts with centers of KindAP [default: 0]
-%    -- maxit1: maximum iterations for outer iter.   [default: 200]
-%    -- maxit2: maximum iterations for inner iter.   [default: 50]
-%    -- idisp : level of iteration info display      [default: 1] 
+%    -- maxit1: maximum iterations for outer iter    [default: 200]
+%    -- maxit2: maximum iterations for inner iter    [default: 50]
+%    -- idisp : level of iteration info display      [default: 1]
+%    -- isnrm : whether to normalize H columnwise    [default: based on Uk]
+%    -- doskip : whether to continue without inner iter  [default: 1]
 %====================================================================
 % Output:
 % idx: n by 1 cluster indices for data points
@@ -29,19 +32,22 @@ function [idx,H,dUH,out] = KindAP(Uk,k,options)
 
 if nargin < 2, k = size(Uk,2); end
 if nargin < 3 || isempty(options), options = struct([]); end
-if isfield(options,'U'), U = options.U; else U = Uk(:,1:k); end
-if isfield(options,'tol'), tol = options.tol; else tol = 1e-3; end
-if isfield(options,'maxit1'), maxit1=options.maxit1; else maxit1=50; end
-if isfield(options,'maxit2'), maxit2=options.maxit2; else maxit2=200; end
-if isfield(options,'disp'), idisp = options.disp; else idisp = 1; end
-if isfield(options,'runkm'), runkm = options.runkm; else runkm = 0; end
-if isfield(options,'idxg'), idxg = options.idxg; else idxg = []; end
+if isfield(options,'U'), U = options.U; else, U = Uk(:,1:k); end
+if isfield(options,'tol'), tol = options.tol; else, tol = 1e-3; end
+if isfield(options,'maxit1'), maxit1=options.maxit1; else, maxit1=50; end
+if isfield(options,'maxit2'), maxit2=options.maxit2; else, maxit2=200; end
+if isfield(options,'disp'), idisp = options.disp; else, idisp = 0; end
+if isfield(options,'runkm'), runkm = options.runkm; else, runkm = 0; end
+if isfield(options,'idxg'), idxg = options.idxg; else, idxg = []; end
+if isfield(options,'isnrm'), isnrm = options.isnrm; else, isnrm = norm(Uk(1,:))<1; end
+if isfield(options,'doskip'), doskip = options.doskip; else, doskip = 1; end
 
 [n,~] = size(Uk); 
 idx = ones(n,1); 
 hist = zeros(maxit1); 
 numiter = zeros(maxit1,1);
 N = zeros(n,k); H = N; dUH = 2*k;
+skip_N = 0;crit1 = zeros(3,1);crit2 = zeros(4,1);
 
 % Outer iterations:
 for Outer = 1:maxit2
@@ -49,26 +55,30 @@ for Outer = 1:maxit2
     dUN = inf; ci = 0;
     %% Step 1: Uo <---> N
     % Inner iterations:
-    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%    
-    for iter = 1:maxit1
-        %%%%%%%%%%%%%%%%%%%%%%%%%%%%                
-        N  = max(0,U);               % Projection onto N
-        [U,~] = Projection_Uo(N,Uk); % Projection onto Uo
-        %%%%%%%%%%%%%%%%%%%%%%%%%%%%
-        % Residue
-        dUNp = dUN; dUN = norm(U-N,'fro'); hist(iter,Outer) = dUN;
-        if idisp>2, fprintf('iter: %3i  dUN = %14.8e\n',iter,dUN); end
-        % Stopping criteria
-        crit1(1) = dUN < sqrt(eps);
-        crit1(2) = abs(dUNp-dUN) < dUNp*tol;
-        crit1(3) = dUN > dUNp;
-        if any(crit1)
-            numiter(Outer) = iter; ci = find(crit1); break; 
-        end
-    end % Inner layer
-    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    if ~skip_N
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%    
+        for iter = 1:maxit1
+            %%%%%%%%%%%%%%%%%%%%%%%%%%%%                
+            N  = max(0,U);               % Projection onto N
+            [U,~] = Projection_Uo(N,U); % Projection onto Uo
+            %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+            % Residue
+            dUNp = dUN; dUN = norm(U-N,'fro'); hist(iter,Outer) = dUN;
+            if idisp>2, fprintf('iter: %3i  dUN = %14.8e\n',iter,dUN); end
+            % Stopping criteria
+            crit1(1) = dUN < sqrt(eps);
+            crit1(2) = abs(dUNp-dUN) < dUNp*tol;
+            crit1(3) = dUN > dUNp;
+            if any(crit1)
+                numiter(Outer) = iter; ci = find(crit1); break; 
+            end
+        end % Inner layer
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    else
+        N = max(0,U);
+    end
     %% Step 2:  N  ---> H
-    [idx,H] = Projection_H(N);
+    [idx,H] = Projection_H(N,isnrm);
     idxchg = norm(idx-idxp,1);
     if ~isempty(idxg) && idisp > 1
         AC = 100*sum(idxg==bestMap(idxg,idx))/n; 
@@ -80,8 +90,8 @@ for Outer = 1:maxit2
     
     %% Check stop condition
     crit2(1) = dUH < sqrt(eps);              % only for ideal case
-    crit2(2) = abs(dUHp-dUH)<dUHp*sqrt(eps); % almost no change in dUH
-    crit2(3) = dUH > dUHp;                   % distance increases
+    crit2(2) = abs(dUHp-dUH) < dUHp*sqrt(eps); % almost no change in dUH
+    crit2(3) = dUH > dUHp+tol;                   % distance increases
     crit2(4) = idxchg == 0;                  % no change in clusters
     if idisp
         fprintf('Outer%3i: %3i(%1i)  dUH: %11.8e  idxchg: %6i',...
@@ -90,6 +100,7 @@ for Outer = 1:maxit2
         fprintf('\n')
     end
     if any(crit2)
+        if doskip && ~skip_N, skip_N = 1; continue; end
         if crit2(3) && ~crit2(2), idx=idxp; H=Hp; U=Up; N=Np; dUH=dUHp; end
         if idisp, fprintf('\tstop criteria: (%i,%i,%i,%i)\n',crit2); end
         break;
@@ -98,7 +109,7 @@ for Outer = 1:maxit2
 end % Outer iterations
 
 out.C = (bsxfun(@rdivide,Uk'*H,sum(H,1)))'; % Compute the centers
-if runkm, idx = kmeans(Uk,k,'Start',out.C); end;
+if runkm, idx = kmeans(Uk,k,'Start',out.C); end
 out.H = H;
 out.U = U;
 out.N = N;
@@ -117,12 +128,16 @@ T = Uk' * N;
 U = Uk * (Ut*Vt');
 end
 
+
+
 %% _________________________________________________
-function [idx,H] = Projection_H(N)
+function [idx,H] = Projection_H(N,isnrm)
 [n,k] = size(N);
 [v,idx] = max(N,[],2);
 H = sparse(1:n,idx,v,n,k);
-H = normalize_cols(H); % Normalization
+if isnrm
+    H = normalize_cols(H); % Normalization
+end
 end
 
 %% _________________________________________________
