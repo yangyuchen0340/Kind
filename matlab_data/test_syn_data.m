@@ -11,7 +11,7 @@ AC=[];
 % outliers dectection
 OT=[];
 % k is the number of cluster you want to test
-for k=50:10:50
+for k=100:10:100
     % d is the dimension of constructed data
     d=512;
     % m1,m2 refers to the multiplicity of data clouds
@@ -26,7 +26,7 @@ for k=50:10:50
     addplot=1;
     % real nonnegative variables
     addnoise=10;
-    addoutliers=10;
+    addoutliers=0;
     if addray==0
         %point data
         M=[repmat(A1,m1,1);repmat(A2,m2,1)];
@@ -47,7 +47,8 @@ for k=50:10:50
     [s,D,~]=svd(M,'econ');
     Uk=s(:,1:k);
     % call KindAP (my version: kind_ap)
-    [~,idx]=kind_ap(Uk,0,0);
+    %[~,idx]=kind_ap(Uk,0,0);
+    idx=KindAP(Uk,k,[]);
     % store time and accuracy
     tc=[tc,cputime-ts];
     ac = [ac sum(idxg == bestMap(idxg,idx(1:end)))/size(M,1)];
