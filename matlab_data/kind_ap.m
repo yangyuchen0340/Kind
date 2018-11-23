@@ -1,8 +1,8 @@
-function [gerr,idx,repeat,H,Z]=kind_ap(Uk,id,prt)
+function [idx,gerr,repeat,H,Z]=kind_ap(Uk,id,prt)
 %====================================================================
 % Solving K-indicators by Alternating Projection algorithm (KindAP)
 %
-% Copyright: Yuchen Yang. 2016
+% Copyright: Feiyu Chen. Yin Zhang. Yuchen Yang. 2016
 %
 %====================================================================
 % Input:
@@ -53,11 +53,9 @@ function [gerr,idx,repeat,H,Z]=kind_ap(Uk,id,prt)
         % N project onto H
         % maximum element in each row
         [val,ind]= max(N,[],2);
-        H = sparse(1:n,ind,ones(n,1),n,k,n);
+        %H = sparse(1:n,ind,ones(n,1),n,k,n);
+        H = sparse(1:n,ind,val,n,k,n);
 
-        % normalization is not necessary
-        % normc will harm zero columns
-        % H = normc(H);
 
         % another option: maximum element in each column
         % N=normr(N);
@@ -66,11 +64,15 @@ function [gerr,idx,repeat,H,Z]=kind_ap(Uk,id,prt)
         % H = normc(H);
 
         res = norm(U-H,'fro');
+        
+        % normalization is not necessary
+        % normc will harm zero columns
+        % H = normc(H);
         % This stopping criteria can be polished.
         if repeat>1&&(res>gerr(end)+1e-4 || abs(res-gerr(end))/gerr(end)<1e-8)
             break;
         end
-        gerr = [gerr res];
+        gerr = [gerr res^2];
         % H project back onto U;
         [S,~,V]=svd(Uk'*H,0);
         Zo=S*V';
