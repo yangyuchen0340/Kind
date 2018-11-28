@@ -17,8 +17,8 @@ function [idx,H,dUH,out] = KindAP(Uk,k,options)
 %    -- U     : an orthonormal, k-D basis in span(U) [default: Uk]
 %    -- tol   : tolerance for inner stopping rule    [default: 1e-3]
 %    -- runkm : run kmeans starts with centers of KindAP [default: 0]
-%    -- maxit1: maximum iterations for outer iter    [default: 200]
-%    -- maxit2: maximum iterations for inner iter    [default: 50]
+%    -- maxit1: maximum iterations for outer iter    [default: 50]
+%    -- maxit2: maximum iterations for inner iter    [default: 200]
 %    -- idisp : level of iteration info display      [default: 1]
 %    -- isnrm : whether to normalize H columnwise    [default: based on Uk]
 %    -- doskip : whether to continue without inner iter  [default: 1]
@@ -50,14 +50,14 @@ N = zeros(n,k); H = N; dUH = 2*k;
 skip_N = 0;crit1 = zeros(3,1);crit2 = zeros(4,1);
 
 % Outer iterations:
-for Outer = 1:maxit2
+for Outer = 1:maxit1
     idxp = idx; Up = U; Np = N; Hp = H; 
     dUN = inf; ci = 0;
     %% Step 1: Uo <---> N
     % Inner iterations:
     if ~skip_N
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%    
-        for iter = 1:maxit1
+        for iter = 1:maxit2
             %%%%%%%%%%%%%%%%%%%%%%%%%%%%                
             N  = max(0,U);               % Projection onto N
             [U,~] = Projection_Uo(N,U); % Projection onto Uo
@@ -91,7 +91,7 @@ for Outer = 1:maxit2
     %% Check stop condition
     crit2(1) = dUH < sqrt(eps);              % only for ideal case
     crit2(2) = abs(dUHp-dUH) < dUHp*sqrt(eps); % almost no change in dUH
-    crit2(3) = dUH > dUHp+tol;                   % distance increases
+    crit2(3) = dUH > dUHp;                   % distance increases
     crit2(4) = idxchg == 0;                  % no change in clusters
     if idisp
         fprintf('Outer%3i: %3i(%1i)  dUH: %11.8e  idxchg: %6i',...
@@ -134,7 +134,7 @@ end
 function [idx,H] = Projection_H(N,isnrm)
 [n,k] = size(N);
 [v,idx] = max(N,[],2);
-H = sparse(1:n,idx,v,n,k);
+H = sparse(1:n,idx,ones(n,1),n,k);
 if isnrm
     H = normalize_cols(H); % Normalization
 end
