@@ -39,7 +39,9 @@ function [idx,idc,itr,err,H,V,W,L,Z]=kind_ot_admm(Uk,mu,rho,prt)
     L = zeros(n,k);
     for itr=1:max_itr
         % minimize over H,Z by KindAP
-        [~,index,~,H,Z]=kind_ap(W,0,0);
+        %[~,index,~,H,Z]=kind_ap(W,0,0);
+        [index,H]=KindAP(W,k,[]);
+        Z=Uk'*H;
         B=W-Uk;
         % minimize V by soft thresholding
         V=prox_l2(B+L/rho,2*mu/rho);
