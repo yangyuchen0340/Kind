@@ -1,0 +1,17 @@
+run_1star: 0, run_kind: 1, correction: 1
+run_kmeans:   1,   No_kmeans:   10,   Phase_kmeans:   on
+run_kmedians: 0,   No_kmedians: 100,   Phase_kmedians: on
+run_kmedoids: 0,   No_kmedoids: 100,   Phase_kmedoids: on
+{Error using <a href="matlab:matlab.internal.language.introspective.errorDocCallback('load')" style="font-weight:bold">load</a>
+'CKSym_xORL.mat' is not found in the current folder or on the MATLAB path, but exists in:
+    /Users/yangyc/Documents/cluster/test/DSC
+
+<a href = "matlab:cd '/Users/yangyc/Documents/cluster/test/DSC'">Change the MATLAB current folder</a> or <a href = "matlab:addpath '/Users/yangyc/Documents/cluster/test/DSC'">add its folder to the MATLAB path</a>.
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('test_DSC', '/Users/yangyc/Documents/KindAP/matlab_data/test_DSC.m', 46)" style="font-weight:bold">test_DSC</a> (<a href="matlab: opentoline('/Users/yangyc/Documents/KindAP/matlab_data/test_DSC.m',46,0)">line 46</a>)
+            load CKSym_xORL.mat
+} 
+load('result_of_COIL100.mat')
+test_DSC
+****************************************
+Test on real data sets!

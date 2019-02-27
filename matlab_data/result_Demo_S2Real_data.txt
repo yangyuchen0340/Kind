@@ -1,0 +1,76 @@
+run_1star: 1, run_kind: 1, correction: 1
+run_kmeans:   1,   No_kmeans:   10,   Phase_kmeans:   on
+run_kmedians: 0,   No_kmedians: 100,   Phase_kmedians: on
+run_kmedoids: 0,   No_kmedoids: 100,   Phase_kmedoids: on
+****************************************
+australian
+****************************************
+{Error using <a href="matlab:matlab.internal.language.introspective.errorDocCallback('load')" style="font-weight:bold">load</a>
+Unable to read file 'australian.mat'. No such file or directory.
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('Demo_S2Real_data', '/Users/yangyc/Documents/KindAP/matlab_data/Demo_S2Real_data.m', 58)" style="font-weight:bold">Demo_S2Real_data</a> (<a href="matlab: opentoline('/Users/yangyc/Documents/KindAP/matlab_data/Demo_S2Real_data.m',58,0)">line 58</a>)
+    load (strcat(filename{j},'.mat'));
+} 
+Demo_1Synthetic_data
+run_1star: 1, run_kind: 1, correction: 1
+run_kmeans:   1,   No_kmeans:   10,   Phase_kmeans:   on
+run_kmedians: 0,   No_kmedians: 100,   Phase_kmedians: on
+run_kmedoids: 0,   No_kmedoids: 100,   Phase_kmedoids: on
+****************************************
+australian
+****************************************
+{Error using <a href="matlab:matlab.internal.language.introspective.errorDocCallback('load')" style="font-weight:bold">load</a>
+Unable to read file 'australian.mat'. No such file or directory.
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('Demo_S2Real_data', '/Users/yangyc/Documents/KindAP/matlab_data/Demo_S2Real_data.m', 58)" style="font-weight:bold">Demo_S2Real_data</a> (<a href="matlab: opentoline('/Users/yangyc/Documents/KindAP/matlab_data/Demo_S2Real_data.m',58,0)">line 58</a>)
+    load (strcat(filename{j},'.mat'));
+} 
+compilepath
+Demo_S2Real_data
+****************************************
+Test on real data sets!
+run_1star: 1, run_kind: 1, correction: 1
+run_kmeans:   1,   No_kmeans:   10,   Phase_kmeans:   on
+run_kmedians: 0,   No_kmedians: 100,   Phase_kmedians: on
+run_kmedoids: 0,   No_kmedoids: 100,   Phase_kmedoids: on
+****************************************
+australian
+****************************************
+
+[n,d,k] = [690,14,2]
+{'EuDist2' is not found in the current folder or on the MATLAB path, but exists in:
+    /Users/yangyc/Documents/MATLAB/code_KindAP_11_22_2018/utility
+
+<a href = "matlab:cd '/Users/yangyc/Documents/MATLAB/code_KindAP_11_22_2018/utility'">Change the MATLAB current folder</a> or <a href = "matlab:addpath '/Users/yangyc/Documents/MATLAB/code_KindAP_11_22_2018/utility'">add its folder to the MATLAB path</a>.
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('constructW', '/Users/yangyc/Documents/KindAP/matlab_data/utility/constructW.m', 361)" style="font-weight:bold">constructW</a> (<a href="matlab: opentoline('/Users/yangyc/Documents/KindAP/matlab_data/utility/constructW.m',361,0)">line 361</a>)
+                dist = EuDist2(fea(smpIdx,:),fea,0);
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('Demo_S2Real_data', '/Users/yangyc/Documents/KindAP/matlab_data/Demo_S2Real_data.m', 115)" style="font-weight:bold">Demo_S2Real_data</a> (<a href="matlab: opentoline('/Users/yangyc/Documents/KindAP/matlab_data/Demo_S2Real_data.m',115,0)">line 115</a>)
+        K = constructW(M,options); K = (K + K')/2;
+} 
+Demo_S2Real_data
+****************************************
+Test on real data sets!
+run_1star: 1, run_kind: 1, correction: 1
+run_kmeans:   1,   No_kmeans:   10,   Phase_kmeans:   on
+run_kmedians: 0,   No_kmedians: 100,   Phase_kmedians: on
+run_kmedoids: 0,   No_kmedoids: 100,   Phase_kmedoids: on
+****************************************
+australian
+****************************************
+
+[n,d,k] = [690,14,2]
+Elapsed time is 0.056739 seconds.
+Elapsed time is 0.149906 seconds.
+{'Comparison_Centroid_KindAP' is not found in the current folder or on the MATLAB path, but exists in:
+    /Users/yangyc/Documents/MATLAB/code_KindAP_11_22_2018/utility
+
+<a href = "matlab:cd '/Users/yangyc/Documents/MATLAB/code_KindAP_11_22_2018/utility'">Change the MATLAB current folder</a> or <a href = "matlab:addpath '/Users/yangyc/Documents/MATLAB/code_KindAP_11_22_2018/utility'">add its folder to the MATLAB path</a>.
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('Demo_S2Real_data', '/Users/yangyc/Documents/KindAP/matlab_data/Demo_S2Real_data.m', 127)" style="font-weight:bold">Demo_S2Real_data</a> (<a href="matlab: opentoline('/Users/yangyc/Documents/KindAP/matlab_data/Demo_S2Real_data.m',127,0)">line 127</a>)
+    Comparison_Centroid_KindAP;
+} 
+Demo_S2Real_data
+****************************************
+Test on real data sets!

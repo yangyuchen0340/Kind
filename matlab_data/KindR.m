@@ -1,13 +1,13 @@
-function [idx,H,dUH,out] = KindAP(Uk,k,options)
+function [idx,H,dUH,out] = KindR(Uk,k,options)
 %====================================================================
 % Solving K-indicators by Alternating Projection algorithm. (KindAP)
 %
-% Copyright: Feiyu Chen, Yin Zhang. 2016
+% Copyright: Yuchen Yang 2018
 % Reference: "Data clustering: K-means versus K-indicators"
 % Feiyu Chen, Liwei Xu, Taiping Zhang, Yin Zhang
 % Last modified by Y.Z. 09/23/2016
 % Copyright: Feiyu Chen, Yuchen Yang, Yin Zhang. 2018
-% Last modified by Yuchen Yang. 02/26/2019
+% Last modified by Yuchen Yang. 12/16/2018
 %====================================================================
 % Input:
 % Uk: n by k (in most cases column-orthonormal) matrix
@@ -20,11 +20,8 @@ function [idx,H,dUH,out] = KindAP(Uk,k,options)
 %    -- maxit1: maximum iterations for outer iter    [default: 50]
 %    -- maxit2: maximum iterations for inner iter    [default: 200]
 %    -- idisp : level of iteration info display      [default: 1]
-%    -- isnrmrowU : whether to normalize H columnwise    [default: false]
-%    -- isnrmcolH : whether to normalize H columnwise    [default: based on Uk]
-%    -- do_inner : whether to do inner iterations       [default: true]
-%    -- binary: whether to use binary H before normalization [default: false]
-%    -- postSR : whether to continue without inner iter  [default: 1]
+%    -- isnrm : whether to normalize H columnwise    [default: based on Uk]
+%    -- doskip : whether to continue without inner iter  [default: 1]
 %====================================================================
 % Output:
 % idx: n by 1 cluster indices for data points
@@ -48,40 +45,27 @@ if isfield(options,'postSR'), postSR = options.postSR; else, postSR = 1; end
 if isfield(options,'do_inner'), do_inner = options.do_inner; else, do_inner = 1; end
 if isfield(options,'binary'), binary = options.binary; else, binary = 0; end
 
-[n,~] = size(Uk);
+[n,~] = size(Uk); 
 if isnrmrowU, Uk = normr(Uk);end
 idx = ones(n,1); 
-hist = zeros(maxit1); 
+hist = zeros(maxit1,1); 
 numiter = zeros(maxit1,1);
 N = zeros(n,k); H = N; dUH = 2*k;
-crit1 = zeros(3,1);crit2 = zeros(4,1);
-
-
+skip_N = 0;crit1 = zeros(3,1);crit2 = zeros(4,1);
+Z = eye(k);
 % Outer iterations:
 for Outer = 1:maxit1
-    idxp = idx; Up = U; Np = N; Hp = H; 
-    dUN = inf; ci = 0;
+    idxp = idx; Up = U; Np = N; Hp = H; ci = 0; 
     %% Step 1: Uo <---> N
     % Inner iterations:
     if do_inner
-        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%    
-        for iter = 1:maxit2
-            %%%%%%%%%%%%%%%%%%%%%%%%%%%%                
-            N  = max(0,U);               % Projection onto N
-            [U,~] = Projection_Uo(N,U); % Projection onto Uo
-            %%%%%%%%%%%%%%%%%%%%%%%%%%%%
-            % Residue
-            dUNp = dUN; dUN = 1/2*norm(U-N,'fro')^2; hist(iter,Outer) = dUN;
-            if idisp>2, fprintf('iter: %3i  dUN = %14.8e\n',iter,dUN); end
-            % Stopping criteria
-            crit1(1) = dUN < sqrt(eps);
-            crit1(2) = abs(dUNp-dUN) < dUNp*tol;
-            crit1(3) = dUN > dUNp;
-            if any(crit1)
-                numiter(Outer) = iter; ci = find(crit1); break; 
-            end
-        end % Inner layer
-        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        [FinalX, fv, ~, ~, iter] = testAP(Uk,Z,tol,maxit2,idisp);
+        Z = FinalX.main;
+        U = Uk*Z;
+        N = max(U,0);
+        numiter(Outer) = iter+1;
+        hist(Outer) = sqrt(2*fv);
+%         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     else
         iter = 0;
         numiter(Outer) = 0;
@@ -95,7 +79,7 @@ for Outer = 1:maxit1
     end
     
     %% Step 3:  H  ---> Uo
-    [U,~] = Projection_Uo(H,Uk);
+    [U,Z] = Projection_Uo(H,Uk);
     dUHp = dUH; dUH = norm(U-H,'fro');
     
     %% Check stop condition
@@ -125,17 +109,18 @@ out.U = U;
 out.N = N;
 out.outer = Outer;
 out.numiter = numiter(1:Outer);
-out.hist = hist(1:max(numiter),1:Outer);
+out.hist = hist(1:Outer);
 
 end % KindAP
 
 %=====================================================================
 %% external functions: Projections
 %=====================================================================
-function [U,St] = Projection_Uo(N,Uk)
+function [U,R] = Projection_Uo(N,Uk)
 T = Uk' * N;
 [Ut,St,Vt] = svd(T);
-U = Uk * (Ut*Vt');
+R = Ut * Vt';
+U = Uk * R;
 end
 
 
