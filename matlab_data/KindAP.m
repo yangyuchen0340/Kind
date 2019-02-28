@@ -20,7 +20,7 @@ function [idx,H,dUH,out] = KindAP(Uk,k,options)
 %    -- maxit1: maximum iterations for outer iter    [default: 50]
 %    -- maxit2: maximum iterations for inner iter    [default: 200]
 %    -- idisp : level of iteration info display      [default: 1]
-%    -- isnrmrowU : whether to normalize H columnwise    [default: false]
+%    -- isnrmrowU : whether to normalize U rowwise    [default: false]
 %    -- isnrmcolH : whether to normalize H columnwise    [default: based on Uk]
 %    -- do_inner : whether to do inner iterations       [default: true]
 %    -- binary: whether to use binary H before normalization [default: false]

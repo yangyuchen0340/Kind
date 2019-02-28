@@ -8,7 +8,7 @@ rng('default')
 diary('result_DSC_data.txt');
 diary on;
 new_data = 1; Type = 'Normalized Laplacian'; add_plot = 0;
-max_trial = 2;
+max_trial = 200;
 
 % kmeans setting
 run_1star = 0;    run_kind = 1; correction = 1; 
@@ -60,7 +60,7 @@ for j=1:length(fileid)
     end
     
     if id ~= 100
-        run_joint = 1;
+        run_joint = 0;
         K = W;
         tic
         U = Eigenspace_generation(K,k,Type);
@@ -69,55 +69,6 @@ for j=1:length(fileid)
         run_joint = 0;
         U = W;
     end
-    %% Construct U
-    % this construction will lead to minor difference in accuracy
-%     if size(W,1) == size(W,2)
-% 
-%         % calculate degree matrix
-%         degs = sum(W, 2);
-%         D    = sparse(1:size(W, 1), 1:size(W, 2), degs);
-% 
-%         % compute unnormalized Laplacian
-%         L = D - W;
-% 
-%         % compute normalized Laplacian if needed
-%         switch Type
-%             case 2
-%                 % avoid dividing by zero
-%                 degs(degs == 0) = eps;
-%                 % calculate inverse of D
-%                 D = spdiags(1./degs, 0, size(D, 1), size(D, 2));
-% 
-%                 % calculate normalized Laplacian
-%                 L = D * L;
-%             case 3
-%                 % avoid dividing by zero
-%                 degs(degs == 0) = eps;
-%                 % calculate D^(-1/2)
-%                 D = spdiags(1./(degs.^0.5), 0, size(D, 1), size(D, 2));
-% 
-%                 % calculate normalized Laplacian
-%                 L = D * L * D;
-%         end
-% 
-%         % compute the eigenvectors corresponding to the k smallest
-%         % eigenvalues
-%         diff   = eps;
-%         [U, ~] = eigs(L, k, diff);
-% 
-%         % in case of the Jordan-Weiss algorithm, we need to normalize
-%         % the eigenvectors row-wise
-%         if Type == 3
-%             U = bsxfun(@rdivide, U, sqrt(sum(U.^2, 2)));
-%         end
-% 
-%     else
-%         if size(W,2) == k
-%             U=W;
-%         else
-%             error('invalid input')
-%         end
-   % end
 %% Run
     for trial = 1:max_trial
         fprintf('---------------------------------\n')
@@ -136,3 +87,5 @@ for j=1:length(fileid)
         plot(Y(:,1),Y(:,2),'.')
     end
 end
+
+save result_DSC_data.mat T FM FI AC NMI
