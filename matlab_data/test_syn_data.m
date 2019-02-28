@@ -11,7 +11,7 @@ AC=[];
 % outliers dectection
 OT=[];
 % k is the number of cluster you want to test
-for k=100:10:100
+for k=10:10:100
     % d is the dimension of constructed data
     d=512;
     % m1,m2 refers to the multiplicity of data clouds
