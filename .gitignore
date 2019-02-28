@@ -106,4 +106,4 @@ venv.bak/
 # self-added
 .DS_Store
 *.m~
-/*.mat
+/matlab_data/*.mat
