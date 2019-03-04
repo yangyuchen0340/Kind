@@ -77,7 +77,8 @@ if run_SR == 1
         idx3temp = KindAP(U,k,options);
         curr_obj_sr = Objective_Centers(idx3temp,k,U);
         if curr_obj_sr < min_obj_sr
-            fi(3) = curr_obj_sr;
+            min_obj_sr = curr_obj_sr;
+%             fi(3) = curr_obj_sr;
             idx3 = idx3temp;
         end
     end

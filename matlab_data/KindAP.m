@@ -40,7 +40,6 @@ if isfield(options,'tol'), tol = options.tol; else, tol = 1e-3; end
 if isfield(options,'maxit1'), maxit1=options.maxit1; else, maxit1=50; end
 if isfield(options,'maxit2'), maxit2=options.maxit2; else, maxit2=200; end
 if isfield(options,'disp'), idisp = options.disp; else, idisp = 0; end
-if isfield(options,'runkm'), runkm = options.runkm; else, runkm = 0; end
 if isfield(options,'idxg'), idxg = options.idxg; else, idxg = []; end
 if isfield(options,'isnrmU'), isnrmrowU = options.isnrmrowU; else, isnrmrowU = 0; end
 if isfield(options,'isnrmH'), isnrmcolH = options.isnrmcolH; else, isnrmcolH = ~isnrmrowU; end
@@ -118,8 +117,6 @@ for Outer = 1:maxit1
     
 end % Outer iterations
 
-out.C = (bsxfun(@rdivide,Uk'*H,sum(H,1)))'; % Compute the centers
-if runkm, idx = kmeans(Uk,k,'Start',out.C); end
 out.H = H;
 out.U = U;
 out.N = N;
