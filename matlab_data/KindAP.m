@@ -35,7 +35,6 @@ function [idx,H,dUH,out] = KindAP(Uk,k,options)
 
 if nargin < 2, k = size(Uk,2); end
 if nargin < 3 || isempty(options), options = struct([]); end
-if isfield(options,'U'), U = options.U; else, U = Uk(:,1:k); end
 if isfield(options,'tol'), tol = options.tol; else, tol = 1e-3; end
 if isfield(options,'maxit1'), maxit1=options.maxit1; else, maxit1=50; end
 if isfield(options,'maxit2'), maxit2=options.maxit2; else, maxit2=200; end
@@ -54,7 +53,7 @@ hist = zeros(maxit1);
 numiter = zeros(maxit1,1);
 N = zeros(n,k); H = N; dUH = 2*k;
 crit1 = zeros(3,1);crit2 = zeros(4,1);
-
+if isfield(options,'U'), U = options.U; else, U = Uk(:,1:k); end
 
 % Outer iterations:
 for Outer = 1:maxit1
@@ -67,7 +66,7 @@ for Outer = 1:maxit1
         for iter = 1:maxit2
             %%%%%%%%%%%%%%%%%%%%%%%%%%%%                
             N  = max(0,U);               % Projection onto N
-            [U,~] = Projection_Uo(N,U); % Projection onto Uo
+            [U,~] = Projection_Uo(N,Uk); % Projection onto Uo
             %%%%%%%%%%%%%%%%%%%%%%%%%%%%
             % Residue
             dUNp = dUN; dUN = 1/2*norm(U-N,'fro')^2; hist(iter,Outer) = dUN;
@@ -131,7 +130,7 @@ end % KindAP
 %=====================================================================
 function [U,St] = Projection_Uo(N,Uk)
 T = Uk' * N;
-[Ut,St,Vt] = svd(T);
+[Ut,St,Vt] = svd(T,0);
 U = Uk * (Ut*Vt');
 end
 
