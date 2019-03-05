@@ -1,0 +1,53 @@
+run_1star: 0, run_kind: 0, correction: 0
+run_kmeans:   0,   No_kmeans:   1,   Phase_kmeans:   on
+run_kmedians: 0,   No_kmedians: 100,   Phase_kmedians: on
+run_kmedoids: 0,   No_kmedoids: 100,   Phase_kmedoids: on
+****************************************
+australian
+****************************************
+{Undefined function or variable 'gnd'.
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('test_more_d_than_k', '/Users/yangyc/Documents/KindAP/matlab_data/test_more_d_than_k.m', 46)" style="font-weight:bold">test_more_d_than_k</a> (<a href="matlab: opentoline('/Users/yangyc/Documents/KindAP/matlab_data/test_more_d_than_k.m',46,0)">line 46</a>)
+    if size(gnd,1)<size(gnd,2)
+} 
+test_more_d_than_k
+****************************************
+Test on real data sets!
+run_1star: 0, run_kind: 0, correction: 0
+run_kmeans:   0,   No_kmeans:   1,   Phase_kmeans:   on
+run_kmedians: 0,   No_kmedians: 100,   Phase_kmedians: on
+run_kmedoids: 0,   No_kmedoids: 100,   Phase_kmedoids: on
+****************************************
+australian
+****************************************
+{Error using <a href="matlab:matlab.internal.language.introspective.errorDocCallback('load')" style="font-weight:bold">load</a>
+Unable to read file 'australian.mat'. No such file or directory.
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('test_more_d_than_k', '/Users/yangyc/Documents/KindAP/matlab_data/test_more_d_than_k.m', 44)" style="font-weight:bold">test_more_d_than_k</a> (<a href="matlab: opentoline('/Users/yangyc/Documents/KindAP/matlab_data/test_more_d_than_k.m',44,0)">line 44</a>)
+    load (strcat(filename{j},'.mat'));
+} 
+compilepath
+test_more_d_than_k
+****************************************
+Test on real data sets!
+run_1star: 0, run_kind: 0, correction: 0
+run_kmeans:   0,   No_kmeans:   1,   Phase_kmeans:   on
+run_kmedians: 0,   No_kmedians: 100,   Phase_kmedians: on
+run_kmedoids: 0,   No_kmedoids: 100,   Phase_kmedoids: on
+****************************************
+australian
+****************************************
+
+[n,d,k] = [690,14,2]
+Elapsed time is 0.090493 seconds.
+Elapsed time is 0.093178 seconds.
+---------------------------------
+{Undefined function or variable 'trial'.
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('test_more_d_than_k', '/Users/yangyc/Documents/KindAP/matlab_data/test_more_d_than_k.m', 99)" style="font-weight:bold">test_more_d_than_k</a> (<a href="matlab: opentoline('/Users/yangyc/Documents/KindAP/matlab_data/test_more_d_than_k.m',99,0)">line 99</a>)
+        fprintf('Test %d \n',trial);
+} 
+opentoline('/Users/yangyc/Documents/KindAP/matlab_data/test_more_d_than_k.m',99,0)
+test_more_d_than_k
+****************************************
+Test on real data sets!

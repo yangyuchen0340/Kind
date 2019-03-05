@@ -31,8 +31,8 @@ fprintf('                 fg = %9.6e  generated\n',fgt)
 if run_1star == 1
     % K-means with squared Euclidean distance (K-means)
     t0 = tic;
-    [~,~,Centers] = Objective_Centers(idxg,k,U(:,1:k));
-    idx1 = kmeans(U(:,1:k),k,'Start',Centers,'OnlinePhase',Phase_kmeans,'Distance','sqeuclidean');
+    [~,~,Centers] = Objective_Centers(idxg,k,U);
+    idx1 = kmeans(U,k,'Start',Centers,'OnlinePhase',Phase_kmeans,'Distance','sqeuclidean');
     t(1) = toc(t0);
     [fi(1),fm(1)] = Objective_Centers(idx1,k,U);
     idx1 = bestMap(idxg,idx1);
@@ -44,8 +44,8 @@ if run_1star == 1
     
     % K-means with cityblock distance (K-medians)
     t0 = tic;
-    [~,~,Centers] = Objective_Centers(idxg,k,U(:,1:k));
-    idx2 = kmeans(U(:,1:k),k,'Start',Centers,'OnlinePhase',Phase_kmeans,'Distance','cityblock');
+    [~,~,Centers] = Objective_Centers(idxg,k,U);
+    idx2 = kmeans(U,k,'Start',Centers,'OnlinePhase',Phase_kmeans,'Distance','cityblock');
     t(2) = toc(t0);
     [fi(2),fm(2)] = Objective_Centers(idx2,k,U);
     idx2 = bestMap(idxg,idx2);
@@ -95,8 +95,8 @@ end
     % The following lines are commented by Yuchen
 %     % K-medoids with squared Euclidean distance (K-mediods)
 %     t0 = tic;
-%     Centers = Objective_Centers2(idxg,k,U(:,1:k));
-%     idx3 = kmedoids(U(:,1:k),k,'Start',Centers,'OnlinePhase',Phase_kmeans);
+%     Centers = Objective_Centers2(idxg,k,U);
+%     idx3 = kmedoids(U,k,'Start',Centers,'OnlinePhase',Phase_kmeans);
 %     t(3) = toc(t0);
 %     [fi(3),fm(3)] = Objective_Centers(idx3,k,U);
 %     idx3 = bestMap(idxg,idx3);
@@ -115,7 +115,7 @@ if run_kind == 1
     % to make a fair comparison with SR, otherwise comment the following
     options.isnrmrowU = 1; options.binary = 1;
     [idx4,~,~,out] = KindAP(U,k,options); t(4)=toc(t0);
-    [fi(4),fm(4)] = Objective_Centers(idx4,k,U(:,1:k));
+    [fi(4),fm(4)] = Objective_Centers(idx4,k,U);
     idx4 = bestMap(idxg,idx4);
     ac(4) = 100*sum(idxg == idx4)/n;
     nmi(4) = 100*MutualInfo(idxg,idx4);
@@ -130,12 +130,12 @@ if correction == 1
     % to make the comparison with SR fair
     options.isnrmrowU = 1; options.binary = 1;
     [idx4,~,~,out] = KindAP(U,k,options);
-    [~,~,Centers1] = Objective_Centers(idx4,k,U(:,1:k));
+    [~,~,Centers1] = Objective_Centers(idx4,k,U);
     t0 = tic;
-    [idx5,~,sumD] = kmeans(U(:,1:k),k,'Start',Centers1,'OnlinePhase',Phase_kmeans,'Distance','sqeuclidean');
+    [idx5,~,sumD] = kmeans(U,k,'Start',Centers1,'OnlinePhase',Phase_kmeans,'Distance','sqeuclidean');
     fm(5) = sum(sumD);
     t(5) = toc(t0) + t(4);
-    fi(5) = Objective_Centers(idx5,k,U(:,1:k));
+    fi(5) = Objective_Centers(idx5,k,U);
     idx5 = bestMap(idxg,idx5);
     ac(5) = 100*sum(idxg == idx5)/n;
     nmi(5) = 100*MutualInfo(idxg,idx5);
@@ -146,9 +146,9 @@ if correction == 1
     
     % KindAP + Kmedians
 %     if run_kmedians == 1
-%         [~,~,Centers1] = Objective_Centers(idx4,k,U(:,1:k));
+%         [~,~,Centers1] = Objective_Centers(idx4,k,U);
 %         t0 = tic;
-%         [idx6,~,sumD] = kmeans(U(:,1:k),k,'Start',Centers1,'OnlinePhase',Phase_kmeans,'Distance','cityblock');
+%         [idx6,~,sumD] = kmeans(U,k,'Start',Centers1,'OnlinePhase',Phase_kmeans,'Distance','cityblock');
 %         fm(6) = sum(sumD);
 %         t(6) = toc(t0) + t(4);
 %         fi(6) = Objective_Centers(idx6,k,U);
@@ -163,9 +163,9 @@ if correction == 1
     
     % KindAP + Kmediods
 %     if run_kmedoids == 1
-%         Centers1 = Objective_Centers2(idx4,k,U(:,1:k));
+%         Centers1 = Objective_Centers2(idx4,k,U);
 %         t0 = tic;
-%         [idx7,~,sumD] = kmeans(U(:,1:k),k,'Start',Centers1,'OnlinePhase',Phase_kmeans);
+%         [idx7,~,sumD] = kmeans(U,k,'Start',Centers1,'OnlinePhase',Phase_kmeans);
 %         fm(7) = sum(sumD);
 %         t(7) = toc(t0) + t(4);
 %         fi(7) = Objective_Centers(idx7,k,U);
@@ -185,7 +185,7 @@ if run_joint == 1
     % uncomment if internal steps are needed
     % options.disp = 0; options.idxg = idxg;
     idx7 = KindAP_joint(K,k,options); t(7)=toc(t0);
-    [fi(7),fm(7)] = Objective_Centers(idx7,k,U(:,1:k));
+    [fi(7),fm(7)] = Objective_Centers(idx7,k,U);
     idx7 = bestMap(idxg,idx7);
     ac(7) = 100*sum(idxg == idx7)/n;
     nmi(7) = 100*MutualInfo(idxg,idx7);
@@ -203,7 +203,7 @@ if run_R == 1
     options.isnrmrowU = 1; options.binary = 1;
     t0 = tic; 
     [idx6,~,~,out] = KindR(U,k,options); t(6)=toc(t0);
-    [fi(6),fm(6)] = Objective_Centers(idx6,k,U(:,1:k));
+    [fi(6),fm(6)] = Objective_Centers(idx6,k,U);
     idx6 = bestMap(idxg,idx6);
     ac(6) = 100*sum(idxg == idx6)/n;
     nmi(6) = 100*MutualInfo(idxg,idx6);
@@ -218,7 +218,7 @@ end
 if run_kmeans == 1       
     warning('OFF', 'stats:kmeans:FailedToConvergeRep')
     t0 = tic;
-    [idx8,~,sumD] = kmeans(U(:,1:k),k,'Replicates',No_kmeans,'OnlinePhase',Phase_kmeans);
+    [idx8,~,sumD] = kmeans(U,k,'Replicates',No_kmeans,'OnlinePhase',Phase_kmeans);
     fm(8) = sum(sumD);
     t(8) = toc(t0)/No_kmeans;
     fi(8) = Objective_Centers(idx8,k,U);
@@ -233,7 +233,7 @@ end
 if run_kmedians == 1       
     warning('OFF', 'stats:kmeans:FailedToConvergeRep')
     t0 = tic;
-    [idx9,~,sumD] = kmeans(U(:,1:k),k,'Replicates',No_kmedians,'OnlinePhase',Phase_kmedians,'Distance','cityblock');
+    [idx9,~,sumD] = kmeans(U,k,'Replicates',No_kmedians,'OnlinePhase',Phase_kmedians,'Distance','cityblock');
     fm(9) = sum(sumD);
     t(9) = toc(t0)/No_kmedians;
     fi(9) = Objective_Centers(idx9,k,U);
@@ -247,7 +247,7 @@ end
 % K-medoids n
 if run_kmedoids == 1    
     t0 = tic;
-    [idx10,~,sumD] = kmedoids(U(:,1:k),k,'Replicates',No_kmedoids,'OnlinePhase',Phase_kmedoids);
+    [idx10,~,sumD] = kmedoids(U,k,'Replicates',No_kmedoids,'OnlinePhase',Phase_kmedoids);
     fm(10) = sum(sumD);
     t(10) = toc(t0)/No_kmedoids;
     fi(10) = Objective_Centers(idx10,k,U);
