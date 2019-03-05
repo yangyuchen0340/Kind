@@ -36,8 +36,8 @@ C = (bsxfun(@rdivide,U' * H,sum(H,1)))';
 % fi = 2*(k - sum(s)); % F.C.
 s0 = svd(U0'*H0,0);% added Yuchen
 fi = trace(H0'*H0) + trace(U0'*U0) - 2*sum(s0); % Y.Y 11/28/2018
-fm = k - sum(s.^2);  % F.C. 11/19/2018
-fm = fm - k + trace(U'*U); % added Yuchen
+%fm = k - sum(s.^2);  % F.C. 11/19/2018
+fm = k + trace(U'*U) - sum(s.^2); % added Yuchen
 
 % sumds = zeros(k,1);
 % for j = 1:k, J = find(idx == j);
