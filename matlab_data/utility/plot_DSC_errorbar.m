@@ -11,11 +11,12 @@ for ds = 1:4
     minAC = min(currAC);
     figure
     errorbar(0.9:1:5.9,meanAC([row_SR1,row_SR,row_KI,row_KL,row_KM1,row_KM]),...
-        stdAC([row_SR1,row_SR,row_KI,row_KL,row_KM1,row_KM]),'or','capsize',15)
+        stdAC([row_SR1,row_SR,row_KI,row_KL,row_KM1,row_KM]),'or')
     hold on
     errorbar(1.1:1:6.1,meanAC([row_SR1,row_SR,row_KI,row_KL,row_KM1,row_KM]),...
         meanAC([row_SR1,row_SR,row_KI,row_KL,row_KM1,row_KM])-minAC([row_SR1,row_SR,row_KI,row_KL,row_KM1,row_KM]),...
-        maxAC([row_SR1,row_SR,row_KI,row_KL,row_KM1,row_KM])-meanAC([row_SR1,row_SR,row_KI,row_KL,row_KM1,row_KM]),'*')
+        maxAC([row_SR1,row_SR,row_KI,row_KL,row_KM1,row_KM])-meanAC([row_SR1,row_SR,row_KI,row_KL,row_KM1,row_KM]),...
+        '*','capsize',15)
     xlabel('Algorithms: (1-2):SR 1 and 10, (3):KindAP, (4):KindAP+L, (5-6):K-means 1 and 10')
     ylabel('Accuracy')
     legend('std','max-min','location','best')
