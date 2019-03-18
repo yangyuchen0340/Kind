@@ -13,7 +13,7 @@ new_data = 1; Type = 'Normalized Laplacian'; add_plot = 0;
 % kmeans setting
 run_1star = 0;    run_kind = 1; correction = 1; 
 run_SR = 1;  No_SR = 10;
-run_R = 0; run_joint = 0;
+run_R = 0; run_joint = 1;
 run_kmeans = 1;   No_kmeans = 10;    Phase_kmeans = 'on';
 run_kmedians = 0; No_kmedians = 1e+2;  Phase_kmedians = 'on';
 run_kmedoids = 0; No_kmedoids = 1e+2;  Phase_kmedoids = 'on';
@@ -33,6 +33,7 @@ filename = {'australian','auto','balance','breast','cars',...,
     'german','glass','heart','ionosphere','iris','isolet',...,
     'lenses','monk1','pima','segment','solar',...,
     'vehicle','vote','waveform-21','wine','yeast','zoo'};
+filename = {'catsndogs_4000_vgg16'};
 len = length(filename);
 
 T = []; FM =[]; FI =[]; AC = []; NMI = []; S = []; IDX = {}; KID = [];
@@ -73,7 +74,7 @@ for j=1:len
     %% Start test
     idxg = gnd; M = double(fea);
     [n,d] = size(M);
-    nClass = length(unique(gnd)); max_k = min(d,2*nClass);
+    nClass = length(unique(gnd)); max_k = min(d,3*nClass);
     k = nClass;
     fprintf('\n[n,d,k] = [%i,%i,%i]\n',n,d,k);
     if new_data == 1

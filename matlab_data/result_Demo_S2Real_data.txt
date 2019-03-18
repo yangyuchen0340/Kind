@@ -523,3 +523,2337 @@ wine &  {\bf  61.798} &{\bf  61.798} &{\bf  61.798} &{\bf  61.798} &{\bf  61.798
 yeast &   36.590 & 36.590 &{\bf  36.927} &{\bf  36.927} & 35.310 \\ \hline
 zoo &   50.495 & 50.495 &{\bf  51.485} &{\bf  51.485} &{\bf  51.485} \\ \hline
 \end{tabular}
+run_1star: 1, run_kind: 1, correction: 1
+run_kmeans:   1,   No_kmeans:   10,   Phase_kmeans:   on
+run_kmedians: 0,   No_kmedians: 100,   Phase_kmedians: on
+run_kmedoids: 0,   No_kmedoids: 100,   Phase_kmedoids: on
+****************************************
+COIL100_vgg19_fc2.mat
+****************************************
+{Error using <a href="matlab:matlab.internal.language.introspective.errorDocCallback('load')" style="font-weight:bold">load</a>
+Unable to read file 'COIL100_vgg19_fc2.mat.mat'. No such file or directory.
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('Demo_S2Real_data', '/Users/yangyc/Documents/KindAP/matlab_data/Demo_S2Real_data.m', 56)" style="font-weight:bold">Demo_S2Real_data</a> (<a href="matlab: opentoline('/Users/yangyc/Documents/KindAP/matlab_data/Demo_S2Real_data.m',56,0)">line 56</a>)
+    load (strcat(filename{j},'.mat'));
+} 
+Demo_S2Real_data
+****************************************
+Test on real data sets!
+run_1star: 1, run_kind: 1, correction: 1
+run_kmeans:   1,   No_kmeans:   10,   Phase_kmeans:   on
+run_kmedians: 0,   No_kmedians: 100,   Phase_kmedians: on
+run_kmedoids: 0,   No_kmedoids: 100,   Phase_kmedoids: on
+****************************************
+COIL100_vgg19_fc2
+****************************************
+{Error using <a href="matlab:matlab.internal.language.introspective.errorDocCallback('load')" style="font-weight:bold">load</a>
+'COIL100_vgg19_fc2.mat' is not found in the current folder or on the MATLAB path, but exists in:
+    /Users/yangyc/Documents/KindAP/matlab_data/real_data
+
+<a href = "matlab:cd '/Users/yangyc/Documents/KindAP/matlab_data/real_data'">Change the MATLAB current folder</a> or <a href = "matlab:addpath '/Users/yangyc/Documents/KindAP/matlab_data/real_data'">add its folder to the MATLAB path</a>.
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('Demo_S2Real_data', '/Users/yangyc/Documents/KindAP/matlab_data/Demo_S2Real_data.m', 56)" style="font-weight:bold">Demo_S2Real_data</a> (<a href="matlab: opentoline('/Users/yangyc/Documents/KindAP/matlab_data/Demo_S2Real_data.m',56,0)">line 56</a>)
+    load (strcat(filename{j},'.mat'));
+} 
+cd '/Users/yangyc/Documents/KindAP/matlab_data/real_data'
+compilepath
+[Warning: Name is nonexistent or not a directory: /Users/yangyc/Documents/KindAP/matlab_data/realdata] 
+[> In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('path', '/Applications/MATLAB_R2018a.app/toolbox/matlab/general/path.m', 109)" style="font-weight:bold">path</a> (<a href="matlab: opentoline('/Applications/MATLAB_R2018a.app/toolbox/matlab/general/path.m',109,0)">line 109</a>)
+  In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('addpath', '/Applications/MATLAB_R2018a.app/toolbox/matlab/general/addpath.m', 96)" style="font-weight:bold">addpath</a> (<a href="matlab: opentoline('/Applications/MATLAB_R2018a.app/toolbox/matlab/general/addpath.m',96,0)">line 96</a>)
+  In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('compilepath', '/Users/yangyc/Documents/KindAP/matlab_data/compilepath.m', 8)" style="font-weight:bold">compilepath</a> (<a href="matlab: opentoline('/Users/yangyc/Documents/KindAP/matlab_data/compilepath.m',8,0)">line 8</a>)] 
+compilepath
+Demo_S2Real_data
+****************************************
+Test on real data sets!
+run_1star: 1, run_kind: 1, correction: 1
+run_kmeans:   1,   No_kmeans:   10,   Phase_kmeans:   on
+run_kmedians: 0,   No_kmedians: 100,   Phase_kmedians: on
+run_kmedoids: 0,   No_kmedoids: 100,   Phase_kmedoids: on
+****************************************
+COIL100_vgg19_fc2
+****************************************
+
+[n,d,k] = [7200,4096,100]
+Elapsed time is 10.977870 seconds.
+Elapsed time is 26.990389 seconds.
+                 fg = 1.335159e+02  generated
+kmeans1*:        fm = 3.270336e+00  fi = 1.332901e+02  AC =  99.88%  MI =  99.90%  t =   0.85s
+kmedians1*:      fm = 3.326855e+00  fi = 1.366989e+02  AC =  99.74%  MI =  99.80%  t =   1.03s
+SR   10:         fm = 2.360562e+01  fi = 1.001219e+03  AC =  77.47%  MI =  92.74%  t =   0.08s
+KindAP:          fm = 3.170070e+00  fi = 1.255661e+02  AC =  97.03%  MI =  99.33%  t =   1.07s
+KindAP+Kms:      fm = 3.169269e+00  fi = 1.255998e+02  AC =  96.99%  MI =  99.30%  t =   1.52s
+Joint:           fm = 3.260360e+00  fi = 1.327542e+02  AC =  98.32%  MI =  99.57%  t =  71.88s
+Kmeans   10:     fm = 4.518282e+00  fi = 2.385928e+02  AC =  95.78%  MI =  98.70%  t =   0.52s
+                 fg = 1.335159e+02  generated
+Soft indicator: Mean(s) = 0.95 
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+Algorithms & SR10 & KindAP & KindAP+L & Joint & Kmeans10  \\ \hline \hline
+australian &   23.606 & 3.170 &{\bf  3.169} & 3.260 & 4.518 \\ \hline
+\end{tabular}
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+Algorithms & SR10 & KindAP & KindAP+L & Joint & Kmeans10  \\ \hline \hline
+australian &   77.472 & 97.028 & 96.986 &{\bf  98.319} & 95.778 \\ \hline
+\end{tabular}
+run_1star: 1, run_kind: 1, correction: 1
+run_kmeans:   1,   No_kmeans:   10,   Phase_kmeans:   on
+run_kmedians: 0,   No_kmedians: 100,   Phase_kmedians: on
+run_kmedoids: 0,   No_kmedoids: 100,   Phase_kmedoids: on
+****************************************
+COIL100_vgg19_fc2
+****************************************
+
+[n,d,k] = [7200,4096,100]
+Elapsed time is 8.699320 seconds.
+Elapsed time is 25.823003 seconds.
+                 fg = 1.335159e+02  generated
+kmeans1*:        fm = 3.270336e+00  fi = 1.332901e+02  AC =  99.88%  MI =  99.90%  t =   0.42s
+kmedians1*:      fm = 3.326855e+00  fi = 1.366989e+02  AC =  99.74%  MI =  99.80%  t =   0.93s
+SR   10:         fm = 2.360562e+01  fi = 1.001219e+03  AC =  77.47%  MI =  92.74%  t =   0.08s
+KindAP:          fm = 3.170070e+00  fi = 1.255661e+02  AC =  97.03%  MI =  99.33%  t =   1.04s
+KindAP+Kms:      fm = 3.169269e+00  fi = 1.255998e+02  AC =  96.99%  MI =  99.30%  t =   1.43s
+Joint:           fm = 3.260360e+00  fi = 1.327542e+02  AC =  98.32%  MI =  99.57%  t =  68.60s
+Kmeans   10:     fm = 4.518282e+00  fi = 2.385928e+02  AC =  95.78%  MI =  98.70%  t =   0.50s
+                 fg = 1.335159e+02  generated
+Soft indicator: Mean(s) = 0.95 
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+Algorithms & SR10 & KindAP & KindAP+L & Joint & Kmeans10  \\ \hline \hline
+australian &   23.606 & 3.170 &{\bf  3.169} & 3.260 & 4.518 \\ \hline
+\end{tabular}
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+Algorithms & SR10 & KindAP & KindAP+L & Joint & Kmeans10  \\ \hline \hline
+australian &   77.472 & 97.028 & 96.986 &{\bf  98.319} & 95.778 \\ \hline
+\end{tabular}
+run_1star: 1, run_kind: 1, correction: 1
+run_kmeans:   1,   No_kmeans:   10,   Phase_kmeans:   on
+run_kmedians: 0,   No_kmedians: 100,   Phase_kmedians: on
+run_kmedoids: 0,   No_kmedoids: 100,   Phase_kmedoids: on
+****************************************
+CIFAR100_train_vgg16
+****************************************
+
+[n,d,k] = [50000,512,100]
+if system_dependent('IsDebugMode')==1, dbcont; end
+Elapsed time is 245.688504 seconds.
+Elapsed time is 46.504176 seconds.
+                 fg = 1.598131e+02  generated
+kmeans1*:        fm = 3.161615e+00  fi = 6.232300e+01  AC =  99.62%  MI =  99.56%  t =   2.77s
+kmedians1*:      fm = 3.165070e+00  fi = 6.336894e+01  AC =  99.63%  MI =  99.57%  t =   6.70s
+SR   10:         fm = 1.769130e+01  fi = 4.428043e+03  AC =  84.80%  MI =  95.07%  t =   0.67s
+KindAP:          fm = 3.162190e+00  fi = 6.217394e+01  AC =  99.63%  MI =  99.57%  t =   3.84s
+KindAP+Kms:      fm = 3.161615e+00  fi = 6.232300e+01  AC =  99.62%  MI =  99.56%  t =   6.46s
+Joint:           fm = 3.161995e+00  fi = 6.268397e+01  AC =  99.61%  MI =  99.55%  t = 171.18s
+Kmeans   10:     fm = 6.007320e+00  fi = 1.414009e+03  AC =  95.75%  MI =  98.35%  t =   3.36s
+                 fg = 1.598131e+02  generated
+Soft indicator: Mean(s) = 0.99 
+****************************************
+COIL100_vgg19_fc2
+****************************************
+
+[n,d,k] = [7200,4096,100]
+Elapsed time is 12.058439 seconds.
+Elapsed time is 25.236594 seconds.
+                 fg = 1.335159e+02  generated
+kmeans1*:        fm = 3.270336e+00  fi = 1.332901e+02  AC =  99.88%  MI =  99.90%  t =   0.42s
+kmedians1*:      fm = 3.326855e+00  fi = 1.366989e+02  AC =  99.74%  MI =  99.80%  t =   0.85s
+SR   10:         fm = 2.292404e+01  fi = 9.687256e+02  AC =  78.04%  MI =  93.16%  t =   0.08s
+KindAP:          fm = 3.170070e+00  fi = 1.255661e+02  AC =  97.03%  MI =  99.33%  t =   1.06s
+KindAP+Kms:      fm = 3.169269e+00  fi = 1.255998e+02  AC =  96.99%  MI =  99.30%  t =   1.44s
+Joint:           fm = 3.260360e+00  fi = 1.327542e+02  AC =  98.32%  MI =  99.57%  t =  74.03s
+Kmeans   10:     fm = 4.338232e+00  fi = 2.411444e+02  AC =  95.71%  MI =  98.71%  t =   0.53s
+                 fg = 1.335159e+02  generated
+Soft indicator: Mean(s) = 0.95 
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+Algorithms & SR10 & KindAP & KindAP+L & Joint & Kmeans10  \\ \hline \hline
+australian &   17.691 & 3.162 &{\bf  3.162} & 3.162 & 6.007 \\ \hline
+auto &   22.924 & 3.170 &{\bf  3.169} & 3.260 & 4.338 \\ \hline
+\end{tabular}
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+Algorithms & SR10 & KindAP & KindAP+L & Joint & Kmeans10  \\ \hline \hline
+australian &   84.800 &{\bf  99.630} & 99.620 & 99.612 & 95.746 \\ \hline
+auto &   78.042 & 97.028 & 96.986 &{\bf  98.319} & 95.708 \\ \hline
+\end{tabular}
+run_1star: 1, run_kind: 1, correction: 1
+run_kmeans:   1,   No_kmeans:   10,   Phase_kmeans:   on
+run_kmedians: 0,   No_kmedians: 100,   Phase_kmedians: on
+run_kmedoids: 0,   No_kmedoids: 100,   Phase_kmedoids: on
+****************************************
+australian
+****************************************
+
+[n,d,k] = [690,14,2]
+Elapsed time is 0.066003 seconds.
+Elapsed time is 0.116778 seconds.
+                 fg = 2.000645e+02  generated
+kmeans1*:        fm = 1.530017e-01  fi = 1.677053e+01  AC =  68.70%  MI =   9.69%  t =   0.06s
+kmedians1*:      fm = 1.530017e-01  fi = 1.677053e+01  AC =  68.70%  MI =   9.69%  t =   0.03s
+SR   10:         fm = 1.543876e-01  fi = 1.624553e+01  AC =  68.99%  MI =  10.06%  t =   0.00s
+KindAP:          fm = 1.534712e-01  fi = 1.643026e+01  AC =  68.84%  MI =   9.87%  t =   0.01s
+KindAP+Kms:      fm = 1.530017e-01  fi = 1.677053e+01  AC =  68.70%  MI =   9.69%  t =   0.03s
+Joint:           fm = 1.530017e-01  fi = 1.677053e+01  AC =  68.70%  MI =   9.69%  t =   0.11s
+Kmeans   10:     fm = 1.530017e-01  fi = 1.677053e+01  AC =  68.70%  MI =   9.69%  t =   0.00s
+                 fg = 2.000645e+02  generated
+Soft indicator: Mean(s) = 0.88 
+****************************************
+auto
+****************************************
+
+[n,d,k] = [205,25,6]
+Elapsed time is 0.016425 seconds.
+Elapsed time is 0.079638 seconds.
+                 fg = 1.196576e+02  generated
+kmeans1*:        fm = 1.366893e+00  fi = 3.183069e+01  AC =  30.24%  MI =  12.25%  t =   0.02s
+kmedians1*:      fm = 1.376186e+00  fi = 3.551733e+01  AC =  36.59%  MI =  13.75%  t =   0.03s
+SR   10:         fm = 5.431086e-01  fi = 1.006514e+01  AC =  32.68%  MI =  13.95%  t =   0.00s
+KindAP:          fm = 5.606724e-01  fi = 1.006983e+01  AC =  32.68%  MI =  13.74%  t =   0.00s
+KindAP+Kms:      fm = 5.431086e-01  fi = 1.006514e+01  AC =  32.68%  MI =  13.95%  t =   0.01s
+Joint:           fm = 5.446029e-01  fi = 1.035048e+01  AC =  32.68%  MI =  14.10%  t =   0.11s
+Kmeans   10:     fm = 5.431086e-01  fi = 1.006514e+01  AC =  32.68%  MI =  13.95%  t =   0.00s
+                 fg = 1.196576e+02  generated
+Soft indicator: Mean(s) = 0.79 
+****************************************
+balance
+****************************************
+
+[n,d,k] = [625,4,3]
+Elapsed time is 0.049348 seconds.
+Elapsed time is 0.033131 seconds.
+                 fg = 2.284881e+02  generated
+kmeans1*:        fm = 7.865989e-01  fi = 8.289259e+01  AC =  54.40%  MI =  12.58%  t =   0.02s
+kmedians1*:      fm = 8.184743e-01  fi = 8.782533e+01  AC =  56.48%  MI =  15.63%  t =   0.05s
+SR   10:         fm = 7.573513e-01  fi = 7.959641e+01  AC =  53.28%  MI =  11.46%  t =   0.00s
+KindAP:          fm = 7.866650e-01  fi = 8.290184e+01  AC =  53.92%  MI =  12.39%  t =   0.03s
+KindAP+Kms:      fm = 7.865989e-01  fi = 8.289259e+01  AC =  54.40%  MI =  12.58%  t =   0.04s
+Joint:           fm = 7.571688e-01  fi = 7.957336e+01  AC =  52.96%  MI =  11.08%  t =   0.06s
+Kmeans   10:     fm = 7.571688e-01  fi = 7.957336e+01  AC =  52.96%  MI =  11.08%  t =   0.01s
+                 fg = 2.284881e+02  generated
+Soft indicator: Mean(s) = 0.56 
+****************************************
+breast
+****************************************
+
+[n,d,k] = [699,9,2]
+Elapsed time is 0.061204 seconds.
+Elapsed time is 0.054687 seconds.
+                 fg = 1.938607e+02  generated
+kmeans1*:        fm = 2.001248e-01  fi = 1.140059e+01  AC =  59.66%  MI =   4.00%  t =   0.02s
+kmedians1*:      fm = 2.001248e-01  fi = 1.140059e+01  AC =  59.66%  MI =   4.00%  t =   0.03s
+SR   10:         fm = 3.140122e-01  fi = 9.107153e+00  AC =  57.51%  MI =   5.54%  t =   0.00s
+KindAP:          fm = 3.140122e-01  fi = 9.107153e+00  AC =  57.51%  MI =   5.54%  t =   0.00s
+KindAP+Kms:      fm = 2.001248e-01  fi = 1.140059e+01  AC =  59.66%  MI =   4.00%  t =   0.02s
+Joint:           fm = 2.001248e-01  fi = 1.140059e+01  AC =  59.66%  MI =   4.00%  t =   0.20s
+Kmeans   10:     fm = 2.001248e-01  fi = 1.140059e+01  AC =  59.66%  MI =   4.00%  t =   0.00s
+                 fg = 1.938607e+02  generated
+Soft indicator: Mean(s) = 0.92 
+****************************************
+cars
+****************************************
+
+[n,d,k] = [392,8,3]
+Elapsed time is 0.043033 seconds.
+Elapsed time is 0.074836 seconds.
+                 fg = 1.147537e+02  generated
+kmeans1*:        fm = 2.180936e-01  fi = 1.858152e+01  AC =  67.60%  MI =  20.16%  t =   0.04s
+kmedians1*:      fm = 9.699427e-01  fi = 7.358866e+01  AC =  57.91%  MI =  20.31%  t =   0.02s
+SR   10:         fm = 2.254551e-01  fi = 1.689310e+01  AC =  64.29%  MI =  20.69%  t =   0.00s
+KindAP:          fm = 2.248272e-01  fi = 1.692500e+01  AC =  64.29%  MI =  20.25%  t =   0.01s
+KindAP+Kms:      fm = 2.180936e-01  fi = 1.858152e+01  AC =  67.60%  MI =  20.16%  t =   0.02s
+Joint:           fm = 2.180936e-01  fi = 1.858152e+01  AC =  67.60%  MI =  20.16%  t =   0.11s
+Kmeans   10:     fm = 2.180936e-01  fi = 1.858152e+01  AC =  67.60%  MI =  20.16%  t =   0.01s
+                 fg = 1.147537e+02  generated
+Soft indicator: Mean(s) = 0.82 
+****************************************
+control
+****************************************
+
+[n,d,k] = [600,60,6]
+Elapsed time is 0.052735 seconds.
+Elapsed time is 0.071553 seconds.
+                 fg = 1.563276e+02  generated
+kmeans1*:        fm = 2.080990e+00  fi = 1.101864e+02  AC =  72.83%  MI =  75.26%  t =   0.04s
+kmedians1*:      fm = 2.083630e+00  fi = 1.417106e+02  AC =  71.17%  MI =  74.73%  t =   0.04s
+SR   10:         fm = 4.755626e-01  fi = 7.446572e+00  AC =  58.33%  MI =  73.75%  t =   0.00s
+KindAP:          fm = 4.755626e-01  fi = 7.446572e+00  AC =  58.33%  MI =  73.75%  t =   0.02s
+KindAP+Kms:      fm = 4.644075e-01  fi = 7.783474e+00  AC =  58.83%  MI =  74.21%  t =   0.03s
+Joint:           fm = 4.644075e-01  fi = 7.783474e+00  AC =  58.83%  MI =  74.21%  t =   0.12s
+Kmeans   10:     fm = 4.644075e-01  fi = 7.783474e+00  AC =  58.83%  MI =  74.21%  t =   0.00s
+                 fg = 1.563276e+02  generated
+Soft indicator: Mean(s) = 0.94 
+****************************************
+crx
+****************************************
+
+[n,d,k] = [690,15,2]
+Elapsed time is 0.057819 seconds.
+Elapsed time is 0.276083 seconds.
+                 fg = 2.313136e+02  generated
+kmeans1*:        fm = 8.778117e-01  fi = 1.557720e+01  AC =  53.33%  MI =   0.38%  t =   0.02s
+kmedians1*:      fm = 8.778117e-01  fi = 1.557720e+01  AC =  53.33%  MI =   0.38%  t =   0.03s
+SR   10:         fm = 8.778117e-01  fi = 1.557720e+01  AC =  53.33%  MI =   0.38%  t =   0.00s
+KindAP:          fm = 9.649189e-01  fi = 3.001656e+01  AC =  54.78%  MI =   0.05%  t =   0.00s
+KindAP+Kms:      fm = 9.649189e-01  fi = 3.001656e+01  AC =  54.78%  MI =   0.05%  t =   0.02s
+Joint:           fm = 9.649189e-01  fi = 3.001656e+01  AC =  54.78%  MI =   0.05%  t =   0.32s
+Kmeans   10:     fm = 9.265699e-01  fi = 3.787340e+01  AC =  54.06%  MI =   0.42%  t =   0.00s
+                 fg = 2.313136e+02  generated
+Soft indicator: Mean(s) = 0.99 
+****************************************
+dermatology
+****************************************
+
+[n,d,k] = [366,34,6]
+Elapsed time is 0.025933 seconds.
+Elapsed time is 0.054132 seconds.
+                 fg = 1.525701e+01  generated
+kmeans1*:        fm = 3.614204e-01  fi = 5.632745e+00  AC =  95.63%  MI =  91.49%  t =   0.02s
+kmedians1*:      fm = 3.762339e-01  fi = 6.924847e+00  AC =  95.36%  MI =  91.04%  t =   0.02s
+SR   10:         fm = 3.643479e-01  fi = 5.511814e+00  AC =  95.90%  MI =  92.29%  t =   0.00s
+KindAP:          fm = 3.643479e-01  fi = 5.511814e+00  AC =  95.90%  MI =  92.29%  t =   0.01s
+KindAP+Kms:      fm = 3.614204e-01  fi = 5.632745e+00  AC =  95.63%  MI =  91.49%  t =   0.02s
+Joint:           fm = 3.614204e-01  fi = 5.632745e+00  AC =  95.63%  MI =  91.49%  t =   0.08s
+Kmeans   10:     fm = 3.614204e-01  fi = 5.632745e+00  AC =  95.63%  MI =  91.49%  t =   0.00s
+                 fg = 1.525701e+01  generated
+Soft indicator: Mean(s) = 0.92 
+****************************************
+diabetes
+****************************************
+
+[n,d,k] = [768,8,2]
+Elapsed time is 0.055753 seconds.
+Elapsed time is 0.281789 seconds.
+                 fg = 2.132721e+02  generated
+kmeans1*:        fm = 1.200256e-01  fi = 4.756181e+00  AC =  65.36%  MI =   0.43%  t =   0.02s
+kmedians1*:      fm = 1.200256e-01  fi = 4.756181e+00  AC =  65.36%  MI =   0.43%  t =   0.02s
+SR   10:         fm = 1.200256e-01  fi = 4.756181e+00  AC =  65.36%  MI =   0.43%  t =   0.00s
+KindAP:          fm = 1.200256e-01  fi = 4.756181e+00  AC =  65.36%  MI =   0.43%  t =   0.00s
+KindAP+Kms:      fm = 1.200256e-01  fi = 4.756181e+00  AC =  65.36%  MI =   0.43%  t =   0.01s
+Joint:           fm = 1.200256e-01  fi = 4.756181e+00  AC =  65.36%  MI =   0.43%  t =   0.32s
+Kmeans   10:     fm = 1.200256e-01  fi = 4.756181e+00  AC =  65.36%  MI =   0.43%  t =   0.00s
+                 fg = 2.132721e+02  generated
+Soft indicator: Mean(s) = 0.97 
+****************************************
+ecoli
+****************************************
+
+[n,d,k] = [336,343,8]
+Elapsed time is 0.035817 seconds.
+Elapsed time is 0.037173 seconds.
+                 fg = 1.223044e+02  generated
+kmeans1*:        fm = 2.633601e+00  fi = 5.461787e+01  AC =  58.93%  MI =  45.55%  t =   0.02s
+kmedians1*:      fm = 2.626823e+00  fi = 5.425400e+01  AC =  56.85%  MI =  44.88%  t =   0.02s
+SR   10:         fm = 2.446573e+00  fi = 3.333325e+01  AC =  52.38%  MI =  38.60%  t =   0.01s
+KindAP:          fm = 2.425516e+00  fi = 3.335064e+01  AC =  52.68%  MI =  38.71%  t =   0.01s
+KindAP+Kms:      fm = 2.065186e+00  fi = 4.333542e+01  AC =  56.55%  MI =  41.99%  t =   0.03s
+Joint:           fm = 2.065186e+00  fi = 4.333542e+01  AC =  56.55%  MI =  41.99%  t =   0.08s
+Kmeans   10:     fm = 2.065186e+00  fi = 4.333542e+01  AC =  56.55%  MI =  41.99%  t =   0.01s
+                 fg = 1.223044e+02  generated
+Soft indicator: Mean(s) = 0.65 
+****************************************
+german
+****************************************
+
+[n,d,k] = [1000,20,2]
+Elapsed time is 0.094628 seconds.
+Elapsed time is 0.063275 seconds.
+                 fg = 3.868118e+02  generated
+kmeans1*:        fm = 2.655875e-01  fi = 5.243407e+01  AC =  54.10%  MI =   0.33%  t =   0.02s
+kmedians1*:      fm = 2.657199e-01  fi = 5.246970e+01  AC =  54.40%  MI =   0.30%  t =   0.02s
+SR   10:         fm = 2.656334e-01  fi = 5.243098e+01  AC =  54.30%  MI =   0.31%  t =   0.01s
+KindAP:          fm = 2.656189e-01  fi = 5.268828e+01  AC =  53.20%  MI =   0.39%  t =   0.01s
+KindAP+Kms:      fm = 2.656189e-01  fi = 5.268828e+01  AC =  53.20%  MI =   0.39%  t =   0.02s
+Joint:           fm = 2.656189e-01  fi = 5.268828e+01  AC =  53.20%  MI =   0.39%  t =   0.08s
+Kmeans   10:     fm = 2.655946e-01  fi = 5.242860e+01  AC =  54.10%  MI =   0.28%  t =   0.00s
+                 fg = 3.868118e+02  generated
+Soft indicator: Mean(s) = 0.78 
+****************************************
+glass
+****************************************
+
+[n,d,k] = [214,9,6]
+Elapsed time is 0.011895 seconds.
+Elapsed time is 0.049166 seconds.
+                 fg = 9.441146e+01  generated
+kmeans1*:        fm = 1.909022e+00  fi = 4.337516e+01  AC =  52.80%  MI =  39.56%  t =   0.02s
+kmedians1*:      fm = 1.573072e+00  fi = 3.145777e+01  AC =  48.60%  MI =  30.58%  t =   0.01s
+SR   10:         fm = 1.159338e+00  fi = 1.997311e+01  AC =  50.00%  MI =  36.29%  t =   0.00s
+KindAP:          fm = 1.161898e+00  fi = 2.008718e+01  AC =  50.47%  MI =  36.46%  t =   0.01s
+KindAP+Kms:      fm = 1.135030e+00  fi = 2.013789e+01  AC =  50.47%  MI =  35.90%  t =   0.02s
+Joint:           fm = 1.135030e+00  fi = 2.013789e+01  AC =  50.47%  MI =  35.90%  t =   0.06s
+Kmeans   10:     fm = 1.135030e+00  fi = 2.013789e+01  AC =  50.47%  MI =  35.90%  t =   0.00s
+                 fg = 9.441146e+01  generated
+Soft indicator: Mean(s) = 0.67 
+****************************************
+heart
+****************************************
+
+[n,d,k] = [270,13,2]
+Elapsed time is 0.014460 seconds.
+Elapsed time is 0.047379 seconds.
+                 fg = 8.708627e+01  generated
+kmeans1*:        fm = 3.106908e-01  fi = 1.938369e+01  AC =  62.22%  MI =   3.57%  t =   0.02s
+kmedians1*:      fm = 3.106908e-01  fi = 1.938369e+01  AC =  62.22%  MI =   3.57%  t =   0.02s
+SR   10:         fm = 3.256157e-01  fi = 1.909748e+01  AC =  62.22%  MI =   4.08%  t =   0.00s
+KindAP:          fm = 3.247534e-01  fi = 1.910279e+01  AC =  62.96%  MI =   4.58%  t =   0.00s
+KindAP+Kms:      fm = 3.106908e-01  fi = 1.938369e+01  AC =  62.22%  MI =   3.57%  t =   0.02s
+Joint:           fm = 3.106908e-01  fi = 1.938369e+01  AC =  62.22%  MI =   3.57%  t =   0.05s
+Kmeans   10:     fm = 3.106908e-01  fi = 1.938369e+01  AC =  62.22%  MI =   3.57%  t =   0.00s
+                 fg = 8.708627e+01  generated
+Soft indicator: Mean(s) = 0.73 
+****************************************
+ionosphere
+****************************************
+
+[n,d,k] = [351,34,2]
+Elapsed time is 0.034035 seconds.
+Elapsed time is 0.036969 seconds.
+                 fg = 1.273430e+02  generated
+kmeans1*:        fm = 3.201627e-01  fi = 2.260700e+01  AC =  50.71%  MI =   7.22%  t =   0.02s
+kmedians1*:      fm = 3.451846e-01  fi = 1.563041e+01  AC =  52.71%  MI =   0.78%  t =   0.03s
+SR   10:         fm = 3.669147e-01  fi = 1.553097e+01  AC =  55.27%  MI =   0.03%  t =   0.00s
+KindAP:          fm = 3.528026e-01  fi = 1.547531e+01  AC =  53.56%  MI =   0.41%  t =   0.00s
+KindAP+Kms:      fm = 3.201627e-01  fi = 2.260700e+01  AC =  50.71%  MI =   7.22%  t =   0.02s
+Joint:           fm = 3.201627e-01  fi = 2.260700e+01  AC =  50.71%  MI =   7.22%  t =   0.05s
+Kmeans   10:     fm = 3.201627e-01  fi = 2.260700e+01  AC =  50.71%  MI =   7.22%  t =   0.00s
+                 fg = 1.273430e+02  generated
+Soft indicator: Mean(s) = 0.81 
+****************************************
+iris
+****************************************
+
+[n,d,k] = [150,4,3]
+Elapsed time is 0.015218 seconds.
+Elapsed time is 0.066376 seconds.
+                 fg = 6.067360e+00  generated
+kmeans1*:        fm = 2.244802e-01  fi = 3.839199e+00  AC =  96.00%  MI =  88.43%  t =   0.02s
+kmedians1*:      fm = 2.244802e-01  fi = 3.839199e+00  AC =  96.00%  MI =  88.43%  t =   0.03s
+SR   10:         fm = 2.244802e-01  fi = 3.839199e+00  AC =  96.00%  MI =  88.43%  t =   0.00s
+KindAP:          fm = 2.244802e-01  fi = 3.839199e+00  AC =  96.00%  MI =  88.43%  t =   0.00s
+KindAP+Kms:      fm = 2.244802e-01  fi = 3.839199e+00  AC =  96.00%  MI =  88.43%  t =   0.01s
+Joint:           fm = 2.244802e-01  fi = 3.839199e+00  AC =  96.00%  MI =  88.43%  t =   0.08s
+Kmeans   10:     fm = 2.244802e-01  fi = 3.839199e+00  AC =  96.00%  MI =  88.43%  t =   0.00s
+                 fg = 6.067360e+00  generated
+Soft indicator: Mean(s) = 0.88 
+****************************************
+isolet
+****************************************
+
+[n,d,k] = [1560,617,2]
+Elapsed time is 0.184194 seconds.
+Elapsed time is 0.080021 seconds.
+                 fg = 5.784819e+02  generated
+kmeans1*:        fm = 1.552078e-01  fi = 3.088065e+01  AC =  59.29%  MI =   2.61%  t =   0.02s
+kmedians1*:      fm = 1.552078e-01  fi = 3.088065e+01  AC =  59.29%  MI =   2.61%  t =   0.02s
+SR   10:         fm = 1.552078e-01  fi = 3.088065e+01  AC =  59.29%  MI =   2.61%  t =   0.00s
+KindAP:          fm = 1.552078e-01  fi = 3.088065e+01  AC =  59.29%  MI =   2.61%  t =   0.00s
+KindAP+Kms:      fm = 1.552078e-01  fi = 3.088065e+01  AC =  59.29%  MI =   2.61%  t =   0.02s
+Joint:           fm = 1.552078e-01  fi = 3.088065e+01  AC =  59.29%  MI =   2.61%  t =   0.10s
+Kmeans   10:     fm = 1.552078e-01  fi = 3.088065e+01  AC =  59.29%  MI =   2.61%  t =   0.00s
+                 fg = 5.784819e+02  generated
+Soft indicator: Mean(s) = 0.89 
+****************************************
+lenses
+****************************************
+
+[n,d,k] = [24,4,3]
+Elapsed time is 0.001460 seconds.
+Elapsed time is 0.020039 seconds.
+                 fg = 1.018612e+01  generated
+kmeans1*:        fm = 7.562460e-01  fi = 3.038637e+00  AC =  54.17%  MI =  13.66%  t =   0.02s
+kmedians1*:      fm = 7.363372e-01  fi = 3.039408e+00  AC =  45.83%  MI =   9.89%  t =   0.03s
+SR   10:         fm = 6.095116e-01  fi = 2.479270e+00  AC =  37.50%  MI =   6.54%  t =   0.00s
+KindAP:          fm = 6.095116e-01  fi = 2.479270e+00  AC =  37.50%  MI =   6.54%  t =   0.01s
+KindAP+Kms:      fm = 6.055096e-01  fi = 2.481910e+00  AC =  41.67%  MI =   5.94%  t =   0.02s
+Joint:           fm = 6.055096e-01  fi = 2.481910e+00  AC =  41.67%  MI =   5.94%  t =   0.04s
+Kmeans   10:     fm = 6.055096e-01  fi = 2.481910e+00  AC =  41.67%  MI =   5.94%  t =   0.00s
+                 fg = 1.018612e+01  generated
+Soft indicator: Mean(s) = 0.63 
+****************************************
+monk1
+****************************************
+
+[n,d,k] = [432,6,2]
+Elapsed time is 0.032687 seconds.
+Elapsed time is 0.029877 seconds.
+                 fg = 1.152605e+02  generated
+kmeans1*:        fm = 2.983847e-01  fi = 2.604360e+01  AC =  65.97%  MI =   7.50%  t =   0.02s
+kmedians1*:      fm = 2.987636e-01  fi = 2.600507e+01  AC =  68.29%  MI =   9.88%  t =   0.02s
+SR   10:         fm = 2.986430e-01  fi = 2.599532e+01  AC =  67.82%  MI =   9.37%  t =   0.01s
+KindAP:          fm = 2.984183e-01  fi = 2.600285e+01  AC =  66.67%  MI =   8.17%  t =   0.00s
+KindAP+Kms:      fm = 2.983847e-01  fi = 2.604360e+01  AC =  65.97%  MI =   7.50%  t =   0.03s
+Joint:           fm = 2.983847e-01  fi = 2.604360e+01  AC =  65.97%  MI =   7.50%  t =   0.05s
+Kmeans   10:     fm = 2.983847e-01  fi = 2.604360e+01  AC =  65.97%  MI =   7.50%  t =   0.00s
+                 fg = 1.152605e+02  generated
+Soft indicator: Mean(s) = 0.76 
+****************************************
+pima
+****************************************
+
+[n,d,k] = [768,8,2]
+Elapsed time is 0.057316 seconds.
+Elapsed time is 0.302949 seconds.
+                 fg = 2.238372e+02  generated
+kmeans1*:        fm = 7.672711e-01  fi = 4.896839e+00  AC =  65.36%  MI =   0.43%  t =   0.02s
+kmedians1*:      fm = 7.672711e-01  fi = 4.896839e+00  AC =  65.36%  MI =   0.43%  t =   0.02s
+SR   10:         fm = 7.672711e-01  fi = 4.896839e+00  AC =  65.36%  MI =   0.43%  t =   0.01s
+KindAP:          fm = 7.672711e-01  fi = 4.896839e+00  AC =  65.36%  MI =   0.43%  t =   0.00s
+KindAP+Kms:      fm = 7.672711e-01  fi = 4.896839e+00  AC =  65.36%  MI =   0.43%  t =   0.02s
+Joint:           fm = 7.672711e-01  fi = 4.896839e+00  AC =  65.36%  MI =   0.43%  t =   0.34s
+Kmeans   10:     fm = 7.672711e-01  fi = 4.896839e+00  AC =  65.36%  MI =   0.43%  t =   0.00s
+                 fg = 2.238372e+02  generated
+Soft indicator: Mean(s) = 1.00 
+****************************************
+segment
+****************************************
+
+[n,d,k] = [2310,19,7]
+Elapsed time is 0.337533 seconds.
+Elapsed time is 0.311392 seconds.
+                 fg = 1.004491e+03  generated
+kmeans1*:        fm = 1.371431e+00  fi = 3.639131e+02  AC =  54.20%  MI =  48.90%  t =   0.05s
+kmedians1*:      fm = 1.358611e+00  fi = 3.701486e+02  AC =  50.69%  MI =  43.28%  t =   0.04s
+SR   10:         fm = 6.469389e-01  fi = 1.331323e+02  AC =  44.42%  MI =  41.37%  t =   0.01s
+KindAP:          fm = 7.389036e-01  fi = 1.492504e+02  AC =  41.56%  MI =  35.98%  t =   0.02s
+KindAP+Kms:      fm = 5.375679e-01  fi = 1.518031e+02  AC =  41.43%  MI =  36.60%  t =   0.03s
+Joint:           fm = 5.391213e-01  fi = 1.529543e+02  AC =  41.52%  MI =  36.78%  t =   0.48s
+Kmeans   10:     fm = 5.375679e-01  fi = 1.518031e+02  AC =  41.43%  MI =  36.60%  t =   0.01s
+                 fg = 1.004491e+03  generated
+Soft indicator: Mean(s) = 0.76 
+****************************************
+solar
+****************************************
+
+[n,d,k] = [323,12,6]
+Elapsed time is 0.042693 seconds.
+Elapsed time is 0.049643 seconds.
+                 fg = 1.628453e+02  generated
+kmeans1*:        fm = 1.523522e+00  fi = 3.518645e+01  AC =  38.70%  MI =  23.53%  t =   0.02s
+kmedians1*:      fm = 2.340104e+00  fi = 7.219523e+01  AC =  41.49%  MI =  25.96%  t =   0.02s
+SR   10:         fm = 1.056018e+00  fi = 2.497469e+01  AC =  36.22%  MI =  21.48%  t =   0.00s
+KindAP:          fm = 1.103888e+00  fi = 3.261685e+01  AC =  37.77%  MI =  22.40%  t =   0.00s
+KindAP+Kms:      fm = 8.497951e-01  fi = 2.685469e+01  AC =  37.15%  MI =  21.91%  t =   0.02s
+Joint:           fm = 8.497951e-01  fi = 2.685469e+01  AC =  37.15%  MI =  21.91%  t =   0.08s
+Kmeans   10:     fm = 8.497951e-01  fi = 2.685469e+01  AC =  37.15%  MI =  21.91%  t =   0.00s
+                 fg = 1.628453e+02  generated
+Soft indicator: Mean(s) = 0.66 
+****************************************
+vehicle
+****************************************
+
+[n,d,k] = [846,18,4]
+Elapsed time is 0.095181 seconds.
+Elapsed time is 0.047275 seconds.
+                 fg = 3.814732e+02  generated
+kmeans1*:        fm = 7.810700e-01  fi = 6.353447e+01  AC =  47.04%  MI =  18.93%  t =   0.02s
+kmedians1*:      fm = 7.995425e-01  fi = 6.419507e+01  AC =  45.98%  MI =  18.72%  t =   0.05s
+SR   10:         fm = 7.888671e-01  fi = 6.064081e+01  AC =  47.40%  MI =  19.33%  t =   0.00s
+KindAP:          fm = 7.906013e-01  fi = 6.135551e+01  AC =  47.99%  MI =  19.33%  t =   0.02s
+KindAP+Kms:      fm = 7.810700e-01  fi = 6.353447e+01  AC =  47.04%  MI =  18.93%  t =   0.03s
+Joint:           fm = 7.810700e-01  fi = 6.353447e+01  AC =  47.04%  MI =  18.93%  t =   0.07s
+Kmeans   10:     fm = 6.692379e-01  fi = 7.899987e+01  AC =  45.51%  MI =  22.47%  t =   0.00s
+                 fg = 3.814732e+02  generated
+Soft indicator: Mean(s) = 0.70 
+****************************************
+vote
+****************************************
+
+[n,d,k] = [435,16,2]
+Elapsed time is 0.032977 seconds.
+Elapsed time is 0.038479 seconds.
+                 fg = 1.116923e+02  generated
+kmeans1*:        fm = 1.322925e-01  fi = 9.426772e+00  AC =  56.78%  MI =   7.55%  t =   0.01s
+kmedians1*:      fm = 1.322925e-01  fi = 9.426772e+00  AC =  56.78%  MI =   7.55%  t =   0.02s
+SR   10:         fm = 1.373093e-01  fi = 8.829531e+00  AC =  57.01%  MI =   7.45%  t =   0.01s
+KindAP:          fm = 1.373093e-01  fi = 8.829531e+00  AC =  57.01%  MI =   7.45%  t =   0.00s
+KindAP+Kms:      fm = 1.322925e-01  fi = 9.426772e+00  AC =  56.78%  MI =   7.55%  t =   0.01s
+Joint:           fm = 1.322925e-01  fi = 9.426772e+00  AC =  56.78%  MI =   7.55%  t =   0.06s
+Kmeans   10:     fm = 1.322925e-01  fi = 9.426772e+00  AC =  56.78%  MI =   7.55%  t =   0.00s
+                 fg = 1.116923e+02  generated
+Soft indicator: Mean(s) = 0.89 
+****************************************
+waveform-21
+****************************************
+
+[n,d,k] = [2746,21,3]
+Elapsed time is 0.524720 seconds.
+Elapsed time is 0.047531 seconds.
+                 fg = 6.655389e+02  generated
+kmeans1*:        fm = 3.745020e-01  fi = 1.260747e+02  AC =  52.40%  MI =  36.50%  t =   0.04s
+kmedians1*:      fm = 3.752258e-01  fi = 1.266775e+02  AC =  52.15%  MI =  36.35%  t =   0.03s
+SR   10:         fm = 3.747486e-01  fi = 1.259181e+02  AC =  52.29%  MI =  36.47%  t =   0.01s
+KindAP:          fm = 3.747486e-01  fi = 1.259181e+02  AC =  52.29%  MI =  36.47%  t =   0.02s
+KindAP+Kms:      fm = 3.745020e-01  fi = 1.260747e+02  AC =  52.40%  MI =  36.50%  t =   0.02s
+Joint:           fm = 3.745020e-01  fi = 1.260747e+02  AC =  52.40%  MI =  36.50%  t =   0.10s
+Kmeans   10:     fm = 3.745020e-01  fi = 1.260747e+02  AC =  52.40%  MI =  36.50%  t =   0.01s
+                 fg = 6.655389e+02  generated
+Soft indicator: Mean(s) = 0.80 
+****************************************
+wine
+****************************************
+
+[n,d,k] = [178,13,3]
+Elapsed time is 0.035452 seconds.
+Elapsed time is 0.046748 seconds.
+                 fg = 5.366377e+01  generated
+kmeans1*:        fm = 3.761429e-01  fi = 1.016691e+01  AC =  61.80%  MI =  34.20%  t =   0.02s
+kmedians1*:      fm = 3.761429e-01  fi = 1.016691e+01  AC =  61.80%  MI =  34.20%  t =   0.01s
+SR   10:         fm = 3.761429e-01  fi = 1.016691e+01  AC =  61.80%  MI =  34.20%  t =   0.01s
+KindAP:          fm = 3.761429e-01  fi = 1.016691e+01  AC =  61.80%  MI =  34.20%  t =   0.00s
+KindAP+Kms:      fm = 3.761429e-01  fi = 1.016691e+01  AC =  61.80%  MI =  34.20%  t =   0.01s
+Joint:           fm = 3.761429e-01  fi = 1.016691e+01  AC =  61.80%  MI =  34.20%  t =   0.07s
+Kmeans   10:     fm = 3.761429e-01  fi = 1.016691e+01  AC =  61.80%  MI =  34.20%  t =   0.00s
+                 fg = 5.366377e+01  generated
+Soft indicator: Mean(s) = 0.75 
+****************************************
+yeast
+****************************************
+
+[n,d,k] = [1484,1470,10]
+Elapsed time is 0.258248 seconds.
+Elapsed time is 0.044215 seconds.
+                 fg = 8.154040e+02  generated
+kmeans1*:        fm = 3.002516e+00  fi = 2.116346e+02  AC =  40.09%  MI =  23.45%  t =   0.05s
+kmedians1*:      fm = 3.495013e+00  fi = 2.933626e+02  AC =  42.99%  MI =  24.28%  t =   0.03s
+SR   10:         fm = 2.604403e+00  fi = 1.184575e+02  AC =  36.59%  MI =  21.78%  t =   0.01s
+KindAP:          fm = 2.604118e+00  fi = 1.184772e+02  AC =  36.59%  MI =  21.89%  t =   0.03s
+KindAP+Kms:      fm = 2.531347e+00  fi = 1.265039e+02  AC =  36.93%  MI =  22.03%  t =   0.04s
+Joint:           fm = 2.531347e+00  fi = 1.265039e+02  AC =  36.93%  MI =  22.03%  t =   0.10s
+Kmeans   10:     fm = 2.544663e+00  fi = 1.544085e+02  AC =  35.31%  MI =  21.55%  t =   0.01s
+                 fg = 8.154040e+02  generated
+Soft indicator: Mean(s) = 0.71 
+****************************************
+zoo
+****************************************
+
+[n,d,k] = [101,16,7]
+Elapsed time is 0.005405 seconds.
+Elapsed time is 0.037834 seconds.
+                 fg = 3.466974e+01  generated
+kmeans1*:        fm = 1.378220e+00  fi = 1.195635e+01  AC =  62.38%  MI =  64.34%  t =   0.06s
+kmedians1*:      fm = 1.412931e+00  fi = 1.040175e+01  AC =  58.42%  MI =  64.49%  t =   0.02s
+SR   10:         fm = 4.944598e-01  fi = 2.786067e+00  AC =  50.50%  MI =  59.02%  t =   0.00s
+KindAP:          fm = 4.944598e-01  fi = 2.786067e+00  AC =  50.50%  MI =  59.02%  t =   0.00s
+KindAP+Kms:      fm = 4.742169e-01  fi = 3.071929e+00  AC =  51.49%  MI =  59.26%  t =   0.00s
+Joint:           fm = 4.742169e-01  fi = 3.071929e+00  AC =  51.49%  MI =  59.26%  t =   0.07s
+Kmeans   10:     fm = 4.742169e-01  fi = 3.071929e+00  AC =  51.49%  MI =  59.26%  t =   0.00s
+                 fg = 3.466974e+01  generated
+Soft indicator: Mean(s) = 0.88 
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+Algorithms & SR10 & KindAP & KindAP+L & Joint & Kmeans10  \\ \hline \hline
+australian &   0.154 & 0.153 & 0.153 &{\bf  0.153} & 0.153 \\ \hline
+auto &  {\bf  0.543} & 0.561 & 0.543 & 0.545 & 0.543 \\ \hline
+balance &   0.757 & 0.787 & 0.787 &{\bf  0.757} & 0.757 \\ \hline
+breast &   0.314 & 0.314 & 0.200 &{\bf  0.200} & 0.200 \\ \hline
+cars &   0.225 & 0.225 & 0.218 &{\bf  0.218} & 0.218 \\ \hline
+control &   0.476 & 0.476 & 0.464 &{\bf  0.464} & 0.464 \\ \hline
+crx &  {\bf  0.878} & 0.965 & 0.965 & 0.965 & 0.927 \\ \hline
+dermatology &   0.364 & 0.364 & 0.361 &{\bf  0.361} & 0.361 \\ \hline
+diabetes &  {\bf  0.120} &{\bf  0.120} & 0.120 &{\bf  0.120} & 0.120 \\ \hline
+ecoli &   2.447 & 2.426 & 2.065 & 2.065 &{\bf  2.065} \\ \hline
+german &   0.266 & 0.266 & 0.266 & 0.266 &{\bf  0.266} \\ \hline
+glass &   1.159 & 1.162 &{\bf  1.135} & 1.135 &{\bf  1.135} \\ \hline
+heart &   0.326 & 0.325 &{\bf  0.311} & 0.311 &{\bf  0.311} \\ \hline
+ionosphere &   0.367 & 0.353 & 0.320 &{\bf  0.320} & 0.320 \\ \hline
+iris &   0.224 & 0.224 & 0.224 & 0.224 &{\bf  0.224} \\ \hline
+isolet &  {\bf  0.155} &{\bf  0.155} & 0.155 &{\bf  0.155} & 0.155 \\ \hline
+lenses &   0.610 & 0.610 &{\bf  0.606} & 0.606 &{\bf  0.606} \\ \hline
+monk1 &   0.299 & 0.298 & 0.298 &{\bf  0.298} & 0.298 \\ \hline
+pima &   0.767 & 0.767 &{\bf  0.767} & 0.767 &{\bf  0.767} \\ \hline
+segment &   0.647 & 0.739 &{\bf  0.538} & 0.539 &{\bf  0.538} \\ \hline
+solar &   1.056 & 1.104 & 0.850 &{\bf  0.850} & 0.850 \\ \hline
+vehicle &   0.789 & 0.791 & 0.781 & 0.781 &{\bf  0.669} \\ \hline
+vote &   0.137 & 0.137 &{\bf  0.132} & 0.132 &{\bf  0.132} \\ \hline
+waveform-21 &   0.375 & 0.375 & 0.375 &{\bf  0.375} & 0.375 \\ \hline
+wine &   0.376 & 0.376 & 0.376 & 0.376 &{\bf  0.376} \\ \hline
+yeast &   2.604 & 2.604 & 2.531 &{\bf  2.531} & 2.545 \\ \hline
+zoo &   0.494 & 0.494 & 0.474 &{\bf  0.474} & 0.474 \\ \hline
+\end{tabular}
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+Algorithms & SR10 & KindAP & KindAP+L & Joint & Kmeans10  \\ \hline \hline
+australian &  {\bf  68.986} & 68.841 & 68.696 & 68.696 & 68.696 \\ \hline
+auto &  {\bf  32.683} &{\bf  32.683} &{\bf  32.683} &{\bf  32.683} &{\bf  32.683} \\ \hline
+balance &   53.280 & 53.920 &{\bf  54.400} & 52.960 & 52.960 \\ \hline
+breast &   57.511 & 57.511 &{\bf  59.657} &{\bf  59.657} &{\bf  59.657} \\ \hline
+cars &   64.286 & 64.286 &{\bf  67.602} &{\bf  67.602} &{\bf  67.602} \\ \hline
+control &   58.333 & 58.333 &{\bf  58.833} &{\bf  58.833} &{\bf  58.833} \\ \hline
+crx &   53.333 &{\bf  54.783} &{\bf  54.783} &{\bf  54.783} & 54.058 \\ \hline
+dermatology &  {\bf  95.902} &{\bf  95.902} & 95.628 & 95.628 & 95.628 \\ \hline
+diabetes &  {\bf  65.365} &{\bf  65.365} &{\bf  65.365} &{\bf  65.365} &{\bf  65.365} \\ \hline
+ecoli &   52.381 & 52.679 &{\bf  56.548} &{\bf  56.548} &{\bf  56.548} \\ \hline
+german &  {\bf  54.300} & 53.200 & 53.200 & 53.200 & 54.100 \\ \hline
+glass &   50.000 &{\bf  50.467} &{\bf  50.467} &{\bf  50.467} &{\bf  50.467} \\ \hline
+heart &   62.222 &{\bf  62.963} & 62.222 & 62.222 & 62.222 \\ \hline
+ionosphere &  {\bf  55.271} & 53.561 & 50.712 & 50.712 & 50.712 \\ \hline
+iris &  {\bf  96.000} &{\bf  96.000} &{\bf  96.000} &{\bf  96.000} &{\bf  96.000} \\ \hline
+isolet &  {\bf  59.295} &{\bf  59.295} &{\bf  59.295} &{\bf  59.295} &{\bf  59.295} \\ \hline
+lenses &   37.500 & 37.500 &{\bf  41.667} &{\bf  41.667} &{\bf  41.667} \\ \hline
+monk1 &  {\bf  67.824} & 66.667 & 65.972 & 65.972 & 65.972 \\ \hline
+pima &  {\bf  65.365} &{\bf  65.365} &{\bf  65.365} &{\bf  65.365} &{\bf  65.365} \\ \hline
+segment &  {\bf  44.416} & 41.558 & 41.429 & 41.515 & 41.429 \\ \hline
+solar &   36.223 &{\bf  37.771} & 37.152 & 37.152 & 37.152 \\ \hline
+vehicle &   47.400 &{\bf  47.991} & 47.045 & 47.045 & 45.508 \\ \hline
+vote &  {\bf  57.011} &{\bf  57.011} & 56.782 & 56.782 & 56.782 \\ \hline
+waveform-21 &   52.294 & 52.294 &{\bf  52.403} &{\bf  52.403} &{\bf  52.403} \\ \hline
+wine &  {\bf  61.798} &{\bf  61.798} &{\bf  61.798} &{\bf  61.798} &{\bf  61.798} \\ \hline
+yeast &   36.590 & 36.590 &{\bf  36.927} &{\bf  36.927} & 35.310 \\ \hline
+zoo &   50.495 & 50.495 &{\bf  51.485} &{\bf  51.485} &{\bf  51.485} \\ \hline
+\end{tabular}
+run_1star: 1, run_kind: 1, correction: 1
+run_kmeans:   1,   No_kmeans:   10,   Phase_kmeans:   on
+run_kmedians: 0,   No_kmedians: 100,   Phase_kmedians: on
+run_kmedoids: 0,   No_kmedoids: 100,   Phase_kmedoids: on
+****************************************
+COIL100_xce
+****************************************
+
+[n,d,k] = [7200,2048,100]
+Elapsed time is 7.330159 seconds.
+Elapsed time is 28.131159 seconds.
+                 fg = 8.833067e+01  generated
+kmeans1*:        fm = 2.497169e+00  fi = 7.518636e+01  AC =  98.71%  MI =  99.44%  t =   0.47s
+kmedians1*:      fm = 2.584563e+00  fi = 9.033124e+01  AC =  98.61%  MI =  99.36%  t =   1.01s
+SR   10:         fm = 2.234977e+01  fi = 9.151161e+02  AC =  77.56%  MI =  93.23%  t =   0.10s
+KindAP:          fm = 1.613377e+00  fi = 3.163498e+01  AC =  98.47%  MI =  99.49%  t =   1.12s
+KindAP+Kms:      fm = 1.612828e+00  fi = 3.162339e+01  AC =  98.46%  MI =  99.48%  t =   1.51s
+Joint:           fm = 1.625481e+00  fi = 3.227965e+01  AC =  98.49%  MI =  99.51%  t =  84.10s
+Kmeans   10:     fm = 3.519487e+00  fi = 1.725453e+02  AC =  96.04%  MI =  98.73%  t =   0.59s
+                 fg = 8.833067e+01  generated
+Soft indicator: Mean(s) = 0.98 
+****************************************
+CIFAR100_test_vgg16
+****************************************
+
+[n,d,k] = [10000,512,100]
+Elapsed time is 8.252299 seconds.
+Elapsed time is 1.917115 seconds.
+                 fg = 2.793155e+03  generated
+kmeans1*:        fm = 1.287232e+01  fi = 1.510523e+03  AC =  66.53%  MI =  67.73%  t =   0.82s
+kmedians1*:      fm = 1.322658e+01  fi = 1.394723e+03  AC =  67.04%  MI =  68.38%  t =   3.80s
+SR   10:         fm = 1.564732e+01  fi = 5.106930e+02  AC =  68.63%  MI =  71.34%  t =   0.19s
+KindAP:          fm = 1.486679e+01  fi = 4.749783e+02  AC =  68.98%  MI =  71.34%  t =   0.89s
+KindAP+Kms:      fm = 1.214604e+01  fi = 1.445817e+03  AC =  65.48%  MI =  67.17%  t =   1.75s
+Joint:           fm = 1.214815e+01  fi = 1.446375e+03  AC =  65.46%  MI =  67.16%  t =  24.39s
+Kmeans   10:     fm = 1.931197e+01  fi = 2.100567e+03  AC =  58.61%  MI =  63.67%  t =   1.50s
+                 fg = 2.793155e+03  generated
+Soft indicator: Mean(s) = 0.83 
+****************************************
+COIL100_vgg19_fc2
+****************************************
+
+[n,d,k] = [7200,4096,100]
+Elapsed time is 9.771055 seconds.
+Elapsed time is 28.828859 seconds.
+                 fg = 1.335159e+02  generated
+kmeans1*:        fm = 3.270336e+00  fi = 1.332901e+02  AC =  99.88%  MI =  99.90%  t =   0.57s
+kmedians1*:      fm = 3.326855e+00  fi = 1.366989e+02  AC =  99.74%  MI =  99.80%  t =   1.05s
+SR   10:         fm = 2.276147e+01  fi = 9.909166e+02  AC =  77.08%  MI =  92.95%  t =   0.09s
+KindAP:          fm = 3.170070e+00  fi = 1.255661e+02  AC =  97.03%  MI =  99.33%  t =   1.63s
+KindAP+Kms:      fm = 3.169269e+00  fi = 1.255998e+02  AC =  96.99%  MI =  99.30%  t =   2.11s
+Joint:           fm = 3.260360e+00  fi = 1.327542e+02  AC =  98.32%  MI =  99.57%  t =  84.22s
+Kmeans   10:     fm = 4.258874e+00  fi = 2.284161e+02  AC =  95.67%  MI =  98.90%  t =   0.58s
+                 fg = 1.335159e+02  generated
+Soft indicator: Mean(s) = 0.95 
+****************************************
+ORL_xce
+****************************************
+
+[n,d,k] = [400,2048,40]
+Elapsed time is 0.051550 seconds.
+Elapsed time is 0.047504 seconds.
+                 fg = 4.372864e+01  generated
+kmeans1*:        fm = 3.406596e+00  fi = 2.030536e+01  AC =  87.50%  MI =  93.11%  t =   0.03s
+kmedians1*:      fm = 3.563859e+00  fi = 2.223343e+01  AC =  88.00%  MI =  92.77%  t =   0.03s
+SR   10:         fm = 2.704249e+00  fi = 1.228210e+01  AC =  86.50%  MI =  92.94%  t =   0.01s
+KindAP:          fm = 2.704249e+00  fi = 1.228210e+01  AC =  86.50%  MI =  92.94%  t =   0.05s
+KindAP+Kms:      fm = 2.694998e+00  fi = 1.244104e+01  AC =  86.25%  MI =  92.73%  t =   0.06s
+Joint:           fm = 2.694998e+00  fi = 1.244104e+01  AC =  86.25%  MI =  92.73%  t =   0.16s
+Kmeans   10:     fm = 3.500412e+00  fi = 2.479956e+01  AC =  83.00%  MI =  91.56%  t =   0.02s
+                 fg = 4.372864e+01  generated
+Soft indicator: Mean(s) = 0.87 
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+Algorithms & SR10 & KindAP & KindAP+L & Joint & Kmeans10  \\ \hline \hline
+australian &   22.350 & 1.613 &{\bf  1.613} & 1.625 & 3.519 \\ \hline
+auto &   15.647 & 14.867 &{\bf  12.146} & 12.148 & 19.312 \\ \hline
+balance &   22.761 & 3.170 &{\bf  3.169} & 3.260 & 4.259 \\ \hline
+breast &   2.704 & 2.704 &{\bf  2.695} & 2.695 & 3.500 \\ \hline
+\end{tabular}
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+Algorithms & SR10 & KindAP & KindAP+L & Joint & Kmeans10  \\ \hline \hline
+australian &   77.556 & 98.472 & 98.458 &{\bf  98.486} & 96.042 \\ \hline
+auto &   68.630 &{\bf  68.980} & 65.480 & 65.460 & 58.610 \\ \hline
+balance &   77.083 & 97.028 & 96.986 &{\bf  98.319} & 95.667 \\ \hline
+breast &  {\bf  86.500} &{\bf  86.500} & 86.250 & 86.250 & 83.000 \\ \hline
+\end{tabular}
+run_1star: 1, run_kind: 1, correction: 1
+run_kmeans:   1,   No_kmeans:   10,   Phase_kmeans:   on
+run_kmedians: 0,   No_kmedians: 100,   Phase_kmedians: on
+run_kmedoids: 0,   No_kmedoids: 100,   Phase_kmedoids: on
+****************************************
+catsndogs_4000_vgg16
+****************************************
+
+[n,d,k] = [4000,8192,2]
+Elapsed time is 5.224387 seconds.
+Elapsed time is 0.253825 seconds.
+{Error using <a href="matlab:matlab.internal.language.introspective.errorDocCallback('sparse')" style="font-weight:bold">sparse</a>
+Index into matrix must be positive.
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('Objective_Centers', '/Users/yangyc/Documents/MATLAB/code_KindAP_11_22_2018/utility/Objective_Centers.m', 25)" style="font-weight:bold">Objective_Centers</a> (<a href="matlab: opentoline('/Users/yangyc/Documents/MATLAB/code_KindAP_11_22_2018/utility/Objective_Centers.m',25,0)">line 25</a>)
+H = sparse(1:n,idx,ones(n,1),n,k);
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('Comparison_Centroid_KindAP', '/Users/yangyc/Documents/MATLAB/code_KindAP_11_22_2018/utility/Comparison_Centroid_KindAP.m', 26)" style="font-weight:bold">Comparison_Centroid_KindAP</a> (<a href="matlab: opentoline('/Users/yangyc/Documents/MATLAB/code_KindAP_11_22_2018/utility/Comparison_Centroid_KindAP.m',26,0)">line 26</a>)
+fgt = Objective_Centers(idxg,k,U);
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('Demo_S2Real_data', '/Users/yangyc/Documents/KindAP/matlab_data/Demo_S2Real_data.m', 126)" style="font-weight:bold">Demo_S2Real_data</a> (<a href="matlab: opentoline('/Users/yangyc/Documents/KindAP/matlab_data/Demo_S2Real_data.m',126,0)">line 126</a>)
+    Comparison_Centroid_KindAP;
+} 
+clear all
+load('catsndogs_4000_vgg16.mat')
+gnd=gnd+1;
+save catsndogs_4000_vgg16.mat fea gnd
+Demo_S2Real_data
+****************************************
+Test on real data sets!
+run_1star: 1, run_kind: 1, correction: 1
+run_kmeans:   1,   No_kmeans:   10,   Phase_kmeans:   on
+run_kmedians: 0,   No_kmedians: 100,   Phase_kmedians: on
+run_kmedoids: 0,   No_kmedoids: 100,   Phase_kmedoids: on
+****************************************
+catsndogs_4000_vgg16
+****************************************
+
+[n,d,k] = [4000,8192,2]
+Elapsed time is 4.789387 seconds.
+Elapsed time is 0.187515 seconds.
+                 fg = 1.173017e+03  generated
+kmeans1*:        fm = 3.279089e-01  fi = 1.065005e+02  AC =  50.90%  MI =   0.79%  t =   0.72s
+kmedians1*:      fm = 1.062160e+00  fi = 9.787365e+02  AC =  52.27%  MI =   0.19%  t =   0.11s
+SR   10:         fm = 5.918707e-01  fi = 6.505346e+01  AC =  50.35%  MI =   0.03%  t =   0.01s
+KindAP:          fm = 5.832134e-01  fi = 6.495900e+01  AC =  50.38%  MI =   0.03%  t =   0.02s
+KindAP+Kms:      fm = 3.279089e-01  fi = 1.065005e+02  AC =  50.90%  MI =   0.79%  t =   0.05s
+Joint:           fm = 3.302403e-01  fi = 1.073241e+02  AC =  50.88%  MI =   0.76%  t =   0.31s
+Kmeans   10:     fm = 3.279089e-01  fi = 1.065005e+02  AC =  50.90%  MI =   0.79%  t =   0.03s
+                 fg = 1.173017e+03  generated
+Soft indicator: Mean(s) = 0.92 
+****************************************
+COIL100_xce
+****************************************
+
+[n,d,k] = [7200,2048,100]
+Elapsed time is 7.033593 seconds.
+if system_dependent('IsDebugMode')==1, dbquit; end
+clear all
+load('catsndogs_4000_vgg16.mat')
+idx=kmeans(fea,2);
+length(idxg==bestmap(idxg,idx))
+{Undefined function or variable 'idxg'.
+} 
+length(gnd==bestMap(gnd,idx))
+
+ans =
+
+        4000
+
+sum(gnd==bestMap(gnd,idx))
+
+ans =
+
+        2742
+
+sum(gnd==bestMap(gnd,idx))/4000
+
+ans =
+
+    0.6855
+
+Demo_S2Real_data
+****************************************
+Test on real data sets!
+run_1star: 1, run_kind: 1, correction: 1
+run_kmeans:   1,   No_kmeans:   10,   Phase_kmeans:   on
+run_kmedians: 0,   No_kmedians: 100,   Phase_kmedians: on
+run_kmedoids: 0,   No_kmedoids: 100,   Phase_kmedoids: on
+****************************************
+catsndogs_4000_vgg16
+****************************************
+
+[n,d,k] = [4000,8192,2]
+Elapsed time is 5.119243 seconds.
+Elapsed time is 0.086880 seconds.
+                 fg = 1.172224e+03  generated
+kmeans1*:        fm = 3.294107e-01  fi = 1.082780e+02  AC =  50.90%  MI =   0.79%  t =   0.09s
+kmedians1*:      fm = 1.068029e+00  fi = 1.072709e+03  AC =  51.73%  MI =   0.10%  t =   0.06s
+SR   10:         fm = 5.910406e-01  fi = 6.654677e+01  AC =  50.35%  MI =   0.03%  t =   0.01s
+KindAP:          fm = 5.880767e-01  fi = 6.651444e+01  AC =  50.38%  MI =   0.03%  t =   0.02s
+KindAP+Kms:      fm = 3.294107e-01  fi = 1.082780e+02  AC =  50.90%  MI =   0.79%  t =   0.03s
+Joint:           fm = 3.294107e-01  fi = 1.082780e+02  AC =  50.90%  MI =   0.79%  t =   0.16s
+Kmeans   10:     fm = 3.294107e-01  fi = 1.082780e+02  AC =  50.90%  MI =   0.79%  t =   0.01s
+                 fg = 1.172224e+03  generated
+Soft indicator: Mean(s) = 0.91 
+****************************************
+COIL100_xce
+****************************************
+
+[n,d,k] = [7200,2048,100]
+Elapsed time is 6.024200 seconds.
+Elapsed time is 28.161535 seconds.
+                 fg = 8.999762e+01  generated
+kmeans1*:        fm = 2.529323e+00  fi = 7.714438e+01  AC =  98.64%  MI =  99.40%  t =   0.42s
+kmedians1*:      fm = 2.613184e+00  fi = 9.136345e+01  AC =  98.61%  MI =  99.36%  t =   0.95s
+SR   10:         fm = 2.050777e+01  fi = 8.615357e+02  AC =  79.46%  MI =  93.33%  t =   0.09s
+KindAP:          fm = 1.649135e+00  fi = 3.308379e+01  AC =  98.43%  MI =  99.45%  t =   1.24s
+KindAP+Kms:      fm = 1.647855e+00  fi = 3.324223e+01  AC =  98.40%  MI =  99.44%  t =   1.62s
+if system_dependent('IsDebugMode')==1, dbquit; end
+test_more_d_than_k
+****************************************
+Test on real data sets!
+run_1star: 1, run_kind: 1, correction: 1
+run_kmeans:   1,   No_kmeans:   10,   Phase_kmeans:   on
+run_kmedians: 0,   No_kmedians: 100,   Phase_kmedians: on
+run_kmedoids: 0,   No_kmedoids: 100,   Phase_kmedoids: on
+****************************************
+ORL_xce
+****************************************
+
+[n,d,k] = [400,2048,40]
+Elapsed time is 0.059481 seconds.
+Elapsed time is 0.268837 seconds.
+                 fg = 4.391575e+01  generated
+kmeans1*:        fm = 3.415065e+00  fi = 2.037835e+01  AC =  87.50%  MI =  93.11%  t =   0.06s
+kmedians1*:      fm = 3.582080e+00  fi = 2.238294e+01  AC =  88.00%  MI =  92.77%  t =   0.26s
+SR  100:         fm = 2.713322e+00  fi = 1.240380e+01  AC =  86.50%  MI =  92.94%  t =   0.01s
+KindAP:          fm = 2.774741e+00  fi = 1.260584e+01  AC =  86.50%  MI =  92.62%  t =   0.04s
+KindAP+Kms:      fm = 2.704109e+00  fi = 1.256001e+01  AC =  86.25%  MI =  92.73%  t =   0.05s
+Joint:           fm = 2.704109e+00  fi = 1.256001e+01  AC =  86.25%  MI =  92.73%  t =   0.20s
+Kmeans   10:     fm = 3.327367e+00  fi = 2.252446e+01  AC =  84.50%  MI =  92.33%  t =   0.02s
+                 fg = 4.391575e+01  generated
+Soft indicator: Mean(s) = 0.87 
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+Algorithms & SR10 & KindAP & KindAP+L & Joint & Kmeans10  \\ \hline \hline
+australian &   2.713 & 2.775 &{\bf  2.704} & 2.704 & 3.327 \\ \hline
+\end{tabular}
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+Algorithms & SR10 & KindAP & KindAP+L & Joint & Kmeans10  \\ \hline \hline
+australian &  {\bf  86.500} &{\bf  86.500} & 86.250 & 86.250 & 84.500 \\ \hline
+\end{tabular}
+run_1star: 1, run_kind: 1, correction: 1
+run_kmeans:   1,   No_kmeans:   10,   Phase_kmeans:   on
+run_kmedians: 0,   No_kmedians: 100,   Phase_kmedians: on
+run_kmedoids: 0,   No_kmedoids: 100,   Phase_kmedoids: on
+****************************************
+catsndogs_4000_xce
+****************************************
+
+[n,d,k] = [4000,2048,2]
+Elapsed time is 2.420701 seconds.
+Elapsed time is 0.206656 seconds.
+                 fg = 1.748571e+02  generated
+kmeans1*:        fm = 2.106394e-01  fi = 1.189267e+02  AC =  96.17%  MI =  76.68%  t =   0.37s
+kmedians1*:      fm = 2.108400e-01  fi = 1.192890e+02  AC =  96.30%  MI =  77.28%  t =   0.07s
+SR   10:         fm = 2.106428e-01  fi = 1.189089e+02  AC =  96.17%  MI =  76.67%  t =   0.01s
+KindAP:          fm = 2.106404e-01  fi = 1.189160e+02  AC =  96.15%  MI =  76.56%  t =   0.02s
+KindAP+Kms:      fm = 2.106394e-01  fi = 1.189267e+02  AC =  96.17%  MI =  76.68%  t =   0.04s
+Joint:           fm = 2.106394e-01  fi = 1.189267e+02  AC =  96.17%  MI =  76.68%  t =   0.23s
+Kmeans   10:     fm = 2.106394e-01  fi = 1.189267e+02  AC =  96.17%  MI =  76.68%  t =   0.03s
+                 fg = 1.748571e+02  generated
+Soft indicator: Mean(s) = 0.86 
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+Algorithms & SR10 & KindAP & KindAP+L & Joint & Kmeans10  \\ \hline \hline
+australian &   0.211 & 0.211 & 0.211 &{\bf  0.211} & 0.211 \\ \hline
+\end{tabular}
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+Algorithms & SR10 & KindAP & KindAP+L & Joint & Kmeans10  \\ \hline \hline
+australian &  {\bf  96.175} & 96.150 &{\bf  96.175} &{\bf  96.175} &{\bf  96.175} \\ \hline
+\end{tabular}
+run_1star: 1, run_kind: 1, correction: 1
+run_kmeans:   1,   No_kmeans:   10,   Phase_kmeans:   on
+run_kmedians: 0,   No_kmedians: 100,   Phase_kmedians: on
+run_kmedoids: 0,   No_kmedoids: 100,   Phase_kmedoids: on
+****************************************
+aircraft_xce
+****************************************
+
+[n,d,k] = [2000,2048,100]
+Elapsed time is 0.691979 seconds.
+Elapsed time is 0.839272 seconds.
+{Error using <a href="matlab:matlab.internal.language.introspective.errorDocCallback('sparse')" style="font-weight:bold">sparse</a>
+Index into matrix must be positive.
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('Objective_Centers', '/Users/yangyc/Documents/MATLAB/code_KindAP_11_22_2018/utility/Objective_Centers.m', 25)" style="font-weight:bold">Objective_Centers</a> (<a href="matlab: opentoline('/Users/yangyc/Documents/MATLAB/code_KindAP_11_22_2018/utility/Objective_Centers.m',25,0)">line 25</a>)
+H = sparse(1:n,idx,ones(n,1),n,k);
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('Comparison_Centroid_KindAP', '/Users/yangyc/Documents/MATLAB/code_KindAP_11_22_2018/utility/Comparison_Centroid_KindAP.m', 26)" style="font-weight:bold">Comparison_Centroid_KindAP</a> (<a href="matlab: opentoline('/Users/yangyc/Documents/MATLAB/code_KindAP_11_22_2018/utility/Comparison_Centroid_KindAP.m',26,0)">line 26</a>)
+fgt = Objective_Centers(idxg,k,U);
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('Demo_S2Real_data', '/Users/yangyc/Documents/KindAP/matlab_data/Demo_S2Real_data.m', 126)" style="font-weight:bold">Demo_S2Real_data</a> (<a href="matlab: opentoline('/Users/yangyc/Documents/KindAP/matlab_data/Demo_S2Real_data.m',126,0)">line 126</a>)
+    Comparison_Centroid_KindAP;
+} 
+clear all
+load('aircraft_xce.mat')
+gnd=gnd'+1;
+save aircraft_xce.mat fea gnd
+Demo_S2Real_data
+****************************************
+Test on real data sets!
+run_1star: 1, run_kind: 1, correction: 1
+run_kmeans:   1,   No_kmeans:   10,   Phase_kmeans:   on
+run_kmedians: 0,   No_kmedians: 100,   Phase_kmedians: on
+run_kmedoids: 0,   No_kmedoids: 100,   Phase_kmedoids: on
+****************************************
+aircraft_xce
+****************************************
+
+[n,d,k] = [2000,2048,100]
+Elapsed time is 0.499088 seconds.
+Elapsed time is 0.535225 seconds.
+                 fg = 1.547423e+03  generated
+kmeans1*:        fm = 4.098601e+01  fi = 6.065387e+02  AC =  12.05%  MI =  37.70%  t =   1.01s
+kmedians1*:      fm = 4.350056e+01  fi = 6.069370e+02  AC =  12.45%  MI =  38.62%  t =   1.20s
+SR   10:         fm = 4.101660e+01  fi = 5.161597e+02  AC =  12.20%  MI =  39.83%  t =   0.08s
+KindAP:          fm = 4.098074e+01  fi = 5.145953e+02  AC =  12.20%  MI =  39.79%  t =   1.06s
+KindAP+Kms:      fm = 3.930465e+01  fi = 5.704862e+02  AC =  12.00%  MI =  38.28%  t =   1.56s
+Joint:           fm = 3.926184e+01  fi = 5.304748e+02  AC =  12.00%  MI =  38.96%  t =  13.92s
+Kmeans   10:     fm = 4.008597e+01  fi = 5.964532e+02  AC =  11.90%  MI =  37.75%  t =   0.81s
+                 fg = 1.547423e+03  generated
+Soft indicator: Mean(s) = 0.50 
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+Algorithms & SR10 & KindAP & KindAP+L & Joint & Kmeans10  \\ \hline \hline
+australian &   41.017 & 40.981 & 39.305 &{\bf  39.262} & 40.086 \\ \hline
+\end{tabular}
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+Algorithms & SR10 & KindAP & KindAP+L & Joint & Kmeans10  \\ \hline \hline
+australian &  {\bf  12.200} &{\bf  12.200} & 12.000 & 12.000 & 11.900 \\ \hline
+\end{tabular}
+run_1star: 1, run_kind: 1, correction: 1
+run_kmeans:   1,   No_kmeans:   10,   Phase_kmeans:   on
+run_kmedians: 0,   No_kmedians: 100,   Phase_kmedians: on
+run_kmedoids: 0,   No_kmedoids: 100,   Phase_kmedoids: on
+****************************************
+aircraft_xce
+****************************************
+
+[n,d,k] = [3334,2048,100]
+Elapsed time is 1.772662 seconds.
+Elapsed time is 0.721066 seconds.
+                 fg = 2.688252e+03  generated
+kmeans1*:        fm = 4.115900e+01  fi = 1.079063e+03  AC =  10.77%  MI =  30.57%  t =   1.20s
+kmedians1*:      fm = 4.285859e+01  fi = 1.069370e+03  AC =   9.99%  MI =  30.32%  t =   1.78s
+SR   10:         fm = 4.168617e+01  fi = 8.692818e+02  AC =  10.59%  MI =  32.36%  t =   0.14s
+KindAP:          fm = 4.191688e+01  fi = 8.777614e+02  AC =  10.50%  MI =  32.10%  t =   0.70s
+KindAP+Kms:      fm = 3.891815e+01  fi = 1.005900e+03  AC =  10.17%  MI =  30.23%  t =   1.94s
+Joint:           fm = 3.893631e+01  fi = 9.987785e+02  AC =  10.17%  MI =  30.07%  t =  13.29s
+Kmeans   10:     fm = 4.048295e+01  fi = 1.073283e+03  AC =   9.96%  MI =  29.90%  t =   1.67s
+                 fg = 2.688252e+03  generated
+Soft indicator: Mean(s) = 0.47 
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+Algorithms & SR10 & KindAP & KindAP+L & Joint & Kmeans10  \\ \hline \hline
+australian &   41.686 & 41.917 &{\bf  38.918} & 38.936 & 40.483 \\ \hline
+\end{tabular}
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+Algorithms & SR10 & KindAP & KindAP+L & Joint & Kmeans10  \\ \hline \hline
+australian &  {\bf  10.588} & 10.498 & 10.168 & 10.168 & 9.958 \\ \hline
+\end{tabular}
+run_1star: 1, run_kind: 1, correction: 1
+run_kmeans:   1,   No_kmeans:   10,   Phase_kmeans:   on
+run_kmedians: 0,   No_kmedians: 100,   Phase_kmedians: on
+run_kmedoids: 0,   No_kmedoids: 100,   Phase_kmedoids: on
+****************************************
+UKBench_xce
+****************************************
+
+[n,d,k] = [10200,2048,2550]
+Elapsed time is 23.248326 seconds.
+Elapsed time is 209.172705 seconds.
+                 fg = 1.365149e+03  generated
+kmeans1*:        fm = 4.650153e+02  fi = 1.093229e+03  AC =  90.78%  MI =  97.68%  t = 663.72s
+kmedians1*:      fm = 5.073075e+02  fi = 1.276953e+03  AC =  90.13%  MI =  96.89%  t = 1385.71s
+SR   10:         fm = 6.456459e+02  fi = 1.513031e+03  AC =  79.84%  MI =  95.76%  t = 132.91s
+KindAP:          fm = 4.677000e+02  fi = 1.047050e+03  AC =  87.99%  MI =  97.34%  t = 3907.86s
+KindAP+Kms:      fm = 4.566901e+02  fi = 1.040652e+03  AC =  88.10%  MI =  97.27%  t = 4422.75s
+Kmeans   10:     fm = 5.021919e+02  fi = 1.258253e+03  AC =  85.00%  MI =  96.66%  t = 1050.87s
+                 fg = 1.365149e+03  generated
+Soft indicator: Mean(s) = 0.71 
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+Algorithms & SR10 & KindAP & KindAP+L & Joint & Kmeans10  \\ \hline \hline
+UKBench_xce &   645.646 & 467.700 & 456.690 &{\bf  0.000} & 502.192 \\ \hline
+\end{tabular}
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+Algorithms & SR10 & KindAP & KindAP+L & Joint & Kmeans10  \\ \hline \hline
+UKBench_xce &   79.843 & 87.990 &{\bf  88.098} & 0.000 & 85.000 \\ \hline
+\end{tabular}
+run_1star: 1, run_kind: 1, correction: 1
+run_kmeans:   1,   No_kmeans:   10,   Phase_kmeans:   on
+run_kmedians: 0,   No_kmedians: 100,   Phase_kmedians: on
+run_kmedoids: 0,   No_kmedoids: 100,   Phase_kmedoids: on
+****************************************
+omniglot_train_xce
+****************************************
+
+[n,d,k] = [17853,2048,1623]
+Elapsed time is 42.641067 seconds.
+K=rand(10)
+
+K =
+
+    0.8147    0.1576    0.6557    0.7060    0.4387    0.2760    0.7513    0.8407    0.3517    0.0759
+    0.9058    0.9706    0.0357    0.0318    0.3816    0.6797    0.2551    0.2543    0.8308    0.0540
+    0.1270    0.9572    0.8491    0.2769    0.7655    0.6551    0.5060    0.8143    0.5853    0.5308
+    0.9134    0.4854    0.9340    0.0462    0.7952    0.1626    0.6991    0.2435    0.5497    0.7792
+    0.6324    0.8003    0.6787    0.0971    0.1869    0.1190    0.8909    0.9293    0.9172    0.9340
+    0.0975    0.1419    0.7577    0.8235    0.4898    0.4984    0.9593    0.3500    0.2858    0.1299
+    0.2785    0.4218    0.7431    0.6948    0.4456    0.9597    0.5472    0.1966    0.7572    0.5688
+    0.5469    0.9157    0.3922    0.3171    0.6463    0.3404    0.1386    0.2511    0.7537    0.4694
+    0.9575    0.7922    0.6555    0.9502    0.7094    0.5853    0.1493    0.6160    0.3804    0.0119
+    0.9649    0.9595    0.1712    0.0344    0.7547    0.2238    0.2575    0.4733    0.5678    0.3371
+
+D=diag(randn(10))
+
+D =
+
+   -1.7947
+   -2.1384
+    0.8252
+   -1.5771
+   -0.2857
+    1.0187
+    0.3075
+   -0.1303
+    1.2607
+   -0.2097
+
+D=diag(D)
+
+D =
+
+   -1.7947         0         0         0         0         0         0         0         0         0
+         0   -2.1384         0         0         0         0         0         0         0         0
+         0         0    0.8252         0         0         0         0         0         0         0
+         0         0         0   -1.5771         0         0         0         0         0         0
+         0         0         0         0   -0.2857         0         0         0         0         0
+         0         0         0         0         0    1.0187         0         0         0         0
+         0         0         0         0         0         0    0.3075         0         0         0
+         0         0         0         0         0         0         0   -0.1303         0         0
+         0         0         0         0         0         0         0         0    1.2607         0
+         0         0         0         0         0         0         0         0         0   -0.2097
+
+d=diag(D)
+
+d =
+
+   -1.7947
+   -2.1384
+    0.8252
+   -1.5771
+   -0.2857
+    1.0187
+    0.3075
+   -0.1303
+    1.2607
+   -0.2097
+
+K*D
+
+ans =
+
+   -1.4622   -0.3370    0.5411   -1.1135   -0.1253    0.2812    0.2310   -0.1095    0.4433   -0.0159
+   -1.6256   -2.0755    0.0295   -0.0502   -0.1090    0.6924    0.0785   -0.0331    1.0474   -0.0113
+   -0.2279   -2.0468    0.7007   -0.4367   -0.2187    0.6673    0.1556   -0.1061    0.7378   -0.1113
+   -1.6392   -1.0379    0.7707   -0.0728   -0.2271    0.1657    0.2150   -0.0317    0.6930   -0.1634
+   -1.1349   -1.7113    0.5601   -0.1532   -0.0534    0.1212    0.2740   -0.1211    1.1563   -0.1959
+   -0.1751   -0.3034    0.6253   -1.2986   -0.1399    0.5077    0.2950   -0.0456    0.3603   -0.0272
+   -0.4998   -0.9019    0.6132   -1.0958   -0.1273    0.9777    0.1683   -0.0256    0.9546   -0.1193
+   -0.9815   -1.9582    0.3237   -0.5001   -0.1846    0.3467    0.0426   -0.0327    0.9502   -0.0984
+   -1.7184   -1.6940    0.5409   -1.4986   -0.2026    0.5962    0.0459   -0.0803    0.4796   -0.0025
+   -1.7317   -2.0517    0.1413   -0.0543   -0.2156    0.2280    0.0792   -0.0617    0.7158   -0.0707
+
+K.*d
+
+ans =
+
+   -1.4622   -0.2829   -1.1768   -1.2671   -0.7874   -0.4954   -1.3483   -1.5088   -0.6311   -0.1361
+   -1.9369   -2.0755   -0.0764   -0.0681   -0.8159   -1.4534   -0.5455   -0.5437   -1.7766   -0.1154
+    0.1048    0.7899    0.7007    0.2285    0.6317    0.5406    0.4175    0.6720    0.4830    0.4380
+   -1.4404   -0.7655   -1.4730   -0.0728   -1.2541   -0.2564   -1.1025   -0.3841   -0.8669   -1.2288
+   -0.1806   -0.2286   -0.1939   -0.0277   -0.0534   -0.0340   -0.2545   -0.2654   -0.2620   -0.2668
+    0.0994    0.1445    0.7719    0.8388    0.4989    0.5077    0.9772    0.3565    0.2912    0.1323
+    0.0856    0.1297    0.2285    0.2137    0.1370    0.2952    0.1683    0.0605    0.2329    0.1749
+   -0.0713   -0.1193   -0.0511   -0.0413   -0.0842   -0.0443   -0.0181   -0.0327   -0.0982   -0.0612
+    1.2071    0.9987    0.8263    1.1979    0.8943    0.7378    0.1882    0.7766    0.4796    0.0150
+   -0.2023   -0.2012   -0.0359   -0.0072   -0.1583   -0.0469   -0.0540   -0.0993   -0.1191   -0.0707
+
+D*K
+
+ans =
+
+   -1.4622   -0.2829   -1.1768   -1.2671   -0.7874   -0.4954   -1.3483   -1.5088   -0.6311   -0.1361
+   -1.9369   -2.0755   -0.0764   -0.0681   -0.8159   -1.4534   -0.5455   -0.5437   -1.7766   -0.1154
+    0.1048    0.7899    0.7007    0.2285    0.6317    0.5406    0.4175    0.6720    0.4830    0.4380
+   -1.4404   -0.7655   -1.4730   -0.0728   -1.2541   -0.2564   -1.1025   -0.3841   -0.8669   -1.2288
+   -0.1806   -0.2286   -0.1939   -0.0277   -0.0534   -0.0340   -0.2545   -0.2654   -0.2620   -0.2668
+    0.0994    0.1445    0.7719    0.8388    0.4989    0.5077    0.9772    0.3565    0.2912    0.1323
+    0.0856    0.1297    0.2285    0.2137    0.1370    0.2952    0.1683    0.0605    0.2329    0.1749
+   -0.0713   -0.1193   -0.0511   -0.0413   -0.0842   -0.0443   -0.0181   -0.0327   -0.0982   -0.0612
+    1.2071    0.9987    0.8263    1.1979    0.8943    0.7378    0.1882    0.7766    0.4796    0.0150
+   -0.2023   -0.2012   -0.0359   -0.0072   -0.1583   -0.0469   -0.0540   -0.0993   -0.1191   -0.0707
+
+d.*K
+
+ans =
+
+   -1.4622   -0.2829   -1.1768   -1.2671   -0.7874   -0.4954   -1.3483   -1.5088   -0.6311   -0.1361
+   -1.9369   -2.0755   -0.0764   -0.0681   -0.8159   -1.4534   -0.5455   -0.5437   -1.7766   -0.1154
+    0.1048    0.7899    0.7007    0.2285    0.6317    0.5406    0.4175    0.6720    0.4830    0.4380
+   -1.4404   -0.7655   -1.4730   -0.0728   -1.2541   -0.2564   -1.1025   -0.3841   -0.8669   -1.2288
+   -0.1806   -0.2286   -0.1939   -0.0277   -0.0534   -0.0340   -0.2545   -0.2654   -0.2620   -0.2668
+    0.0994    0.1445    0.7719    0.8388    0.4989    0.5077    0.9772    0.3565    0.2912    0.1323
+    0.0856    0.1297    0.2285    0.2137    0.1370    0.2952    0.1683    0.0605    0.2329    0.1749
+   -0.0713   -0.1193   -0.0511   -0.0413   -0.0842   -0.0443   -0.0181   -0.0327   -0.0982   -0.0612
+    1.2071    0.9987    0.8263    1.1979    0.8943    0.7378    0.1882    0.7766    0.4796    0.0150
+   -0.2023   -0.2012   -0.0359   -0.0072   -0.1583   -0.0469   -0.0540   -0.0993   -0.1191   -0.0707
+
+K.*d'
+
+ans =
+
+   -1.4622   -0.3370    0.5411   -1.1135   -0.1253    0.2812    0.2310   -0.1095    0.4433   -0.0159
+   -1.6256   -2.0755    0.0295   -0.0502   -0.1090    0.6924    0.0785   -0.0331    1.0474   -0.0113
+   -0.2279   -2.0468    0.7007   -0.4367   -0.2187    0.6673    0.1556   -0.1061    0.7378   -0.1113
+   -1.6392   -1.0379    0.7707   -0.0728   -0.2271    0.1657    0.2150   -0.0317    0.6930   -0.1634
+   -1.1349   -1.7113    0.5601   -0.1532   -0.0534    0.1212    0.2740   -0.1211    1.1563   -0.1959
+   -0.1751   -0.3034    0.6253   -1.2986   -0.1399    0.5077    0.2950   -0.0456    0.3603   -0.0272
+   -0.4998   -0.9019    0.6132   -1.0958   -0.1273    0.9777    0.1683   -0.0256    0.9546   -0.1193
+   -0.9815   -1.9582    0.3237   -0.5001   -0.1846    0.3467    0.0426   -0.0327    0.9502   -0.0984
+   -1.7184   -1.6940    0.5409   -1.4986   -0.2026    0.5962    0.0459   -0.0803    0.4796   -0.0025
+   -1.7317   -2.0517    0.1413   -0.0543   -0.2156    0.2280    0.0792   -0.0617    0.7158   -0.0707
+
+if system_dependent('IsDebugMode')==1, dbquit; end
+Demo_S2Real_data
+****************************************
+Test on real data sets!
+run_1star: 1, run_kind: 1, correction: 1
+run_kmeans:   1,   No_kmeans:   10,   Phase_kmeans:   on
+run_kmedians: 0,   No_kmedians: 100,   Phase_kmedians: on
+run_kmedoids: 0,   No_kmedoids: 100,   Phase_kmedoids: on
+
+filename =
+
+  1×1 <a href="matlab:helpPopup cell" style="font-weight:bold">cell</a> array
+
+    {'ORL_xce'}
+
+****************************************
+ORL_xce
+****************************************
+
+[n,d,k] = [400,2048,40]
+Elapsed time is 0.053253 seconds.
+Elapsed time is 0.139794 seconds.
+                 fg = 4.391575e+01  generated
+kmeans1*:        fm = 3.415065e+00  fi = 2.037835e+01  AC =  87.50%  MI =  93.11%  t =   0.19s
+kmedians1*:      fm = 3.582080e+00  fi = 2.238294e+01  AC =  88.00%  MI =  92.77%  t =   0.09s
+SR   10:         fm = 2.758234e+00  fi = 1.257174e+01  AC =  86.75%  MI =  92.82%  t =   0.01s
+KindAP:          fm = 2.774741e+00  fi = 1.260584e+01  AC =  86.50%  MI =  92.62%  t =   0.05s
+KindAP+Kms:      fm = 2.704109e+00  fi = 1.256001e+01  AC =  86.25%  MI =  92.73%  t =   0.07s
+Kmeans   10:     fm = 2.708131e+00  fi = 1.322041e+01  AC =  85.75%  MI =  92.68%  t =   0.03s
+                 fg = 4.391575e+01  generated
+Soft indicator: Mean(s) = 0.87 
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+Algorithms & SR10 & KindAP & KindAP+L & Joint & Kmeans10  \\ \hline \hline
+ORL_xce &   2.758 & 2.775 & 2.704 &{\bf  0.000} & 2.708 \\ \hline
+\end{tabular}
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+Algorithms & SR10 & KindAP & KindAP+L & Joint & Kmeans10  \\ \hline \hline
+ORL_xce &  {\bf  86.750} & 86.500 & 86.250 & 0.000 & 85.750 \\ \hline
+\end{tabular}
+run_1star: 1, run_kind: 1, correction: 1
+run_kmeans:   1,   No_kmeans:   10,   Phase_kmeans:   on
+run_kmedians: 0,   No_kmedians: 100,   Phase_kmedians: on
+run_kmedoids: 0,   No_kmedoids: 100,   Phase_kmedoids: on
+
+filename =
+
+  1×1 <a href="matlab:helpPopup cell" style="font-weight:bold">cell</a> array
+
+    {'COIL100_xce'}
+
+****************************************
+COIL100_xce
+****************************************
+
+[n,d,k] = [7200,2048,100]
+Elapsed time is 5.999116 seconds.
+Elapsed time is 30.804874 seconds.
+                 fg = 8.999762e+01  generated
+kmeans1*:        fm = 2.529323e+00  fi = 7.714438e+01  AC =  98.64%  MI =  99.40%  t =   0.49s
+kmedians1*:      fm = 2.613184e+00  fi = 9.136345e+01  AC =  98.61%  MI =  99.36%  t =   0.98s
+SR   10:         fm = 2.329377e+01  fi = 9.275437e+02  AC =  77.76%  MI =  93.16%  t =   0.11s
+KindAP:          fm = 1.649135e+00  fi = 3.308379e+01  AC =  98.43%  MI =  99.45%  t =   1.33s
+KindAP+Kms:      fm = 1.647855e+00  fi = 3.324223e+01  AC =  98.40%  MI =  99.44%  t =   1.73s
+Kmeans   10:     fm = 3.354590e+00  fi = 1.809626e+02  AC =  95.65%  MI =  98.60%  t =   0.61s
+                 fg = 8.999762e+01  generated
+Soft indicator: Mean(s) = 0.98 
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+Algorithms & SR10 & KindAP & KindAP+L & Joint & Kmeans10  \\ \hline \hline
+COIL100_xce &   23.294 & 1.649 & 1.648 &{\bf  0.000} & 3.355 \\ \hline
+\end{tabular}
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+Algorithms & SR10 & KindAP & KindAP+L & Joint & Kmeans10  \\ \hline \hline
+COIL100_xce &   77.764 &{\bf  98.431} & 98.403 & 0.000 & 95.653 \\ \hline
+\end{tabular}
+run_1star: 1, run_kind: 1, correction: 1
+run_kmeans:   1,   No_kmeans:   10,   Phase_kmeans:   on
+run_kmedians: 0,   No_kmedians: 100,   Phase_kmedians: on
+run_kmedoids: 0,   No_kmedoids: 100,   Phase_kmedoids: on
+
+filename =
+
+  1×1 <a href="matlab:helpPopup cell" style="font-weight:bold">cell</a> array
+
+    {'COIL100_xce'}
+
+****************************************
+COIL100_xce
+****************************************
+
+[n,d,k] = [7200,2048,100]
+Elapsed time is 6.249704 seconds.
+Elapsed time is 27.093589 seconds.
+                 fg = 8.999762e+01  generated
+kmeans1*:        fm = 2.529323e+00  fi = 7.714438e+01  AC =  98.64%  MI =  99.40%  t =   0.50s
+kmedians1*:      fm = 2.613184e+00  fi = 9.136345e+01  AC =  98.61%  MI =  99.36%  t =   1.00s
+SR   10:         fm = 2.329377e+01  fi = 9.275437e+02  AC =  77.76%  MI =  93.16%  t =   0.12s
+KindAP:          fm = 1.649135e+00  fi = 3.308379e+01  AC =  98.43%  MI =  99.45%  t =   1.52s
+KindAP+Kms:      fm = 1.647855e+00  fi = 3.324223e+01  AC =  98.40%  MI =  99.44%  t =   1.98s
+Kmeans   10:     fm = 3.354590e+00  fi = 1.809626e+02  AC =  95.65%  MI =  98.60%  t =   0.55s
+                 fg = 8.999762e+01  generated
+Soft indicator: Mean(s) = 0.98 
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+Algorithms & SR10 & KindAP & KindAP+L & Joint & Kmeans10  \\ \hline \hline
+COIL100_xce &   23.294 & 1.649 & 1.648 &{\bf  0.000} & 3.355 \\ \hline
+\end{tabular}
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+Algorithms & SR10 & KindAP & KindAP+L & Joint & Kmeans10  \\ \hline \hline
+COIL100_xce &   77.764 &{\bf  98.431} & 98.403 & 0.000 & 95.653 \\ \hline
+\end{tabular}
+run_1star: 1, run_kind: 1, correction: 1
+run_kmeans:   1,   No_kmeans:   10,   Phase_kmeans:   on
+run_kmedians: 0,   No_kmedians: 100,   Phase_kmedians: on
+run_kmedoids: 0,   No_kmedoids: 100,   Phase_kmedoids: on
+****************************************
+ORL_xce
+****************************************
+
+[n,d,k] = [400,2048,40]
+Elapsed time is 0.050133 seconds.
+Elapsed time is 0.043271 seconds.
+                 fg = 4.391575e+01  generated
+kmeans1*:        fm = 3.415065e+00  fi = 2.037835e+01  AC =  87.50%  MI =  93.11%  t =   0.05s
+kmedians1*:      fm = 3.582080e+00  fi = 2.238294e+01  AC =  88.00%  MI =  92.77%  t =   0.04s
+SR   10:         fm = 2.758234e+00  fi = 1.257174e+01  AC =  86.75%  MI =  92.82%  t =   0.01s
+KindAP:          fm = 2.774741e+00  fi = 1.260584e+01  AC =  86.50%  MI =  92.62%  t =   0.04s
+KindAP+Kms:      fm = 2.704109e+00  fi = 1.256001e+01  AC =  86.25%  MI =  92.73%  t =   0.05s
+Kmeans   10:     fm = 2.708131e+00  fi = 1.322041e+01  AC =  85.75%  MI =  92.68%  t =   0.03s
+                 fg = 4.391575e+01  generated
+Soft indicator: Mean(s) = 0.87 
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+Algorithms & SR10 & KindAP & KindAP+L & Joint & Kmeans10  \\ \hline \hline
+ORL_xce &   2.758 & 2.775 & 2.704 &{\bf  0.000} & 2.708 \\ \hline
+\end{tabular}
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+Algorithms & SR10 & KindAP & KindAP+L & Joint & Kmeans10  \\ \hline \hline
+ORL_xce &  {\bf  86.750} & 86.500 & 86.250 & 0.000 & 85.750 \\ \hline
+\end{tabular}
+run_1star: 1, run_kind: 1, correction: 1
+run_kmeans:   1,   No_kmeans:   10,   Phase_kmeans:   on
+run_kmedians: 0,   No_kmedians: 100,   Phase_kmedians: on
+run_kmedoids: 0,   No_kmedoids: 100,   Phase_kmedoids: on
+****************************************
+omniglot_train_xce
+****************************************
+
+[n,d,k] = [17853,2048,1623]
+Elapsed time is 44.216616 seconds.
+Elapsed time is 611.606809 seconds.
+                 fg = 1.190428e+04  generated
+kmeans1*:        fm = 6.901852e+02  fi = 5.679506e+03  AC =  21.32%  MI =  68.90%  t = 2106.85s
+if system_dependent('IsDebugMode')==1, dbquit; end
+Demo_S2Real_data
+****************************************
+Test on real data sets!
+run_1star: 1, run_kind: 1, correction: 1
+run_kmeans:   1,   No_kmeans:   10,   Phase_kmeans:   on
+run_kmedians: 0,   No_kmedians: 100,   Phase_kmedians: on
+run_kmedoids: 0,   No_kmedoids: 100,   Phase_kmedoids: on
+****************************************
+aircraft_train_xce
+****************************************
+
+[n,d,k] = [3334,2048,100]
+Elapsed time is 1.579581 seconds.
+Elapsed time is 0.694501 seconds.
+                 fg = 2.668108e+03  generated
+kmeans1*:        fm = 4.272328e+01  fi = 1.090460e+03  AC =  10.80%  MI =  31.20%  t =   2.20s
+kmedians1*:      fm = 4.489776e+01  fi = 1.129932e+03  AC =  10.74%  MI =  31.41%  t =   2.09s
+SR   10:         fm = 4.183326e+01  fi = 8.807656e+02  AC =  10.62%  MI =  32.74%  t =   0.15s
+KindAP:          fm = 4.164526e+01  fi = 8.773928e+02  AC =  10.29%  MI =  32.59%  t =   1.10s
+KindAP+Kms:      fm = 3.960553e+01  fi = 1.016447e+03  AC =  10.26%  MI =  30.48%  t =   2.03s
+Kmeans   10:     fm = 4.056298e+01  fi = 1.059198e+03  AC =  10.38%  MI =  30.36%  t =   1.97s
+                 fg = 2.668108e+03  generated
+Soft indicator: Mean(s) = 0.48 
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+Algorithms & SR10 & KindAP & KindAP+L & Joint & Kmeans10  \\ \hline \hline
+aircraft_train_xce &   41.833 & 41.645 & 39.606 &{\bf  0.000} & 40.563 \\ \hline
+\end{tabular}
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+Algorithms & SR10 & KindAP & KindAP+L & Joint & Kmeans10  \\ \hline \hline
+aircraft_train_xce &  {\bf  10.618} & 10.288 & 10.258 & 0.000 & 10.378 \\ \hline
+\end{tabular}
+run_1star: 1, run_kind: 1, correction: 1
+run_kmeans:   1,   No_kmeans:   10,   Phase_kmeans:   on
+run_kmedians: 0,   No_kmedians: 100,   Phase_kmedians: on
+run_kmedoids: 0,   No_kmedoids: 100,   Phase_kmedoids: on
+****************************************
+aircraft_train_xce
+****************************************
+
+[n,d,k] = [3334,2048,100]
+Elapsed time is 1.539209 seconds.
+Elapsed time is 0.676977 seconds.
+                 fg = 2.668108e+03  generated
+kmeans1*:        fm = 4.272328e+01  fi = 1.090460e+03  AC =  10.80%  MI =  31.20%  t =   2.56s
+kmedians1*:      fm = 4.489776e+01  fi = 1.129932e+03  AC =  10.74%  MI =  31.41%  t =   1.99s
+SR   10:         fm = 4.183326e+01  fi = 8.807656e+02  AC =  10.62%  MI =  32.74%  t =   0.14s
+KindAP:          fm = 4.164526e+01  fi = 8.773928e+02  AC =  10.29%  MI =  32.59%  t =   1.07s
+KindAP+Kms:      fm = 3.960553e+01  fi = 1.016447e+03  AC =  10.26%  MI =  30.48%  t =   1.94s
+Joint:           fm = 3.960718e+01  fi = 1.018463e+03  AC =  10.32%  MI =  30.49%  t =  20.17s
+Kmeans   10:     fm = 4.056298e+01  fi = 1.059198e+03  AC =  10.38%  MI =  30.36%  t =   1.74s
+                 fg = 2.668108e+03  generated
+Soft indicator: Mean(s) = 0.48 
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+Algorithms & SR10 & KindAP & KindAP+L & Joint & Kmeans10  \\ \hline \hline
+aircraft_train_xce &   41.833 & 41.645 &{\bf  39.606} & 39.607 & 40.563 \\ \hline
+\end{tabular}
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+Algorithms & SR10 & KindAP & KindAP+L & Joint & Kmeans10  \\ \hline \hline
+aircraft_train_xce &  {\bf  10.618} & 10.288 & 10.258 & 10.318 & 10.378 \\ \hline
+\end{tabular}
+run_1star: 1, run_kind: 1, correction: 1
+run_kmeans:   1,   No_kmeans:   10,   Phase_kmeans:   on
+run_kmedians: 0,   No_kmedians: 100,   Phase_kmedians: on
+run_kmedoids: 0,   No_kmedoids: 100,   Phase_kmedoids: on
+****************************************
+aircraft_train_xce
+****************************************
+
+[n,d,k] = [3334,2048,100]
+Elapsed time is 1.703715 seconds.
+if system_dependent('IsDebugMode')==1, dbquit; end
+Demo_S2Real_data
+****************************************
+Test on real data sets!
+run_1star: 1, run_kind: 1, correction: 1
+run_kmeans:   1,   No_kmeans:   10,   Phase_kmeans:   on
+run_kmedians: 0,   No_kmedians: 100,   Phase_kmedians: on
+run_kmedoids: 0,   No_kmedoids: 100,   Phase_kmedoids: on
+****************************************
+tiny_imagenet_xce
+****************************************
+
+[n,d,k] = [100000,2048,200]
+Elapsed time is 1683.284895 seconds.
+Elapsed time is 77.832305 seconds.
+                 fg = 7.800794e+04  generated
+kmeans1*:        fm = 8.799712e+01  fi = 3.953221e+04  AC =  12.82%  MI =  25.09%  t =  78.22s
+kmedians1*:      fm = 9.734291e+01  fi = 3.894097e+04  AC =  13.29%  MI =  26.15%  t = 1087.47s
+SR   10:         fm = 9.824555e+01  fi = 2.833041e+04  AC =  14.37%  MI =  27.66%  t =  15.71s
+KindAP:          fm = 9.758676e+01  fi = 2.836451e+04  AC =  14.18%  MI =  27.54%  t = 100.88s
+KindAP+Kms:      fm = 8.074736e+01  fi = 3.931700e+04  AC =  12.07%  MI =  24.24%  t = 274.45s
+Joint:           fm = 8.076879e+01  fi = 3.981608e+04  AC =  12.04%  MI =  23.98%  t = 11483.52s
+Kmeans   10:     fm = 8.436813e+01  fi = 4.074974e+04  AC =  11.78%  MI =  23.97%  t = 161.47s
+                 fg = 7.800794e+04  generated
+Soft indicator: Mean(s) = 0.44 
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+Algorithms & SR10 & KindAP & KindAP+L & Joint & Kmeans10  \\ \hline \hline
+tiny_imagenet_xce &   98.246 & 97.587 &{\bf  80.747} & 80.769 & 84.368 \\ \hline
+\end{tabular}
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+Algorithms & SR10 & KindAP & KindAP+L & Joint & Kmeans10  \\ \hline \hline
+tiny_imagenet_xce &  {\bf  14.372} & 14.180 & 12.073 & 12.036 & 11.777 \\ \hline
+\end{tabular}
+run_1star: 1, run_kind: 1, correction: 1
+run_kmeans:   1,   No_kmeans:   10,   Phase_kmeans:   on
+run_kmedians: 0,   No_kmedians: 100,   Phase_kmedians: on
+run_kmedoids: 0,   No_kmedoids: 100,   Phase_kmedoids: on
+****************************************
+aircraft_train_resize_xce
+****************************************
+
+[n,d,k] = [3334,2048,100]
+Elapsed time is 1.413267 seconds.
+Elapsed time is 0.686455 seconds.
+                 fg = 2.634240e+03  generated
+kmeans1*:        fm = 4.324356e+01  fi = 1.103120e+03  AC =  12.33%  MI =  33.60%  t =   0.99s
+kmedians1*:      fm = 4.560467e+01  fi = 1.129396e+03  AC =  12.21%  MI =  33.80%  t =   2.53s
+SR   10:         fm = 4.268209e+01  fi = 8.882191e+02  AC =  11.49%  MI =  34.51%  t =   0.14s
+KindAP:          fm = 4.250628e+01  fi = 8.887250e+02  AC =  11.52%  MI =  34.74%  t =   0.75s
+KindAP+Kms:      fm = 3.998367e+01  fi = 1.049514e+03  AC =  11.31%  MI =  32.33%  t =   1.25s
+Joint:           fm = 4.003289e+01  fi = 1.047100e+03  AC =  11.52%  MI =  32.63%  t =  29.09s
+Kmeans   10:     fm = 4.123429e+01  fi = 1.102062e+03  AC =  11.37%  MI =  32.14%  t =   1.91s
+                 fg = 2.634240e+03  generated
+Soft indicator: Mean(s) = 0.48 
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+Algorithms & SR10 & KindAP & KindAP+L & Joint & Kmeans10  \\ \hline \hline
+aircraft_train_resize_xce &   42.682 & 42.506 &{\bf  39.984} & 40.033 & 41.234 \\ \hline
+\end{tabular}
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+Algorithms & SR10 & KindAP & KindAP+L & Joint & Kmeans10  \\ \hline \hline
+aircraft_train_resize_xce &   11.488 &{\bf  11.518} & 11.308 &{\bf  11.518} & 11.368 \\ \hline
+\end{tabular}
+run_1star: 1, run_kind: 1, correction: 1
+run_kmeans:   1,   No_kmeans:   10,   Phase_kmeans:   on
+run_kmedians: 0,   No_kmedians: 100,   Phase_kmedians: on
+run_kmedoids: 0,   No_kmedoids: 100,   Phase_kmedoids: on
+****************************************
+aircraft_train_resize2_xce
+****************************************
+
+[n,d,k] = [3334,2048,100]
+Elapsed time is 1.464817 seconds.
+Elapsed time is 0.720215 seconds.
+                 fg = 2.576991e+03  generated
+kmeans1*:        fm = 4.318226e+01  fi = 1.138787e+03  AC =  13.32%  MI =  33.55%  t =   1.85s
+kmedians1*:      fm = 4.604163e+01  fi = 1.133567e+03  AC =  13.47%  MI =  34.53%  t =   2.43s
+SR   10:         fm = 4.468912e+01  fi = 9.450174e+02  AC =  13.20%  MI =  36.47%  t =   0.18s
+KindAP:          fm = 4.481971e+01  fi = 9.506978e+02  AC =  13.26%  MI =  36.23%  t =   1.00s
+KindAP+Kms:      fm = 4.204700e+01  fi = 1.099488e+03  AC =  12.33%  MI =  33.41%  t =   1.74s
+Joint:           fm = 4.195835e+01  fi = 1.111198e+03  AC =  12.27%  MI =  33.12%  t =  13.01s
+Kmeans   10:     fm = 4.298819e+01  fi = 1.151451e+03  AC =  11.82%  MI =  32.77%  t =   1.92s
+                 fg = 2.576991e+03  generated
+Soft indicator: Mean(s) = 0.45 
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+Algorithms & SR10 & KindAP & KindAP+L & Joint & Kmeans10  \\ \hline \hline
+aircraft_train_resize2_xce &   44.689 & 44.820 & 42.047 &{\bf  41.958} & 42.988 \\ \hline
+\end{tabular}
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+Algorithms & SR10 & KindAP & KindAP+L & Joint & Kmeans10  \\ \hline \hline
+aircraft_train_resize2_xce &   13.197 &{\bf  13.257} & 12.328 & 12.268 & 11.818 \\ \hline
+\end{tabular}
+run_1star: 1, run_kind: 1, correction: 1
+run_kmeans:   1,   No_kmeans:   10,   Phase_kmeans:   on
+run_kmedians: 0,   No_kmedians: 100,   Phase_kmedians: on
+run_kmedoids: 0,   No_kmedoids: 100,   Phase_kmedoids: on
+****************************************
+catsndogs_4000_xce
+****************************************
+
+[n,d,k] = [4000,2048,2]
+Elapsed time is 4.667657 seconds.
+Elapsed time is 0.494450 seconds.
+                 fg = 1.748571e+02  generated
+kmeans1*:        fm = 2.106394e-01  fi = 1.189267e+02  AC =  96.17%  MI =  76.68%  t =   0.05s
+kmedians1*:      fm = 2.108400e-01  fi = 1.192890e+02  AC =  96.30%  MI =  77.28%  t =   0.05s
+SR   10:         fm = 2.106428e-01  fi = 1.189089e+02  AC =  96.17%  MI =  76.67%  t =   0.01s
+KindAP:          fm = 2.106404e-01  fi = 1.189160e+02  AC =  96.15%  MI =  76.56%  t =   0.03s
+KindAP+Kms:      fm = 2.106394e-01  fi = 1.189267e+02  AC =  96.17%  MI =  76.68%  t =   0.04s
+Joint:           fm = 2.106394e-01  fi = 1.189267e+02  AC =  96.17%  MI =  76.68%  t =   1.10s
+Kmeans   10:     fm = 2.106394e-01  fi = 1.189267e+02  AC =  96.17%  MI =  76.68%  t =   0.01s
+                 fg = 1.748571e+02  generated
+Soft indicator: Mean(s) = 0.86 
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+Algorithms & SR10 & KindAP & KindAP+L & Joint & Kmeans10  \\ \hline \hline
+catsndogs_4000_xce &   0.211 & 0.211 & 0.211 &{\bf  0.211} & 0.211 \\ \hline
+\end{tabular}
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+Algorithms & SR10 & KindAP & KindAP+L & Joint & Kmeans10  \\ \hline \hline
+catsndogs_4000_xce &  {\bf  96.175} & 96.150 &{\bf  96.175} &{\bf  96.175} &{\bf  96.175} \\ \hline
+\end{tabular}
+run_1star: 1, run_kind: 1, correction: 1
+run_kmeans:   1,   No_kmeans:   10,   Phase_kmeans:   on
+run_kmedians: 0,   No_kmedians: 100,   Phase_kmedians: on
+run_kmedoids: 0,   No_kmedoids: 100,   Phase_kmedoids: on
+****************************************
+vgg_flowers_resize_xce
+****************************************
+
+[n,d,k] = [1020,2048,102]
+Elapsed time is 0.267876 seconds.
+Elapsed time is 0.137802 seconds.
+                 fg = 4.907136e+02  generated
+kmeans1*:        fm = 3.496958e+01  fi = 2.577465e+02  AC =  45.29%  MI =  67.38%  t =   0.22s
+kmedians1*:      fm = 3.629200e+01  fi = 2.636286e+02  AC =  46.08%  MI =  67.91%  t =   0.43s
+SR   10:         fm = 3.578044e+01  fi = 2.243485e+02  AC =  42.16%  MI =  68.12%  t =   0.05s
+KindAP:          fm = 3.515981e+01  fi = 2.203746e+02  AC =  41.67%  MI =  68.24%  t =   0.41s
+KindAP+Kms:      fm = 3.391309e+01  fi = 2.429386e+02  AC =  42.35%  MI =  67.32%  t =   0.53s
+if system_dependent('IsDebugMode')==1, dbquit; end
+Demo_S2Real_data
+****************************************
+Test on real data sets!
+run_1star: 1, run_kind: 1, correction: 1
+run_kmeans:   1,   No_kmeans:   10,   Phase_kmeans:   on
+run_kmedians: 0,   No_kmedians: 100,   Phase_kmedians: on
+run_kmedoids: 0,   No_kmedoids: 100,   Phase_kmedoids: on
+****************************************
+vgg_flowers_resize_xce
+****************************************
+
+[n,d,k] = [1020,2048,102]
+Elapsed time is 0.242711 seconds.
+Elapsed time is 0.266686 seconds.
+                 fg = 4.958140e+02  generated
+kmeans1*:        fm = 4.092025e+01  fi = 2.761579e+02  AC =  43.92%  MI =  68.15%  t =   0.46s
+kmedians1*:      fm = 4.237379e+01  fi = 2.922179e+02  AC =  46.08%  MI =  68.22%  t =   0.41s
+SR   10:         fm = 4.142377e+01  fi = 2.650416e+02  AC =  40.78%  MI =  67.52%  t =   0.06s
+KindAP:          fm = 4.131606e+01  fi = 2.610774e+02  AC =  40.59%  MI =  67.51%  t =   0.50s
+KindAP+Kms:      fm = 4.045100e+01  fi = 2.655644e+02  AC =  40.88%  MI =  67.69%  t =   0.61s
+if system_dependent('IsDebugMode')==1, dbquit; end
+Demo_S2Real_data
+****************************************
+Test on real data sets!
+run_1star: 1, run_kind: 1, correction: 1
+run_kmeans:   1,   No_kmeans:   10,   Phase_kmeans:   on
+run_kmedians: 0,   No_kmedians: 100,   Phase_kmedians: on
+run_kmedoids: 0,   No_kmedoids: 100,   Phase_kmedoids: on
+****************************************
+vgg_flowers_resize_xce
+****************************************
+
+[n,d,k] = [1020,2048,102]
+Elapsed time is 0.171441 seconds.
+Elapsed time is 0.157956 seconds.
+                 fg = 4.896658e+02  generated
+kmeans1*:        fm = 3.458139e+01  fi = 2.446163e+02  AC =  44.71%  MI =  67.97%  t =   0.42s
+kmedians1*:      fm = 3.657405e+01  fi = 2.677584e+02  AC =  46.08%  MI =  67.50%  t =   0.34s
+SR   10:         fm = 3.529771e+01  fi = 2.226227e+02  AC =  42.06%  MI =  68.40%  t =   0.05s
+KindAP:          fm = 3.475965e+01  fi = 2.187369e+02  AC =  41.67%  MI =  68.10%  t =   0.41s
+KindAP+Kms:      fm = 3.340831e+01  fi = 2.419293e+02  AC =  42.25%  MI =  66.69%  t =   0.53s
+Joint:           fm = 3.351289e+01  fi = 2.454898e+02  AC =  42.35%  MI =  66.61%  t =   6.13s
+Kmeans   10:     fm = 3.462618e+01  fi = 2.580022e+02  AC =  41.37%  MI =  66.50%  t =   0.29s
+                 fg = 4.896658e+02  generated
+Soft indicator: Mean(s) = 0.55 
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+Algorithms & SR10 & KindAP & KindAP+L & Joint & Kmeans10  \\ \hline \hline
+vgg_flowers_resize_xce &   35.298 & 34.760 &{\bf  33.408} & 33.513 & 34.626 \\ \hline
+\end{tabular}
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+Algorithms & SR10 & KindAP & KindAP+L & Joint & Kmeans10  \\ \hline \hline
+vgg_flowers_resize_xce &   42.059 & 41.667 & 42.255 &{\bf  42.353} & 41.373 \\ \hline
+\end{tabular}
+run_1star: 1, run_kind: 1, correction: 1
+run_kmeans:   1,   No_kmeans:   10,   Phase_kmeans:   on
+run_kmedians: 0,   No_kmedians: 100,   Phase_kmedians: on
+run_kmedoids: 0,   No_kmedoids: 100,   Phase_kmedoids: on
+****************************************
+vgg_flowers_val_xce
+****************************************
+
+[n,d,k] = [1020,2048,102]
+Elapsed time is 0.285893 seconds.
+Elapsed time is 0.194520 seconds.
+                 fg = 4.547243e+02  generated
+kmeans1*:        fm = 3.448597e+01  fi = 2.400885e+02  AC =  48.82%  MI =  69.98%  t =   0.32s
+kmedians1*:      fm = 3.604223e+01  fi = 2.620704e+02  AC =  48.63%  MI =  69.37%  t =   0.26s
+SR   10:         fm = 3.475873e+01  fi = 2.228586e+02  AC =  46.18%  MI =  70.39%  t =   0.06s
+KindAP:          fm = 3.444898e+01  fi = 2.186103e+02  AC =  45.49%  MI =  69.89%  t =   0.46s
+KindAP+Kms:      fm = 3.342057e+01  fi = 2.285290e+02  AC =  46.27%  MI =  69.43%  t =   0.56s
+Joint:           fm = 3.353711e+01  fi = 2.276092e+02  AC =  45.10%  MI =  69.05%  t =  17.79s
+Kmeans   10:     fm = 3.508973e+01  fi = 2.477318e+02  AC =  45.78%  MI =  68.84%  t =   0.23s
+                 fg = 4.547243e+02  generated
+Soft indicator: Mean(s) = 0.57 
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+Algorithms & SR10 & KindAP & KindAP+L & Joint & Kmeans10  \\ \hline \hline
+vgg_flowers_val_xce &   34.759 & 34.449 &{\bf  33.421} & 33.537 & 35.090 \\ \hline
+\end{tabular}
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+Algorithms & SR10 & KindAP & KindAP+L & Joint & Kmeans10  \\ \hline \hline
+vgg_flowers_val_xce &   46.176 & 45.490 &{\bf  46.275} & 45.098 & 45.784 \\ \hline
+\end{tabular}
+run_1star: 1, run_kind: 1, correction: 1
+run_kmeans:   1,   No_kmeans:   10,   Phase_kmeans:   on
+run_kmedians: 0,   No_kmedians: 100,   Phase_kmedians: on
+run_kmedoids: 0,   No_kmedoids: 100,   Phase_kmedoids: on
+****************************************
+vgg_flowers_xce
+****************************************
+
+[n,d,k] = [2040,2048,102]
+Elapsed time is 0.517929 seconds.
+Elapsed time is 0.535251 seconds.
+                 fg = 9.817138e+02  generated
+kmeans1*:        fm = 3.647662e+01  fi = 5.903035e+02  AC =  43.43%  MI =  61.71%  t =   1.32s
+kmedians1*:      fm = 3.718567e+01  fi = 6.097544e+02  AC =  41.76%  MI =  60.37%  t =   1.12s
+SR   10:         fm = 3.650872e+01  fi = 4.684144e+02  AC =  41.67%  MI =  64.42%  t =   0.09s
+KindAP:          fm = 3.646053e+01  fi = 4.677876e+02  AC =  40.54%  MI =  63.52%  t =   0.51s
+KindAP+Kms:      fm = 3.378603e+01  fi = 5.622901e+02  AC =  39.51%  MI =  59.63%  t =   0.79s
+Joint:           fm = 3.382395e+01  fi = 5.519139e+02  AC =  39.41%  MI =  59.93%  t =   6.65s
+Kmeans   10:     fm = 3.545266e+01  fi = 5.982941e+02  AC =  38.97%  MI =  59.20%  t =   0.78s
+                 fg = 9.817138e+02  generated
+Soft indicator: Mean(s) = 0.52 
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+Algorithms & SR10 & KindAP & KindAP+L & Joint & Kmeans10  \\ \hline \hline
+vgg_flowers_xce &   36.509 & 36.461 &{\bf  33.786} & 33.824 & 35.453 \\ \hline
+\end{tabular}
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+Algorithms & SR10 & KindAP & KindAP+L & Joint & Kmeans10  \\ \hline \hline
+vgg_flowers_xce &  {\bf  41.667} & 40.539 & 39.510 & 39.412 & 38.971 \\ \hline
+\end{tabular}
+run_1star: 1, run_kind: 1, correction: 1
+run_kmeans:   1,   No_kmeans:   10,   Phase_kmeans:   on
+run_kmedians: 0,   No_kmedians: 100,   Phase_kmedians: on
+run_kmedoids: 0,   No_kmedoids: 100,   Phase_kmedoids: on
+****************************************
+UKBench_xce
+****************************************
+
+[n,d,k] = [10200,2048,2550]
+Elapsed time is 14.988366 seconds.
+Elapsed time is 329.030936 seconds.
+                 fg = 1.216189e+03  generated
+kmeans1*:        fm = 4.140272e+02  fi = 9.716260e+02  AC =  92.34%  MI =  98.09%  t = 864.92s
+kmedians1*:      fm = 4.547349e+02  fi = 1.147338e+03  AC =  91.37%  MI =  97.21%  t = 1571.76s
+SR   10:         fm = 6.287243e+02  fi = 1.479072e+03  AC =  80.67%  MI =  96.14%  t = 158.30s
+if system_dependent('IsDebugMode')==1, dbquit; end
+Test_COIL100
+****************************************
+Test on COIL100
+****************************************
+run_1star: 1, run_kind: 1, correction: 1
+run_kmeans:   1,   No_kmeans:   10,   Phase_kmeans:   on
+run_kmedians: 0,   No_kmedians: 100,   Phase_kmedians: on
+run_kmedoids: 0,   No_kmedoids: 100,   Phase_kmedoids: on
+****************************************
+UKBench_xce
+****************************************
+
+[n,d,k] = [10200,2048,2550]
+if system_dependent('IsDebugMode')==1, dbquit; end
+Test_COIL100
+****************************************
+Test on COIL100
+****************************************
+run_1star: 1, run_kind: 1, correction: 1
+run_kmeans:   1,   No_kmeans:   10,   Phase_kmeans:   on
+run_kmedians: 0,   No_kmedians: 100,   Phase_kmedians: on
+run_kmedoids: 0,   No_kmedoids: 100,   Phase_kmedoids: on
+****************************************
+UKBench_xce
+****************************************
+
+[n,d,k] = [10200,2048,2550]
+if system_dependent('IsDebugMode')==1, dbquit; end
+open Eigenspace_generation
+Test_COIL100
+****************************************
+Test on COIL100
+****************************************
+run_1star: 1, run_kind: 1, correction: 1
+run_kmeans:   1,   No_kmeans:   10,   Phase_kmeans:   on
+run_kmedians: 0,   No_kmedians: 100,   Phase_kmedians: on
+run_kmedoids: 0,   No_kmedoids: 100,   Phase_kmedoids: on
+****************************************
+UKBench_xce
+****************************************
+
+[n,d,k] = [10200,2048,2550]
+if system_dependent('IsDebugMode')==1, dbquit; end
+Demo_S2Real_data
+****************************************
+Test on real data sets!
+run_1star: 1, run_kind: 1, correction: 1
+run_kmeans:   1,   No_kmeans:   10,   Phase_kmeans:   on
+run_kmedians: 0,   No_kmedians: 100,   Phase_kmedians: on
+run_kmedoids: 0,   No_kmedoids: 100,   Phase_kmedoids: on
+****************************************
+australian
+****************************************
+
+[n,d,k] = [690,14,2]
+Elapsed time is 0.051520 seconds.
+Elapsed time is 0.225911 seconds.
+                 fg = 2.000645e+02  generated
+kmeans1*:        fm = 1.530017e-01  fi = 1.677053e+01  AC =  68.70%  MI =   9.69%  t =   0.11s
+kmedians1*:      fm = 1.530017e-01  fi = 1.677053e+01  AC =  68.70%  MI =   9.69%  t =   0.12s
+SR   10:         fm = 1.543876e-01  fi = 1.624553e+01  AC =  68.99%  MI =  10.06%  t =   0.05s
+KindAP:          fm = 1.534712e-01  fi = 1.643026e+01  AC =  68.84%  MI =   9.87%  t =   0.01s
+KindAP+Kms:      fm = 1.530017e-01  fi = 1.677053e+01  AC =  68.70%  MI =   9.69%  t =   0.02s
+Joint:           fm = 1.530017e-01  fi = 1.677053e+01  AC =  68.70%  MI =   9.69%  t =   0.22s
+Kmeans   10:     fm = 1.530017e-01  fi = 1.677053e+01  AC =  68.70%  MI =   9.69%  t =   0.05s
+                 fg = 2.000645e+02  generated
+Soft indicator: Mean(s) = 0.88 
+****************************************
+auto
+****************************************
+
+[n,d,k] = [205,25,6]
+Elapsed time is 0.002760 seconds.
+Elapsed time is 0.081754 seconds.
+                 fg = 1.196576e+02  generated
+kmeans1*:        fm = 1.366893e+00  fi = 3.183069e+01  AC =  30.24%  MI =  12.25%  t =   0.03s
+kmedians1*:      fm = 1.376186e+00  fi = 3.551733e+01  AC =  36.59%  MI =  13.75%  t =   0.04s
+SR   10:         fm = 5.431086e-01  fi = 1.006514e+01  AC =  32.68%  MI =  13.95%  t =   0.04s
+KindAP:          fm = 5.606724e-01  fi = 1.006983e+01  AC =  32.68%  MI =  13.74%  t =   0.01s
+KindAP+Kms:      fm = 5.431086e-01  fi = 1.006514e+01  AC =  32.68%  MI =  13.95%  t =   0.01s
+Joint:           fm = 5.446029e-01  fi = 1.035048e+01  AC =  32.68%  MI =  14.10%  t =   0.07s
+Kmeans   10:     fm = 5.431086e-01  fi = 1.006514e+01  AC =  32.68%  MI =  13.95%  t =   0.04s
+                 fg = 1.196576e+02  generated
+Soft indicator: Mean(s) = 0.79 
+****************************************
+balance
+****************************************
+
+[n,d,k] = [625,4,3]
+Elapsed time is 0.049625 seconds.
+Elapsed time is 0.020492 seconds.
+                 fg = 2.284881e+02  generated
+kmeans1*:        fm = 7.865989e-01  fi = 8.289259e+01  AC =  54.40%  MI =  12.58%  t =   0.03s
+kmedians1*:      fm = 8.184743e-01  fi = 8.782533e+01  AC =  56.48%  MI =  15.63%  t =   0.04s
+SR   10:         fm = 7.573513e-01  fi = 7.959641e+01  AC =  53.28%  MI =  11.46%  t =   0.04s
+KindAP:          fm = 7.866650e-01  fi = 8.290184e+01  AC =  53.92%  MI =  12.39%  t =   0.01s
+KindAP+Kms:      fm = 7.865989e-01  fi = 8.289259e+01  AC =  54.40%  MI =  12.58%  t =   0.03s
+Joint:           fm = 7.571688e-01  fi = 7.957336e+01  AC =  52.96%  MI =  11.08%  t =   0.07s
+Kmeans   10:     fm = 7.571688e-01  fi = 7.957336e+01  AC =  52.96%  MI =  11.08%  t =   0.05s
+                 fg = 2.284881e+02  generated
+Soft indicator: Mean(s) = 0.56 
+****************************************
+breast
+****************************************
+
+[n,d,k] = [699,9,2]
+Elapsed time is 0.065959 seconds.
+Elapsed time is 0.045922 seconds.
+                 fg = 1.938607e+02  generated
+kmeans1*:        fm = 2.001248e-01  fi = 1.140059e+01  AC =  59.66%  MI =   4.00%  t =   0.02s
+kmedians1*:      fm = 2.001248e-01  fi = 1.140059e+01  AC =  59.66%  MI =   4.00%  t =   0.05s
+SR   10:         fm = 3.140122e-01  fi = 9.107153e+00  AC =  57.51%  MI =   5.54%  t =   0.03s
+KindAP:          fm = 3.140122e-01  fi = 9.107153e+00  AC =  57.51%  MI =   5.54%  t =   0.00s
+KindAP+Kms:      fm = 2.001248e-01  fi = 1.140059e+01  AC =  59.66%  MI =   4.00%  t =   0.02s
+Joint:           fm = 2.001248e-01  fi = 1.140059e+01  AC =  59.66%  MI =   4.00%  t =   0.07s
+Kmeans   10:     fm = 2.001248e-01  fi = 1.140059e+01  AC =  59.66%  MI =   4.00%  t =   0.03s
+                 fg = 1.938607e+02  generated
+Soft indicator: Mean(s) = 0.92 
+****************************************
+cars
+****************************************
+
+[n,d,k] = [392,8,3]
+Elapsed time is 0.037131 seconds.
+Elapsed time is 0.070584 seconds.
+                 fg = 1.147849e+02  generated
+kmeans1*:        fm = 2.180936e-01  fi = 1.858348e+01  AC =  67.60%  MI =  20.16%  t =   0.04s
+kmedians1*:      fm = 9.714279e-01  fi = 7.360865e+01  AC =  57.91%  MI =  20.31%  t =   0.04s
+SR   10:         fm = 2.254551e-01  fi = 1.689117e+01  AC =  64.29%  MI =  20.69%  t =   0.03s
+KindAP:          fm = 2.248272e-01  fi = 1.692322e+01  AC =  64.29%  MI =  20.25%  t =   0.00s
+KindAP+Kms:      fm = 2.180936e-01  fi = 1.858348e+01  AC =  67.60%  MI =  20.16%  t =   0.02s
+Joint:           fm = 2.180936e-01  fi = 1.858348e+01  AC =  67.60%  MI =  20.16%  t =   0.10s
+Kmeans   10:     fm = 2.180936e-01  fi = 1.858348e+01  AC =  67.60%  MI =  20.16%  t =   0.05s
+                 fg = 1.147849e+02  generated
+Soft indicator: Mean(s) = 0.82 
+****************************************
+control
+****************************************
+
+[n,d,k] = [600,60,6]
+Elapsed time is 0.054597 seconds.
+Elapsed time is 0.054239 seconds.
+                 fg = 1.562953e+02  generated
+kmeans1*:        fm = 2.080974e+00  fi = 1.101541e+02  AC =  72.83%  MI =  75.26%  t =   0.04s
+kmedians1*:      fm = 2.083264e+00  fi = 1.408370e+02  AC =  71.50%  MI =  75.00%  t =   0.03s
+SR   10:         fm = 4.755172e-01  fi = 7.444962e+00  AC =  58.33%  MI =  73.75%  t =   0.04s
+KindAP:          fm = 4.755172e-01  fi = 7.444962e+00  AC =  58.33%  MI =  73.75%  t =   0.01s
+KindAP+Kms:      fm = 4.643620e-01  fi = 7.781123e+00  AC =  58.83%  MI =  74.21%  t =   0.02s
+Joint:           fm = 4.643620e-01  fi = 7.781123e+00  AC =  58.83%  MI =  74.21%  t =   0.10s
+Kmeans   10:     fm = 4.643620e-01  fi = 7.781123e+00  AC =  58.83%  MI =  74.21%  t =   0.08s
+                 fg = 1.562953e+02  generated
+Soft indicator: Mean(s) = 0.94 
+****************************************
+crx
+****************************************
+
+[n,d,k] = [690,15,2]
+Elapsed time is 0.062888 seconds.
+Elapsed time is 0.121729 seconds.
+                 fg = 2.340290e+02  generated
+kmeans1*:        fm = 9.166230e-01  fi = 1.867844e+01  AC =  53.33%  MI =   0.38%  t =   0.02s
+kmedians1*:      fm = 1.112623e+00  fi = 3.040716e+01  AC =  53.91%  MI =   0.31%  t =   0.03s
+SR   10:         fm = 9.166230e-01  fi = 1.867844e+01  AC =  53.33%  MI =   0.38%  t =   0.03s
+KindAP:          fm = 1.028455e+00  fi = 3.618524e+01  AC =  54.78%  MI =   0.05%  t =   0.00s
+KindAP+Kms:      fm = 1.028455e+00  fi = 3.618524e+01  AC =  54.78%  MI =   0.05%  t =   0.02s
+Joint:           fm = 9.128564e-01  fi = 3.800203e+01  AC =  54.06%  MI =   0.42%  t =   0.12s
+Kmeans   10:     fm = 9.128564e-01  fi = 3.800203e+01  AC =  54.06%  MI =   0.42%  t =   0.04s
+                 fg = 2.340290e+02  generated
+Soft indicator: Mean(s) = 0.99 
+****************************************
+dermatology
+****************************************
+
+[n,d,k] = [366,34,6]
+Elapsed time is 0.033993 seconds.
+Elapsed time is 0.046648 seconds.
+                 fg = 1.526461e+01  generated
+kmeans1*:        fm = 3.614233e-01  fi = 5.632062e+00  AC =  95.63%  MI =  91.49%  t =   0.02s
+kmedians1*:      fm = 3.762376e-01  fi = 6.926190e+00  AC =  95.36%  MI =  91.04%  t =   0.01s
+SR   10:         fm = 3.643512e-01  fi = 5.509928e+00  AC =  95.90%  MI =  92.29%  t =   0.12s
+KindAP:          fm = 3.643512e-01  fi = 5.509928e+00  AC =  95.90%  MI =  92.29%  t =   0.02s
+KindAP+Kms:      fm = 3.614233e-01  fi = 5.632062e+00  AC =  95.63%  MI =  91.49%  t =   0.03s
+Joint:           fm = 3.614233e-01  fi = 5.632062e+00  AC =  95.63%  MI =  91.49%  t =   0.10s
+Kmeans   10:     fm = 3.614233e-01  fi = 5.632062e+00  AC =  95.63%  MI =  91.49%  t =   0.05s
+                 fg = 1.526461e+01  generated
+Soft indicator: Mean(s) = 0.92 
+****************************************
+diabetes
+****************************************
+
+[n,d,k] = [768,8,2]
+Elapsed time is 0.078660 seconds.
+Elapsed time is 0.115463 seconds.
+                 fg = 2.127832e+02  generated
+kmeans1*:        fm = 4.305498e-02  fi = 1.687563e+01  AC =  64.45%  MI =   0.15%  t =   0.02s
+kmedians1*:      fm = 1.017654e+00  fi = 1.765599e+02  AC =  57.29%  MI =   0.00%  t =   0.03s
+SR   10:         fm = 7.485771e-01  fi = 2.041723e+00  AC =  64.71%  MI =   0.18%  t =   0.04s
+KindAP:          fm = 7.485771e-01  fi = 2.041723e+00  AC =  64.71%  MI =   0.18%  t =   0.00s
+KindAP+Kms:      fm = 4.305498e-02  fi = 1.687563e+01  AC =  64.45%  MI =   0.15%  t =   0.02s
+Joint:           fm = 4.305498e-02  fi = 1.687563e+01  AC =  64.45%  MI =   0.15%  t =   0.18s
+Kmeans   10:     fm = 4.305498e-02  fi = 1.687563e+01  AC =  64.45%  MI =   0.15%  t =   0.03s
+                 fg = 2.127832e+02  generated
+Soft indicator: Mean(s) = 0.97 
+****************************************
+ecoli
+****************************************
+
+[n,d,k] = [336,343,8]
+Elapsed time is 0.014282 seconds.
+Elapsed time is 0.049264 seconds.
+                 fg = 9.923074e+01  generated
+kmeans1*:        fm = 1.724731e+00  fi = 4.110369e+01  AC =  59.52%  MI =  44.32%  t =   0.00s
+kmedians1*:      fm = 1.835899e+00  fi = 3.675399e+01  AC =  61.31%  MI =  42.95%  t =   0.05s
+SR   10:         fm = 2.139613e+00  fi = 2.880826e+01  AC =  58.33%  MI =  41.45%  t =   0.13s
+KindAP:          fm = 2.154238e+00  fi = 2.891799e+01  AC =  58.33%  MI =  40.79%  t =   0.01s
+KindAP+Kms:      fm = 1.724456e+00  fi = 3.933109e+01  AC =  58.93%  MI =  44.51%  t =   0.02s
+Joint:           fm = 2.426419e+00  fi = 5.201779e+01  AC =  57.74%  MI =  42.61%  t =   0.12s
+Kmeans   10:     fm = 1.724456e+00  fi = 3.933109e+01  AC =  58.93%  MI =  44.51%  t =   0.06s
+                 fg = 9.923074e+01  generated
+Soft indicator: Mean(s) = 0.69 
+****************************************
+german
+****************************************
+
+[n,d,k] = [1000,20,2]
+Elapsed time is 0.104291 seconds.
+Elapsed time is 0.067327 seconds.
+                 fg = 3.868118e+02  generated
+kmeans1*:        fm = 2.655875e-01  fi = 5.243407e+01  AC =  54.10%  MI =   0.33%  t =   0.02s
+kmedians1*:      fm = 2.657199e-01  fi = 5.246970e+01  AC =  54.40%  MI =   0.30%  t =   0.01s
+SR   10:         fm = 2.656334e-01  fi = 5.243098e+01  AC =  54.30%  MI =   0.31%  t =   0.06s
+KindAP:          fm = 2.656189e-01  fi = 5.268828e+01  AC =  53.20%  MI =   0.39%  t =   0.01s
+KindAP+Kms:      fm = 2.656189e-01  fi = 5.268828e+01  AC =  53.20%  MI =   0.39%  t =   0.01s
+Joint:           fm = 2.656189e-01  fi = 5.268828e+01  AC =  53.20%  MI =   0.39%  t =   0.09s
+Kmeans   10:     fm = 2.655946e-01  fi = 5.242860e+01  AC =  54.10%  MI =   0.28%  t =   0.04s
+                 fg = 3.868118e+02  generated
+Soft indicator: Mean(s) = 0.78 
+****************************************
+glass
+****************************************
+
+[n,d,k] = [214,9,6]
+Elapsed time is 0.015317 seconds.
+Elapsed time is 0.041021 seconds.
+                 fg = 9.441146e+01  generated
+kmeans1*:        fm = 1.909022e+00  fi = 4.337516e+01  AC =  52.80%  MI =  39.56%  t =   0.02s
+kmedians1*:      fm = 1.573072e+00  fi = 3.145777e+01  AC =  48.60%  MI =  30.58%  t =   0.03s
+SR   10:         fm = 1.159338e+00  fi = 1.997311e+01  AC =  50.00%  MI =  36.29%  t =   0.04s
+KindAP:          fm = 1.161898e+00  fi = 2.008718e+01  AC =  50.47%  MI =  36.46%  t =   0.02s
+KindAP+Kms:      fm = 1.135030e+00  fi = 2.013789e+01  AC =  50.47%  MI =  35.90%  t =   0.02s
+Joint:           fm = 1.135030e+00  fi = 2.013789e+01  AC =  50.47%  MI =  35.90%  t =   0.06s
+Kmeans   10:     fm = 1.135030e+00  fi = 2.013789e+01  AC =  50.47%  MI =  35.90%  t =   0.04s
+                 fg = 9.441146e+01  generated
+Soft indicator: Mean(s) = 0.67 
+****************************************
+heart
+****************************************
+
+[n,d,k] = [270,13,2]
+Elapsed time is 0.018335 seconds.
+Elapsed time is 0.049890 seconds.
+                 fg = 8.708627e+01  generated
+kmeans1*:        fm = 3.106908e-01  fi = 1.938369e+01  AC =  62.22%  MI =   3.57%  t =   0.02s
+kmedians1*:      fm = 3.106908e-01  fi = 1.938369e+01  AC =  62.22%  MI =   3.57%  t =   0.02s
+SR   10:         fm = 3.256157e-01  fi = 1.909748e+01  AC =  62.22%  MI =   4.08%  t =   0.04s
+KindAP:          fm = 3.247534e-01  fi = 1.910279e+01  AC =  62.96%  MI =   4.58%  t =   0.00s
+KindAP+Kms:      fm = 3.106908e-01  fi = 1.938369e+01  AC =  62.22%  MI =   3.57%  t =   0.02s
+Joint:           fm = 3.106908e-01  fi = 1.938369e+01  AC =  62.22%  MI =   3.57%  t =   0.04s
+Kmeans   10:     fm = 3.106908e-01  fi = 1.938369e+01  AC =  62.22%  MI =   3.57%  t =   0.04s
+                 fg = 8.708627e+01  generated
+Soft indicator: Mean(s) = 0.73 
+****************************************
+ionosphere
+****************************************
+
+[n,d,k] = [351,34,2]
+Elapsed time is 0.029526 seconds.
+Elapsed time is 0.045421 seconds.
+                 fg = 1.273430e+02  generated
+kmeans1*:        fm = 3.201627e-01  fi = 2.260700e+01  AC =  50.71%  MI =   7.22%  t =   0.03s
+kmedians1*:      fm = 3.451846e-01  fi = 1.563041e+01  AC =  52.71%  MI =   0.78%  t =   0.03s
+SR   10:         fm = 3.669147e-01  fi = 1.553097e+01  AC =  55.27%  MI =   0.03%  t =   0.03s
+KindAP:          fm = 3.528026e-01  fi = 1.547531e+01  AC =  53.56%  MI =   0.41%  t =   0.00s
+KindAP+Kms:      fm = 3.201627e-01  fi = 2.260700e+01  AC =  50.71%  MI =   7.22%  t =   0.02s
+Joint:           fm = 3.201627e-01  fi = 2.260700e+01  AC =  50.71%  MI =   7.22%  t =   0.04s
+Kmeans   10:     fm = 3.201627e-01  fi = 2.260700e+01  AC =  50.71%  MI =   7.22%  t =   0.04s
+                 fg = 1.273430e+02  generated
+Soft indicator: Mean(s) = 0.81 
+****************************************
+iris
+****************************************
+
+[n,d,k] = [150,4,3]
+Elapsed time is 0.014202 seconds.
+Elapsed time is 0.048510 seconds.
+                 fg = 6.064395e+00  generated
+kmeans1*:        fm = 2.244954e-01  fi = 3.829697e+00  AC =  96.00%  MI =  88.43%  t =   0.02s
+kmedians1*:      fm = 2.244954e-01  fi = 3.829697e+00  AC =  96.00%  MI =  88.43%  t =   0.02s
+SR   10:         fm = 2.244954e-01  fi = 3.829697e+00  AC =  96.00%  MI =  88.43%  t =   0.05s
+KindAP:          fm = 2.244954e-01  fi = 3.829697e+00  AC =  96.00%  MI =  88.43%  t =   0.00s
+KindAP+Kms:      fm = 2.244954e-01  fi = 3.829697e+00  AC =  96.00%  MI =  88.43%  t =   0.01s
+Joint:           fm = 2.244954e-01  fi = 3.829697e+00  AC =  96.00%  MI =  88.43%  t =   0.06s
+Kmeans   10:     fm = 2.244954e-01  fi = 3.829697e+00  AC =  96.00%  MI =  88.43%  t =   0.04s
+                 fg = 6.064395e+00  generated
+Soft indicator: Mean(s) = 0.88 
+****************************************
+isolet
+****************************************
+
+[n,d,k] = [1560,617,2]
+Elapsed time is 0.189049 seconds.
+Elapsed time is 0.077963 seconds.
+                 fg = 5.784819e+02  generated
+kmeans1*:        fm = 1.552078e-01  fi = 3.088065e+01  AC =  59.29%  MI =   2.61%  t =   0.00s
+kmedians1*:      fm = 1.552078e-01  fi = 3.088065e+01  AC =  59.29%  MI =   2.61%  t =   0.00s
+SR   10:         fm = 1.552078e-01  fi = 3.088065e+01  AC =  59.29%  MI =   2.61%  t =   0.06s
+KindAP:          fm = 1.552078e-01  fi = 3.088065e+01  AC =  59.29%  MI =   2.61%  t =   0.01s
+KindAP+Kms:      fm = 1.552078e-01  fi = 3.088065e+01  AC =  59.29%  MI =   2.61%  t =   0.01s
+Joint:           fm = 1.552078e-01  fi = 3.088065e+01  AC =  59.29%  MI =   2.61%  t =   0.13s
+Kmeans   10:     fm = 1.552078e-01  fi = 3.088065e+01  AC =  59.29%  MI =   2.61%  t =   0.03s
+                 fg = 5.784819e+02  generated
+Soft indicator: Mean(s) = 0.89 
+****************************************
+lenses
+****************************************
+
+[n,d,k] = [24,4,3]
+Elapsed time is 0.001502 seconds.
+Elapsed time is 0.021204 seconds.
+                 fg = 1.018612e+01  generated
+kmeans1*:        fm = 7.562460e-01  fi = 3.038637e+00  AC =  54.17%  MI =  13.66%  t =   0.02s
+kmedians1*:      fm = 7.363372e-01  fi = 3.039408e+00  AC =  45.83%  MI =   9.89%  t =   0.00s
+SR   10:         fm = 6.095116e-01  fi = 2.479270e+00  AC =  37.50%  MI =   6.54%  t =   0.05s
+KindAP:          fm = 6.095116e-01  fi = 2.479270e+00  AC =  37.50%  MI =   6.54%  t =   0.00s
+KindAP+Kms:      fm = 6.055096e-01  fi = 2.481910e+00  AC =  41.67%  MI =   5.94%  t =   0.00s
+Joint:           fm = 6.055096e-01  fi = 2.481910e+00  AC =  41.67%  MI =   5.94%  t =   0.01s
+Kmeans   10:     fm = 6.055096e-01  fi = 2.481910e+00  AC =  41.67%  MI =   5.94%  t =   0.05s
+                 fg = 1.018612e+01  generated
+Soft indicator: Mean(s) = 0.63 
+****************************************
+monk1
+****************************************
+
+[n,d,k] = [432,6,2]
+Elapsed time is 0.045246 seconds.
+Elapsed time is 0.036653 seconds.
+                 fg = 1.152605e+02  generated
+kmeans1*:        fm = 2.983847e-01  fi = 2.604360e+01  AC =  65.97%  MI =   7.50%  t =   0.03s
+kmedians1*:      fm = 2.987636e-01  fi = 2.600507e+01  AC =  68.29%  MI =   9.88%  t =   0.03s
+SR   10:         fm = 2.986430e-01  fi = 2.599532e+01  AC =  67.82%  MI =   9.37%  t =   0.03s
+KindAP:          fm = 2.984183e-01  fi = 2.600285e+01  AC =  66.67%  MI =   8.17%  t =   0.00s
+KindAP+Kms:      fm = 2.983847e-01  fi = 2.604360e+01  AC =  65.97%  MI =   7.50%  t =   0.02s
+Joint:           fm = 2.983847e-01  fi = 2.604360e+01  AC =  65.97%  MI =   7.50%  t =   0.05s
+Kmeans   10:     fm = 2.983847e-01  fi = 2.604360e+01  AC =  65.97%  MI =   7.50%  t =   0.05s
+                 fg = 1.152605e+02  generated
+Soft indicator: Mean(s) = 0.76 
+****************************************
+pima
+****************************************
+
+[n,d,k] = [768,8,2]
+Elapsed time is 0.068406 seconds.
+Elapsed time is 0.079011 seconds.
+                 fg = 2.161884e+02  generated
+kmeans1*:        fm = 1.087813e-01  fi = 1.628122e+00  AC =  64.71%  MI =   0.18%  t =   0.03s
+kmedians1*:      fm = 1.089915e-01  fi = 2.597248e+00  AC =  65.36%  MI =   0.43%  t =   0.02s
+SR   10:         fm = 1.087813e-01  fi = 1.628122e+00  AC =  64.71%  MI =   0.18%  t =   0.01s
+KindAP:          fm = 1.087813e-01  fi = 1.628122e+00  AC =  64.71%  MI =   0.18%  t =   0.00s
+KindAP+Kms:      fm = 1.087813e-01  fi = 1.628122e+00  AC =  64.71%  MI =   0.18%  t =   0.01s
+Joint:           fm = 1.087813e-01  fi = 1.628122e+00  AC =  64.71%  MI =   0.18%  t =   0.10s
+Kmeans   10:     fm = 1.087813e-01  fi = 1.628122e+00  AC =  64.71%  MI =   0.18%  t =   0.03s
+                 fg = 2.161884e+02  generated
+Soft indicator: Mean(s) = 0.97 
+****************************************
+segment
+****************************************
+
+[n,d,k] = [2310,19,7]
+Elapsed time is 0.337888 seconds.
+Elapsed time is 0.266412 seconds.
+                 fg = 1.048484e+03  generated
+kmeans1*:        fm = 1.265164e+00  fi = 2.598013e+02  AC =  41.82%  MI =  38.37%  t =   0.06s
+kmedians1*:      fm = 1.438683e+00  fi = 3.482480e+02  AC =  48.10%  MI =  39.38%  t =   0.04s
+SR   10:         fm = 1.915104e+00  fi = 2.132649e+02  AC =  37.45%  MI =  39.11%  t =   0.07s
+KindAP:          fm = 2.071033e+00  fi = 2.760753e+02  AC =  46.06%  MI =  38.71%  t =   0.03s
+KindAP+Kms:      fm = 1.765906e+00  fi = 2.537369e+02  AC =  37.40%  MI =  34.20%  t =   0.03s
+Joint:           fm = 1.765906e+00  fi = 2.537369e+02  AC =  37.40%  MI =  34.20%  t =   0.30s
+Kmeans   10:     fm = 1.235267e+00  fi = 2.584620e+02  AC =  37.40%  MI =  35.61%  t =   0.07s
+                 fg = 1.048484e+03  generated
+Soft indicator: Mean(s) = NaN 
+****************************************
+solar
+****************************************
+
+[n,d,k] = [323,12,6]
+Elapsed time is 0.038498 seconds.
+Elapsed time is 0.091093 seconds.
+                 fg = 1.691797e+02  generated
+kmeans1*:        fm = 1.877469e+00  fi = 3.930487e+01  AC =  38.39%  MI =  23.40%  t =   0.03s
+kmedians1*:      fm = 2.692858e+00  fi = 7.707404e+01  AC =  41.18%  MI =  25.97%  t =   0.04s
+SR   10:         fm = 1.048588e+00  fi = 2.740411e+01  AC =  36.22%  MI =  21.48%  t =   0.03s
+KindAP:          fm = 1.096446e+00  fi = 3.420509e+01  AC =  37.77%  MI =  22.40%  t =   0.01s
+KindAP+Kms:      fm = 8.423943e-01  fi = 3.074829e+01  AC =  37.15%  MI =  21.91%  t =   0.02s
+Joint:           fm = 8.423943e-01  fi = 3.074829e+01  AC =  37.15%  MI =  21.91%  t =   0.08s
+Kmeans   10:     fm = 8.423943e-01  fi = 3.074829e+01  AC =  37.15%  MI =  21.91%  t =   0.04s
+                 fg = 1.691797e+02  generated
+Soft indicator: Mean(s) = 0.68 
+****************************************
+vehicle
+****************************************
+
+[n,d,k] = [846,18,4]
+Elapsed time is 0.089433 seconds.
+Elapsed time is 0.069352 seconds.
+                 fg = 3.814732e+02  generated
+kmeans1*:        fm = 7.810700e-01  fi = 6.353447e+01  AC =  47.04%  MI =  18.93%  t =   0.01s
+kmedians1*:      fm = 7.995425e-01  fi = 6.419507e+01  AC =  45.98%  MI =  18.72%  t =   0.01s
+SR   10:         fm = 7.888671e-01  fi = 6.064081e+01  AC =  47.40%  MI =  19.33%  t =   0.06s
+KindAP:          fm = 7.906013e-01  fi = 6.135551e+01  AC =  47.99%  MI =  19.33%  t =   0.01s
+KindAP+Kms:      fm = 7.810700e-01  fi = 6.353447e+01  AC =  47.04%  MI =  18.93%  t =   0.02s
+Joint:           fm = 7.810700e-01  fi = 6.353447e+01  AC =  47.04%  MI =  18.93%  t =   0.20s
+Kmeans   10:     fm = 6.692379e-01  fi = 7.899987e+01  AC =  45.51%  MI =  22.47%  t =   0.05s
+                 fg = 3.814732e+02  generated
+Soft indicator: Mean(s) = 0.70 
+****************************************
+vote
+****************************************
+
+[n,d,k] = [435,16,2]
+Elapsed time is 0.059568 seconds.
+Elapsed time is 0.039380 seconds.
+                 fg = 1.116923e+02  generated
+kmeans1*:        fm = 1.322925e-01  fi = 9.426772e+00  AC =  56.78%  MI =   7.55%  t =   0.02s
+kmedians1*:      fm = 1.322925e-01  fi = 9.426772e+00  AC =  56.78%  MI =   7.55%  t =   0.03s
+SR   10:         fm = 1.373093e-01  fi = 8.829531e+00  AC =  57.01%  MI =   7.45%  t =   0.03s
+KindAP:          fm = 1.373093e-01  fi = 8.829531e+00  AC =  57.01%  MI =   7.45%  t =   0.00s
+KindAP+Kms:      fm = 1.322925e-01  fi = 9.426772e+00  AC =  56.78%  MI =   7.55%  t =   0.02s
+Joint:           fm = 1.322925e-01  fi = 9.426772e+00  AC =  56.78%  MI =   7.55%  t =   0.04s
+Kmeans   10:     fm = 1.322925e-01  fi = 9.426772e+00  AC =  56.78%  MI =   7.55%  t =   0.02s
+                 fg = 1.116923e+02  generated
+Soft indicator: Mean(s) = 0.89 
+****************************************
+waveform-21
+****************************************
+
+[n,d,k] = [2746,21,3]
+Elapsed time is 0.478089 seconds.
+Elapsed time is 0.047406 seconds.
+                 fg = 6.655389e+02  generated
+kmeans1*:        fm = 3.745020e-01  fi = 1.260747e+02  AC =  52.40%  MI =  36.50%  t =   0.04s
+kmedians1*:      fm = 3.752258e-01  fi = 1.266775e+02  AC =  52.15%  MI =  36.35%  t =   0.01s
+SR   10:         fm = 3.747486e-01  fi = 1.259181e+02  AC =  52.29%  MI =  36.47%  t =   0.07s
+KindAP:          fm = 3.747486e-01  fi = 1.259181e+02  AC =  52.29%  MI =  36.47%  t =   0.02s
+KindAP+Kms:      fm = 3.745020e-01  fi = 1.260747e+02  AC =  52.40%  MI =  36.50%  t =   0.02s
+Joint:           fm = 3.745020e-01  fi = 1.260747e+02  AC =  52.40%  MI =  36.50%  t =   0.10s
+Kmeans   10:     fm = 3.745020e-01  fi = 1.260747e+02  AC =  52.40%  MI =  36.50%  t =   0.06s
+                 fg = 6.655389e+02  generated
+Soft indicator: Mean(s) = 0.80 
+****************************************
+wine
+****************************************
+
+[n,d,k] = [178,13,3]
+Elapsed time is 0.030153 seconds.
+Elapsed time is 0.029557 seconds.
+                 fg = 5.366377e+01  generated
+kmeans1*:        fm = 3.761429e-01  fi = 1.016691e+01  AC =  61.80%  MI =  34.20%  t =   0.00s
+kmedians1*:      fm = 3.761429e-01  fi = 1.016691e+01  AC =  61.80%  MI =  34.20%  t =   0.00s
+SR   10:         fm = 3.761429e-01  fi = 1.016691e+01  AC =  61.80%  MI =  34.20%  t =   0.02s
+KindAP:          fm = 3.761429e-01  fi = 1.016691e+01  AC =  61.80%  MI =  34.20%  t =   0.00s
+KindAP+Kms:      fm = 3.761429e-01  fi = 1.016691e+01  AC =  61.80%  MI =  34.20%  t =   0.01s
+Joint:           fm = 3.761429e-01  fi = 1.016691e+01  AC =  61.80%  MI =  34.20%  t =   0.08s
+Kmeans   10:     fm = 3.761429e-01  fi = 1.016691e+01  AC =  61.80%  MI =  34.20%  t =   0.03s
+                 fg = 5.366377e+01  generated
+Soft indicator: Mean(s) = 0.75 
+****************************************
+yeast
+****************************************
+
+[n,d,k] = [1484,1470,10]
+Elapsed time is 0.275010 seconds.
+Elapsed time is 0.042257 seconds.
+                 fg = 8.214277e+02  generated
+kmeans1*:        fm = 2.990119e+00  fi = 2.134255e+02  AC =  40.09%  MI =  23.45%  t =   0.05s
+kmedians1*:      fm = 3.482770e+00  fi = 2.956106e+02  AC =  42.99%  MI =  24.28%  t =   0.03s
+SR   10:         fm = 2.590112e+00  fi = 1.187769e+02  AC =  36.59%  MI =  21.83%  t =   0.11s
+KindAP:          fm = 2.590163e+00  fi = 1.188017e+02  AC =  36.59%  MI =  21.89%  t =   0.03s
+KindAP+Kms:      fm = 2.517389e+00  fi = 1.271707e+02  AC =  36.93%  MI =  22.03%  t =   0.03s
+Joint:           fm = 2.517389e+00  fi = 1.271707e+02  AC =  36.93%  MI =  22.03%  t =   0.11s
+Kmeans   10:     fm = 2.516751e+00  fi = 1.338233e+02  AC =  37.33%  MI =  22.10%  t =   0.10s
+                 fg = 8.214277e+02  generated
+Soft indicator: Mean(s) = 0.72 
+****************************************
+zoo
+****************************************
+
+[n,d,k] = [101,16,7]
+Elapsed time is 0.005308 seconds.
+Elapsed time is 0.037828 seconds.
+                 fg = 3.466974e+01  generated
+kmeans1*:        fm = 1.378220e+00  fi = 1.195635e+01  AC =  62.38%  MI =  64.34%  t =   0.01s
+kmedians1*:      fm = 1.412931e+00  fi = 1.040175e+01  AC =  58.42%  MI =  64.49%  t =   0.01s
+SR   10:         fm = 4.944598e-01  fi = 2.786067e+00  AC =  50.50%  MI =  59.02%  t =   0.05s
+KindAP:          fm = 4.944598e-01  fi = 2.786067e+00  AC =  50.50%  MI =  59.02%  t =   0.00s
+KindAP+Kms:      fm = 4.742169e-01  fi = 3.071929e+00  AC =  51.49%  MI =  59.26%  t =   0.02s
+Joint:           fm = 4.742169e-01  fi = 3.071929e+00  AC =  51.49%  MI =  59.26%  t =   0.05s
+Kmeans   10:     fm = 4.742169e-01  fi = 3.071929e+00  AC =  51.49%  MI =  59.26%  t =   0.04s
+                 fg = 3.466974e+01  generated
+Soft indicator: Mean(s) = 0.88 
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+Algorithms & SR10 & KindAP & KindAP+L & Joint & Kmeans10  \\ \hline \hline
+australian &   0.154 & 0.153 & 0.153 &{\bf  0.153} & 0.153 \\ \hline
+auto &  {\bf  0.543} & 0.561 & 0.543 & 0.545 & 0.543 \\ \hline
+balance &   0.757 & 0.787 & 0.787 &{\bf  0.757} & 0.757 \\ \hline
+breast &   0.314 & 0.314 & 0.200 &{\bf  0.200} & 0.200 \\ \hline
+cars &   0.225 & 0.225 & 0.218 &{\bf  0.218} & 0.218 \\ \hline
+control &   0.476 & 0.476 &{\bf  0.464} & 0.464 &{\bf  0.464} \\ \hline
+crx &   0.917 & 1.028 & 1.028 &{\bf  0.913} & 0.913 \\ \hline
+dermatology &   0.364 & 0.364 & 0.361 &{\bf  0.361} & 0.361 \\ \hline
+diabetes &   0.749 & 0.749 & 0.043 &{\bf  0.043} & 0.043 \\ \hline
+ecoli &   2.140 & 2.154 &{\bf  1.724} & 2.426 & 1.724 \\ \hline
+german &   0.266 & 0.266 & 0.266 & 0.266 &{\bf  0.266} \\ \hline
+glass &   1.159 & 1.162 & 1.135 &{\bf  1.135} & 1.135 \\ \hline
+heart &   0.326 & 0.325 & 0.311 &{\bf  0.311} & 0.311 \\ \hline
+ionosphere &   0.367 & 0.353 & 0.320 &{\bf  0.320} & 0.320 \\ \hline
+iris &  {\bf  0.224} & 0.224 & 0.224 & 0.224 & 0.224 \\ \hline
+isolet &  {\bf  0.155} &{\bf  0.155} & 0.155 &{\bf  0.155} & 0.155 \\ \hline
+lenses &   0.610 & 0.610 & 0.606 &{\bf  0.606} & 0.606 \\ \hline
+monk1 &   0.299 & 0.298 &{\bf  0.298} & 0.298 &{\bf  0.298} \\ \hline
+pima &  {\bf  0.109} & 0.109 & 0.109 & 0.109 & 0.109 \\ \hline
+segment &   1.915 & 2.071 & 1.766 & 1.766 &{\bf  1.235} \\ \hline
+solar &   1.049 & 1.096 & 0.842 &{\bf  0.842} & 0.842 \\ \hline
+vehicle &   0.789 & 0.791 & 0.781 & 0.781 &{\bf  0.669} \\ \hline
+vote &   0.137 & 0.137 & 0.132 &{\bf  0.132} & 0.132 \\ \hline
+waveform-21 &   0.375 & 0.375 & 0.375 &{\bf  0.375} & 0.375 \\ \hline
+wine &  {\bf  0.376} & 0.376 & 0.376 &{\bf  0.376} & 0.376 \\ \hline
+yeast &   2.590 & 2.590 & 2.517 & 2.517 &{\bf  2.517} \\ \hline
+zoo &   0.494 & 0.494 & 0.474 &{\bf  0.474} & 0.474 \\ \hline
+\end{tabular}
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+Algorithms & SR10 & KindAP & KindAP+L & Joint & Kmeans10  \\ \hline \hline
+australian &  {\bf  68.986} & 68.841 & 68.696 & 68.696 & 68.696 \\ \hline
+auto &  {\bf  32.683} &{\bf  32.683} &{\bf  32.683} &{\bf  32.683} &{\bf  32.683} \\ \hline
+balance &   53.280 & 53.920 &{\bf  54.400} & 52.960 & 52.960 \\ \hline
+breast &   57.511 & 57.511 &{\bf  59.657} &{\bf  59.657} &{\bf  59.657} \\ \hline
+cars &   64.286 & 64.286 &{\bf  67.602} &{\bf  67.602} &{\bf  67.602} \\ \hline
+control &   58.333 & 58.333 &{\bf  58.833} &{\bf  58.833} &{\bf  58.833} \\ \hline
+crx &   53.333 &{\bf  54.783} &{\bf  54.783} & 54.058 & 54.058 \\ \hline
+dermatology &  {\bf  95.902} &{\bf  95.902} & 95.628 & 95.628 & 95.628 \\ \hline
+diabetes &  {\bf  64.714} &{\bf  64.714} & 64.453 & 64.453 & 64.453 \\ \hline
+ecoli &   58.333 & 58.333 &{\bf  58.929} & 57.738 &{\bf  58.929} \\ \hline
+german &  {\bf  54.300} & 53.200 & 53.200 & 53.200 & 54.100 \\ \hline
+glass &   50.000 &{\bf  50.467} &{\bf  50.467} &{\bf  50.467} &{\bf  50.467} \\ \hline
+heart &   62.222 &{\bf  62.963} & 62.222 & 62.222 & 62.222 \\ \hline
+ionosphere &  {\bf  55.271} & 53.561 & 50.712 & 50.712 & 50.712 \\ \hline
+iris &  {\bf  96.000} &{\bf  96.000} &{\bf  96.000} &{\bf  96.000} &{\bf  96.000} \\ \hline
+isolet &  {\bf  59.295} &{\bf  59.295} &{\bf  59.295} &{\bf  59.295} &{\bf  59.295} \\ \hline
+lenses &   37.500 & 37.500 &{\bf  41.667} &{\bf  41.667} &{\bf  41.667} \\ \hline
+monk1 &  {\bf  67.824} & 66.667 & 65.972 & 65.972 & 65.972 \\ \hline
+pima &  {\bf  64.714} &{\bf  64.714} &{\bf  64.714} &{\bf  64.714} &{\bf  64.714} \\ \hline
+segment &   37.446 &{\bf  46.061} & 37.403 & 37.403 & 37.403 \\ \hline
+solar &   36.223 &{\bf  37.771} & 37.152 & 37.152 & 37.152 \\ \hline
+vehicle &   47.400 &{\bf  47.991} & 47.045 & 47.045 & 45.508 \\ \hline
+vote &  {\bf  57.011} &{\bf  57.011} & 56.782 & 56.782 & 56.782 \\ \hline
+waveform-21 &   52.294 & 52.294 &{\bf  52.403} &{\bf  52.403} &{\bf  52.403} \\ \hline
+wine &  {\bf  61.798} &{\bf  61.798} &{\bf  61.798} &{\bf  61.798} &{\bf  61.798} \\ \hline
+yeast &   36.590 & 36.590 & 36.927 & 36.927 &{\bf  37.332} \\ \hline
+zoo &   50.495 & 50.495 &{\bf  51.485} &{\bf  51.485} &{\bf  51.485} \\ \hline
+\end{tabular}
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+Algorithms & SR10 & KindAP & KindAP+L & Joint & Kmeans10  \\ \hline \hline
+australian &  {\bf  68.986} & 68.841 & 68.696 & 0.000 & 68.696 \\ \hline
+auto &  {\bf  43.415} &{\bf  43.415} &{\bf  43.415} & 0.000 &{\bf  43.415} \\ \hline
+balance &  {\bf  67.520} & 67.040 & 67.040 & 0.000 & 67.200 \\ \hline
+breast &  {\bf  65.522} &{\bf  65.522} &{\bf  65.522} & 0.000 &{\bf  65.522} \\ \hline
+cars &   65.306 & 65.306 &{\bf  68.622} & 0.000 &{\bf  68.622} \\ \hline
+control &  {\bf  66.667} &{\bf  66.667} &{\bf  66.667} & 0.000 &{\bf  66.667} \\ \hline
+crx &  {\bf  55.507} &{\bf  55.507} &{\bf  55.507} & 0.000 &{\bf  55.507} \\ \hline
+dermatology &  {\bf  95.902} &{\bf  95.902} & 95.628 & 0.000 & 95.628 \\ \hline
+diabetes &  {\bf  65.104} &{\bf  65.104} &{\bf  65.104} & 0.000 &{\bf  65.104} \\ \hline
+ecoli &   66.964 &{\bf  67.262} & 66.369 & 0.000 & 66.369 \\ \hline
+german &  {\bf  70.000} &{\bf  70.000} &{\bf  70.000} & 0.000 &{\bf  70.000} \\ \hline
+glass &  {\bf  63.551} &{\bf  63.551} & 63.084 & 0.000 & 63.084 \\ \hline
+heart &   62.222 &{\bf  62.963} & 62.222 & 0.000 & 62.222 \\ \hline
+ionosphere &  {\bf  64.103} &{\bf  64.103} &{\bf  64.103} & 0.000 &{\bf  64.103} \\ \hline
+iris &  {\bf  96.000} &{\bf  96.000} &{\bf  96.000} & 0.000 &{\bf  96.000} \\ \hline
+isolet &  {\bf  59.295} &{\bf  59.295} &{\bf  59.295} & 0.000 &{\bf  59.295} \\ \hline
+lenses &  {\bf  62.500} &{\bf  62.500} &{\bf  62.500} & 0.000 &{\bf  62.500} \\ \hline
+monk1 &  {\bf  67.824} & 66.667 & 65.972 & 0.000 & 65.972 \\ \hline
+pima &  {\bf  65.104} &{\bf  65.104} &{\bf  65.104} & 0.000 &{\bf  65.104} \\ \hline
+segment &   45.152 &{\bf  49.091} & 43.074 & 0.000 & 43.030 \\ \hline
+solar &   45.511 &{\bf  46.749} & 46.130 & 0.000 & 46.130 \\ \hline
+vehicle &   47.400 & 47.991 & 47.045 & 0.000 &{\bf  48.582} \\ \hline
+vote &  {\bf  61.379} &{\bf  61.379} &{\bf  61.379} & 0.000 &{\bf  61.379} \\ \hline
+waveform-21 &   52.294 & 52.294 &{\bf  52.549} & 0.000 &{\bf  52.549} \\ \hline
+wine &  {\bf  61.798} &{\bf  61.798} &{\bf  61.798} & 0.000 &{\bf  61.798} \\ \hline
+yeast &  {\bf  49.730} &{\bf  49.730} & 49.259 & 0.000 & 49.326 \\ \hline
+zoo &  {\bf  78.218} &{\bf  78.218} &{\bf  78.218} & 0.000 &{\bf  78.218} \\ \hline
+\end{tabular}

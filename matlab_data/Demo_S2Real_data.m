@@ -43,9 +43,10 @@ filename = {'australian','auto','balance','breast','cars',...,
     'german','glass','heart','ionosphere','iris','isolet',...,
     'lenses','monk1','pima','segment','solar',...,
     'vehicle','vote','waveform-21','wine','yeast','zoo'};
+%filename = {'UKBench_xce'};
 len = length(filename);
 
-T = []; FM =[]; FI =[]; AC = []; NMI = []; S = []; IDX = {};
+T = []; FM =[]; FI =[]; AC = []; NMI = []; S = []; IDX = {}; PUR = [];
 
 for j = 1:len
     
@@ -58,6 +59,7 @@ for j = 1:len
     if size(gnd,1)<size(gnd,2)
         gnd = gnd';
     end
+    gnd = double(gnd);
     if exist('alls','var')
         fea = alls'; 
         clear alls
@@ -127,7 +129,7 @@ for j = 1:len
     fprintf('Soft indicator: Mean(s) = %.2f \n',mean(s));
     %%%%%%%%%%%%%%%%%%%%%%%
     T  = [T; t]; FM = [FM; fm]; FI = [FI; fi]; %#ok<*AGROW>
-    AC = [AC; ac]; NMI = [NMI; nmi]; S = [S; mean(s)];
+    AC = [AC; ac]; NMI = [NMI; nmi]; S = [S; mean(s)]; PUR = [PUR;pur];
     
 end
 
@@ -142,13 +144,16 @@ Ch = {'australian','auto','balance','breast','cars',...,
      'Yale64x64','YaleB32x32','ORL64x64','PIE32x32',...,
      'Reuters21578','TDT2','COIL100','AR'};
 
-%Ch = filename;
+
+Ch = filename;
 precision = 3;
 
 outFM = mat2table(FM(:,[3,4,5,7,8]),Rh,Ch,precision,'min');
 disp(outFM)
 outAC = mat2table(AC(:,[3,4,5,7,8]),Rh,Ch,precision,'max');
 disp(outAC)
+outPUR = mat2table(PUR(:,[3,4,5,7,8]),Rh,Ch,precision,'max');
+disp(outPUR)
 % outNMI = mat2table(NMI(:,[4,5,8,3]),Rh,Ch,precision);
 % disp(outNMI)
 
