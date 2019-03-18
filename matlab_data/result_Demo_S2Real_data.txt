@@ -523,6 +523,7 @@ wine &  {\bf  61.798} &{\bf  61.798} &{\bf  61.798} &{\bf  61.798} &{\bf  61.798
 yeast &   36.590 & 36.590 &{\bf  36.927} &{\bf  36.927} & 35.310 \\ \hline
 zoo &   50.495 & 50.495 &{\bf  51.485} &{\bf  51.485} &{\bf  51.485} \\ \hline
 \end{tabular}
+<<<<<<< HEAD
 run_1star: 1, run_kind: 1, correction: 1
 run_kmeans:   1,   No_kmeans:   10,   Phase_kmeans:   on
 run_kmedians: 0,   No_kmedians: 100,   Phase_kmedians: on
@@ -2857,3 +2858,5 @@ wine &  {\bf  61.798} &{\bf  61.798} &{\bf  61.798} & 0.000 &{\bf  61.798} \\ \h
 yeast &  {\bf  49.730} &{\bf  49.730} & 49.259 & 0.000 & 49.326 \\ \hline
 zoo &  {\bf  78.218} &{\bf  78.218} &{\bf  78.218} & 0.000 &{\bf  78.218} \\ \hline
 \end{tabular}
+=======
+>>>>>>> 7fa3632b0613154f435a389b237775115944d33a

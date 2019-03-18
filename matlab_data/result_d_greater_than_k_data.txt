@@ -51,6 +51,7 @@ opentoline('/Users/yangyc/Documents/KindAP/matlab_data/test_more_d_than_k.m',99,
 test_more_d_than_k
 ****************************************
 Test on real data sets!
+<<<<<<< HEAD
 run_1star: 0, run_kind: 1, correction: 1
 run_kmeans:   1,   No_kmeans:   10,   Phase_kmeans:   on
 run_kmedians: 0,   No_kmedians: 100,   Phase_kmedians: on
@@ -234,3 +235,5 @@ Kmeans   10:     fm = 4.228238e+00  fi = 1.366039e+03  AC =  50.90%  MI =   0.91
 Demo_S2Real_data
 ****************************************
 Test on real data sets!
+=======
+>>>>>>> 7fa3632b0613154f435a389b237775115944d33a

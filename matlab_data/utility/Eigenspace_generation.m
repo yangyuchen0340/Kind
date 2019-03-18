@@ -46,6 +46,7 @@ switch lower(options)
         
     case{lower('Normalized Laplacian')}
         K = M;
+<<<<<<< HEAD
 %         D = 1./sqrt(sum(K,1)); nd = numel(D);
 %         DNH = sparse(1:nd,1:nd,D);
 %         L = speye(n) - DNH*K*DNH; L = (L+L')/2;
@@ -54,6 +55,15 @@ switch lower(options)
         %L = speye(n) - G;
         warning('OFF','MATLAB:eigs:SigmaChangedToSA')
         [V,Diag] = eigs(G,k);
+=======
+        D = 1./sqrt(sum(K,1)); nd = numel(D);
+        DNH = sparse(1:nd,1:nd,D);
+        L = speye(n) - DNH*K*DNH; L = (L+L')/2;
+        G = speye(n) - L;
+        warning('OFF','MATLAB:eigs:SigmaChangedToSA')
+        [V,Diag] = eigs(L,k,'sr');
+        %[V,Diag] = eigs(G,k);
+>>>>>>> 7fa3632b0613154f435a389b237775115944d33a
         d = diag(Diag);
 %         [d,id] = sort(d,'ascend');  V = V(:,id);
         V = V*diag(sign(double(max(V)==max(abs(V)))-0.5)); if max(max(V))<0; V = -V; end;     
@@ -63,4 +73,8 @@ switch lower(options)
         
 end
 X = real(X); d = real(d);
+<<<<<<< HEAD
 end
+=======
+end
+>>>>>>> 7fa3632b0613154f435a389b237775115944d33a

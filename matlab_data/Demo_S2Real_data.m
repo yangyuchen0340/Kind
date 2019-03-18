@@ -43,10 +43,16 @@ filename = {'australian','auto','balance','breast','cars',...,
     'german','glass','heart','ionosphere','iris','isolet',...,
     'lenses','monk1','pima','segment','solar',...,
     'vehicle','vote','waveform-21','wine','yeast','zoo'};
+<<<<<<< HEAD
 %filename = {'UKBench_xce'};
 len = length(filename);
 
 T = []; FM =[]; FI =[]; AC = []; NMI = []; S = []; IDX = {}; PUR = [];
+=======
+len = length(filename);
+
+T = []; FM =[]; FI =[]; AC = []; NMI = []; S = []; IDX = {};
+>>>>>>> 7fa3632b0613154f435a389b237775115944d33a
 
 for j = 1:len
     
@@ -59,7 +65,10 @@ for j = 1:len
     if size(gnd,1)<size(gnd,2)
         gnd = gnd';
     end
+<<<<<<< HEAD
     gnd = double(gnd);
+=======
+>>>>>>> 7fa3632b0613154f435a389b237775115944d33a
     if exist('alls','var')
         fea = alls'; 
         clear alls
@@ -129,7 +138,11 @@ for j = 1:len
     fprintf('Soft indicator: Mean(s) = %.2f \n',mean(s));
     %%%%%%%%%%%%%%%%%%%%%%%
     T  = [T; t]; FM = [FM; fm]; FI = [FI; fi]; %#ok<*AGROW>
+<<<<<<< HEAD
     AC = [AC; ac]; NMI = [NMI; nmi]; S = [S; mean(s)]; PUR = [PUR;pur];
+=======
+    AC = [AC; ac]; NMI = [NMI; nmi]; S = [S; mean(s)];
+>>>>>>> 7fa3632b0613154f435a389b237775115944d33a
     
 end
 
@@ -144,16 +157,23 @@ Ch = {'australian','auto','balance','breast','cars',...,
      'Yale64x64','YaleB32x32','ORL64x64','PIE32x32',...,
      'Reuters21578','TDT2','COIL100','AR'};
 
+<<<<<<< HEAD
 
 Ch = filename;
+=======
+%Ch = filename;
+>>>>>>> 7fa3632b0613154f435a389b237775115944d33a
 precision = 3;
 
 outFM = mat2table(FM(:,[3,4,5,7,8]),Rh,Ch,precision,'min');
 disp(outFM)
 outAC = mat2table(AC(:,[3,4,5,7,8]),Rh,Ch,precision,'max');
 disp(outAC)
+<<<<<<< HEAD
 outPUR = mat2table(PUR(:,[3,4,5,7,8]),Rh,Ch,precision,'max');
 disp(outPUR)
+=======
+>>>>>>> 7fa3632b0613154f435a389b237775115944d33a
 % outNMI = mat2table(NMI(:,[4,5,8,3]),Rh,Ch,precision);
 % disp(outNMI)
 
