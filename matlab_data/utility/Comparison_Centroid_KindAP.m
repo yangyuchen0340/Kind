@@ -21,11 +21,8 @@
 %      6. Clustering index: idx
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%     
 
-<<<<<<< HEAD
+
 fm = zeros(1,10); fi = fm; t = fm; ac = fm; nmi = fm; idx = zeros(n,10); pur = fm;
-=======
-fm = zeros(1,10); fi = fm; t = fm; ac = fm; nmi = fm; idx = zeros(n,10);
->>>>>>> 7fa3632b0613154f435a389b237775115944d33a
 
 fgt = Objective_Centers(idxg,k,U);
 fprintf('                 fg = %9.6e  generated\n',fgt)
@@ -89,19 +86,13 @@ if run_SR == 1
             idx3 = idx3temp;
         end
     end
-<<<<<<< HEAD
+
     t(3) = toc(t0);
-=======
-    t(3) = toc(t0) / No_SR;
->>>>>>> 7fa3632b0613154f435a389b237775115944d33a
     [fi(3),fm(3)] = Objective_Centers(idx3,k,U);
     idx3 = bestMap(idxg,idx3);
     ac(3) = 100*sum(idxg == idx3)/n;
     nmi(3) = 100*MutualInfo(idxg,idx3);
-<<<<<<< HEAD
     pur(3) = 100*purity(idxg,idx3);
-=======
->>>>>>> 7fa3632b0613154f435a389b237775115944d33a
     idx(:,3) = idx3;
     fprintf('SR%5i:         fm = %9.6e  fi = %9.6e  AC = %6.2f%%  MI = %6.2f%%  t = %6.2fs\n',...
     No_SR,fm(3),fi(3),ac(3),nmi(3),t(3))
@@ -134,10 +125,8 @@ if run_kind == 1
     idx4 = bestMap(idxg,idx4);
     ac(4) = 100*sum(idxg == idx4)/n;
     nmi(4) = 100*MutualInfo(idxg,idx4);
-<<<<<<< HEAD
     pur(4) = 100*purity(idxg,idx4);
-=======
->>>>>>> 7fa3632b0613154f435a389b237775115944d33a
+
     idx(:,4) = idx4;
     fprintf('KindAP:          fm = %9.6e  fi = %9.6e  AC = %6.2f%%  MI = %6.2f%%  t = %6.2fs\n',...
         fm(4),fi(4),ac(4),nmi(4),t(4))
@@ -159,10 +148,7 @@ if correction == 1
     ac(5) = 100*sum(idxg == idx5)/n;
     nmi(5) = 100*MutualInfo(idxg,idx5);
     idx(:,5) = idx5;
-<<<<<<< HEAD
     pur(5) = 100*purity(idxg,idx5);
-=======
->>>>>>> 7fa3632b0613154f435a389b237775115944d33a
     fprintf('KindAP+Kms:      fm = %9.6e  fi = %9.6e  AC = %6.2f%%  MI = %6.2f%%  t = %6.2fs\n',...
         fm(5), fi(5),ac(5),nmi(5),t(5))
     
@@ -243,19 +229,12 @@ if run_kmeans == 1
     t0 = tic;
     [idx8,~,sumD] = kmeans(U,k,'Replicates',No_kmeans,'OnlinePhase',Phase_kmeans);
     fm(8) = sum(sumD);
-<<<<<<< HEAD
     t(8) = toc(t0);
-=======
-    t(8) = toc(t0)/No_kmeans;
->>>>>>> 7fa3632b0613154f435a389b237775115944d33a
     fi(8) = Objective_Centers(idx8,k,U);
     idx8 = bestMap(idxg,idx8);
     ac(8) = 100*sum(idxg == idx8)/n;
     nmi(8) = 100*MutualInfo(idxg,idx8);
-<<<<<<< HEAD
     pur(8) = 100*purity(idxg,idx8);
-=======
->>>>>>> 7fa3632b0613154f435a389b237775115944d33a
     idx(:,8) = idx8;
     fprintf('Kmeans%5i:     fm = %9.6e  fi = %9.6e  AC = %6.2f%%  MI = %6.2f%%  t = %6.2fs\n',...
         No_kmeans,fm(8),fi(8),ac(8),nmi(8),t(8))
@@ -266,11 +245,7 @@ if run_kmedians == 1
     t0 = tic;
     [idx9,~,sumD] = kmeans(U,k,'Replicates',No_kmedians,'OnlinePhase',Phase_kmedians,'Distance','cityblock');
     fm(9) = sum(sumD);
-<<<<<<< HEAD
     t(9) = toc(t0);
-=======
-    t(9) = toc(t0)/No_kmedians;
->>>>>>> 7fa3632b0613154f435a389b237775115944d33a
     fi(9) = Objective_Centers(idx9,k,U);
     idx9 = bestMap(idxg,idx9);
     ac(9) = 100*sum(idxg == idx9)/n;
@@ -283,12 +258,8 @@ end
 if run_kmedoids == 1    
     t0 = tic;
     [idx10,~,sumD] = kmedoids(U,k,'Replicates',No_kmedoids,'OnlinePhase',Phase_kmedoids);
-    fm(10) = sum(sumD);
-<<<<<<< HEAD
     t(10) = toc(t0);
-=======
-    t(10) = toc(t0)/No_kmedoids;
->>>>>>> 7fa3632b0613154f435a389b237775115944d33a
+    fm(10) = sum(sumD);
     fi(10) = Objective_Centers(idx10,k,U);
     idx10 = bestMap(idxg,idx10);
     ac(10) = 100*sum(idxg == idx10)/n;

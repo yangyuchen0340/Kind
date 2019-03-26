@@ -6837,4 +6837,46 @@ Elapsed time is 88.343963 seconds.
                  fg = 5.352512e+04  generated
 SR   10:         fm = 6.647799e+01  fi = 1.810286e+04  AC =  16.25%  MI =  26.21%  t =  43.70s
 KindAP:          fm = 6.597509e+01  fi = 1.817726e+04  AC =  16.12%  MI =  26.10%  t =  24.86s
-KindAP+Kms: 
+KindAP+Kms:      fm = 5.331079e+01  fi = 2.631299e+04  AC =  13.52%  MI =  22.77%  t =  70.07s
+Kmeans   10:     fm = 5.682853e+01  fi = 2.715748e+04  AC =  13.16%  MI =  22.72%  t = 761.03s
+                 fg = 5.352512e+04  generated
+Soft indicator: Mean(s) = 0.46 
+
+[n,d,k] = [80000,2048,160]
+Elapsed time is 1107.747184 seconds.
+Elapsed time is 89.550248 seconds.
+                 fg = 6.172254e+04  generated
+SR   10:         fm = 7.673422e+01  fi = 2.132798e+04  AC =  15.60%  MI =  26.40%  t =  40.05s
+KindAP:          fm = 7.623528e+01  fi = 2.134927e+04  AC =  15.39%  MI =  26.31%  t =  30.72s
+KindAP+Kms:      fm = 6.163715e+01  fi = 3.036367e+04  AC =  12.94%  MI =  23.03%  t =  93.65s
+Kmeans   10:     fm = 6.594708e+01  fi = 3.134187e+04  AC =  12.55%  MI =  22.85%  t = 640.37s
+                 fg = 6.172254e+04  generated
+Soft indicator: Mean(s) = 0.45 
+
+[n,d,k] = [90000,2048,180]
+Elapsed time is 1895.601700 seconds.
+Elapsed time is 115.407539 seconds.
+                 fg = 7.008085e+04  generated
+SR   10:         fm = 8.734420e+01  fi = 2.456531e+04  AC =  14.57%  MI =  26.64%  t =  60.67s
+KindAP:          fm = 8.695221e+01  fi = 2.471433e+04  AC =  14.36%  MI =  26.52%  t =  36.38s
+KindAP+Kms:      fm = 7.037750e+01  fi = 3.486681e+04  AC =  12.26%  MI =  23.26%  t = 165.50s
+Kmeans   10:     fm = 7.286113e+01  fi = 3.541215e+04  AC =  12.14%  MI =  23.27%  t = 1220.68s
+                 fg = 7.008085e+04  generated
+Soft indicator: Mean(s) = 0.45 
+
+[n,d,k] = [100000,2048,200]
+Elapsed time is 1715.335635 seconds.
+Elapsed time is 167.558277 seconds.
+                 fg = 7.800218e+04  generated
+SR   10:         fm = 9.841129e+01  fi = 2.793959e+04  AC =  14.44%  MI =  27.61%  t = 139.29s
+KindAP:          fm = 9.771360e+01  fi = 2.810302e+04  AC =  14.30%  MI =  27.53%  t =  74.35s
+KindAP+Kms:      fm = 7.992747e+01  fi = 3.955311e+04  AC =  12.18%  MI =  24.07%  t = 301.72s
+Kmeans   10:     fm = 8.441918e+01  fi = 3.993608e+04  AC =  12.07%  MI =  24.22%  t = 2014.04s
+                 fg = 7.800218e+04  generated
+Soft indicator: Mean(s) = 0.44 
+15+12.32+(188-166.32)
+
+ans =
+
+   49.0000
+
