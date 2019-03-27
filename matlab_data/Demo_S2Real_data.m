@@ -29,6 +29,8 @@ fprintf('run_kmedians: %i,   No_kmedians: %i,   Phase_kmedians: %s\n',...
 fprintf('run_kmedoids: %i,   No_kmedoids: %i,   Phase_kmedoids: %s\n',...
     run_kmedoids, No_kmedoids, Phase_kmedoids)
 
+T = []; FM =[]; FI =[]; AC = []; NMI = []; S = []; IDX = {}; PUR = [];
+
 %% load data
 %  filename = {
 % 'australian','auto','balance','breast','cars','chess',...,
@@ -44,10 +46,9 @@ filename = {'australian','auto','balance','breast','cars',...,
     'lenses','monk1','pima','segment','solar',...,
     'vehicle','vote','waveform-21','wine','yeast','zoo'};
 
-%filename = {'COIL100_xce'};
+filename = {'COIL100_xce'};
 len = length(filename);
 
-T = []; FM =[]; FI =[]; AC = []; NMI = []; S = []; IDX = {}; PUR = [];
 
 
 for j = 1:len

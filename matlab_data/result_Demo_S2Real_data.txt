@@ -10682,3 +10682,370 @@ wine &  {\bf  61.798} &{\bf  61.798} &{\bf  61.798} & 0.000 &{\bf  61.798} \\ \h
 yeast &  {\bf  49.730} &{\bf  49.730} & 49.259 & 0.000 & 47.439 \\ \hline
 zoo &  {\bf  78.218} &{\bf  78.218} &{\bf  78.218} & 0.000 &{\bf  78.218} \\ \hline
 \end{tabular}
+run_1star: 0, run_kind: 1, correction: 1
+run_kmeans:   1,   No_kmeans:   10,   Phase_kmeans:   on
+run_kmedians: 0,   No_kmedians: 100,   Phase_kmedians: on
+run_kmedoids: 0,   No_kmedoids: 100,   Phase_kmedoids: on
+****************************************
+COIL100_xce
+****************************************
+
+[n,d,k] = [7200,2048,100]
+Elapsed time is 6.471289 seconds.
+Elapsed time is 29.202588 seconds.
+load('Data_T.mat')
+gnd=double(gnd)';
+k=7;n_Class=7;n=101,d=16;
+
+n =
+
+   101
+
+if system_dependent('IsDebugMode')==1, dbcont; end
+{Error using <a href="matlab:matlab.internal.language.introspective.errorDocCallback('sparse')" style="font-weight:bold">sparse</a>
+Index exceeds array bounds.
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('Objective_Centers', '/Users/yangyc/Documents/Kind/matlab_data/utility/Objective_Centers.m', 25)" style="font-weight:bold">Objective_Centers</a> (<a href="matlab: opentoline('/Users/yangyc/Documents/Kind/matlab_data/utility/Objective_Centers.m',25,0)">line 25</a>)
+H = sparse(1:n,idx,ones(n,1),n,k);
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('Comparison_Centroid_KindAP', '/Users/yangyc/Documents/Kind/matlab_data/utility/Comparison_Centroid_KindAP.m', 27)" style="font-weight:bold">Comparison_Centroid_KindAP</a> (<a href="matlab: opentoline('/Users/yangyc/Documents/Kind/matlab_data/utility/Comparison_Centroid_KindAP.m',27,0)">line 27</a>)
+fgt = Objective_Centers(idxg,k,U);
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('Demo_S2Real_data', '/Users/yangyc/Documents/Kind/matlab_data/Demo_S2Real_data.m', 130)" style="font-weight:bold">Demo_S2Real_data</a> (<a href="matlab: opentoline('/Users/yangyc/Documents/Kind/matlab_data/Demo_S2Real_data.m',130,0)">line 130</a>)
+    Comparison_Centroid_KindAP;
+} 
+n
+
+n =
+
+   101
+
+idx
+
+idx =
+
+     0     0     0     0     0     0     0     0     0     0
+     0     0     0     0     0     0     0     0     0     0
+     0     0     0     0     0     0     0     0     0     0
+     0     0     0     0     0     0     0     0     0     0
+     0     0     0     0     0     0     0     0     0     0
+     0     0     0     0     0     0     0     0     0     0
+     0     0     0     0     0     0     0     0     0     0
+     0     0     0     0     0     0     0     0     0     0
+     0     0     0     0     0     0     0     0     0     0
+     0     0     0     0     0     0     0     0     0     0
+     0     0     0     0     0     0     0     0     0     0
+     0     0     0     0     0     0     0     0     0     0
+     0     0     0     0     0     0     0     0     0     0
+     0     0     0     0     0     0     0     0     0     0
+     0     0     0     0     0     0     0     0     0     0
+     0     0     0     0     0     0     0     0     0     0
+     0     0     0     0     0     0     0     0     0     0
+     0     0     0     0     0     0     0     0     0     0
+     0     0     0     0     0     0     0     0     0     0
+     0     0     0     0     0     0     0     0     0     0
+     0     0     0     0     0     0     0     0     0     0
+     0     0     0     0     0     0     0     0     0     0
+     0     0     0     0     0     0     0     0     0     0
+     0     0     0     0     0     0     0     0     0     0
+     0     0     0     0     0     0     0     0     0     0
+     0     0     0     0     0     0     0     0     0     0
+     0     0     0     0     0     0     0     0     0     0
+     0     0     0     0     0     0     0     0     0     0
+     0     0     0     0     0     0     0     0     0     0
+     0     0     0     0     0     0     0     0     0     0
+     0     0     0     0     0     0     0     0     0     0
+     0     0     0     0     0     0     0     0     0     0
+     0     0     0     0     0     0     0     0     0     0
+     0     0     0     0     0     0     0     0     0     0
+     0     0     0     0     0     0     0     0     0     0
+     0     0     0     0     0     0     0     0     0     0
+     0     0     0     0     0     0     0     0     0     0
+     0     0     0     0     0     0     0     0     0     0
+     0     0     0     0     0     0     0     0     0     0
+     0     0     0     0     0     0     0     0     0     0
+     0     0     0     0     0     0     0     0     0     0
+     0     0     0     0     0     0     0     0     0     0
+     0     0     0     0     0     0     0     0     0     0
+     0     0     0     0     0     0     0     0     0     0
+     0     0     0     0     0     0     0     0     0     0
+     0     0     0     0     0     0     0     0     0     0
+     0     0     0     0     0     0     0     0     0     0
+     0     0     0     0     0     0     0     0     0     0
+     0     0     0     0     0     0     0     0     0     0
+     0     0     0     0     0     0     0     0     0     0
+     0     0     0     0     0     0     0     0     0     0
+     0     0     0     0     0     0     0     0     0     0
+     0     0     0     0     0     0     0     0     0     0
+     0     0     0     0     0     0     0     0     0     0
+     0     0     0     0     0     0     0     0     0     0
+     0     0     0     0     0     0     0     0     0     0
+     0     0     0     0     0     0     0     0     0     0
+     0     0     0     0     0     0     0     0     0     0
+     0     0     0     0     0     0     0     0     0     0
+     0     0     0     0     0     0     0     0     0     0
+     0     0     0     0     0     0     0     0     0     0
+     0     0     0     0     0     0     0     0     0     0
+     0     0     0     0     0     0     0     0     0     0
+     0     0     0     0     0     0     0     0     0     0
+     0     0     0     0     0     0     0     0     0     0
+     0     0     0     0     0     0     0     0     0     0
+     0     0     0     0     0     0     0     0     0     0
+     0     0     0     0     0     0     0     0     0     0
+     0     0     0     0     0     0     0     0     0     0
+     0     0     0     0     0     0     0     0     0     0
+     0     0     0     0     0     0     0     0     0     0
+     0     0     0     0     0     0     0     0     0     0
+     0     0     0     0     0     0     0     0     0     0
+     0     0     0     0     0     0     0     0     0     0
+     0     0     0     0     0     0     0     0     0     0
+     0     0     0     0     0     0     0     0     0     0
+     0     0     0     0     0     0     0     0     0     0
+     0     0     0     0     0     0     0     0     0     0
+     0     0     0     0     0     0     0     0     0     0
+     0     0     0     0     0     0     0     0     0     0
+     0     0     0     0     0     0     0     0     0     0
+     0     0     0     0     0     0     0     0     0     0
+     0     0     0     0     0     0     0     0     0     0
+     0     0     0     0     0     0     0     0     0     0
+     0     0     0     0     0     0     0     0     0     0
+     0     0     0     0     0     0     0     0     0     0
+     0     0     0     0     0     0     0     0     0     0
+     0     0     0     0     0     0     0     0     0     0
+     0     0     0     0     0     0     0     0     0     0
+     0     0     0     0     0     0     0     0     0     0
+     0     0     0     0     0     0     0     0     0     0
+     0     0     0     0     0     0     0     0     0     0
+     0     0     0     0     0     0     0     0     0     0
+     0     0     0     0     0     0     0     0     0     0
+     0     0     0     0     0     0     0     0     0     0
+     0     0     0     0     0     0     0     0     0     0
+     0     0     0     0     0     0     0     0     0     0
+     0     0     0     0     0     0     0     0     0     0
+     0     0     0     0     0     0     0     0     0     0
+     0     0     0     0     0     0     0     0     0     0
+     0     0     0     0     0     0     0     0     0     0
+
+clc
+clear all
+load('Data_T.mat')
+idxg=double(gnd)';
+k=7;
+Comparison_Centroid_KindAP
+{Undefined function or variable 'n'.
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('Comparison_Centroid_KindAP', '/Users/yangyc/Documents/Kind/matlab_data/utility/Comparison_Centroid_KindAP.m', 25)" style="font-weight:bold">Comparison_Centroid_KindAP</a> (<a href="matlab: opentoline('/Users/yangyc/Documents/Kind/matlab_data/utility/Comparison_Centroid_KindAP.m',25,0)">line 25</a>)
+fm = zeros(1,10); fi = fm; t = fm; ac = fm; nmi = fm; idx = zeros(n,10); pur = fm;
+} 
+n=101;
+Comparison_Centroid_KindAP
+                 fg = 4.472373e+01  generated
+{Undefined function or variable 'run_1star'.
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('Comparison_Centroid_KindAP', '/Users/yangyc/Documents/Kind/matlab_data/utility/Comparison_Centroid_KindAP.m', 32)" style="font-weight:bold">Comparison_Centroid_KindAP</a> (<a href="matlab: opentoline('/Users/yangyc/Documents/Kind/matlab_data/utility/Comparison_Centroid_KindAP.m',32,0)">line 32</a>)
+if run_1star == 1
+} 
+run_1star: 0, run_kind: 1, correction: 1
+run_kmeans:   1,   No_kmeans:   10,   Phase_kmeans:   on
+run_kmedians: 0,   No_kmedians: 100,   Phase_kmedians: on
+run_kmedoids: 0,   No_kmedoids: 100,   Phase_kmedoids: on
+T = []; FM =[]; FI =[]; AC = []; NMI = []; S = []; IDX = {}; PUR = [];
+Comparison_Centroid_KindAP
+                 fg = 4.472373e+01  generated
+SR   10:         fm = 6.157425e-02  fi = 2.372653e+01  AC =  57.43%  MI =  58.77%  t =   0.07s
+KindAP:          fm = -4.929361e-01  fi = 3.199945e+01  AC =  52.48%  MI =  55.32%  t =   0.02s
+KindAP+Kms:      fm = 9.766659e+00  fi = 4.859320e+01  AC =  48.51%  MI =  47.50%  t =   0.67s
+Kmeans   10:     fm = 9.766659e+00  fi = 4.859320e+01  AC =  48.51%  MI =  47.50%  t =   0.33s
+                 fg = 4.472373e+01  generated
+sum(U.^2,[],2)
+{Error using <a href="matlab:matlab.internal.language.introspective.errorDocCallback('sum')" style="font-weight:bold">sum</a>
+Invalid option. Option must be 'double', 'native', 'default', 'omitnan' or 'includenan'.
+} 
+sum(U.^2,2)
+
+ans =
+
+    0.0682
+    0.1913
+    0.2346
+    0.0682
+    0.4757
+    0.6929
+    0.5252
+    0.7083
+    0.4736
+    0.1529
+    0.9190
+    0.0058
+    0.9900
+    0.7075
+    0.1448
+    0.1208
+    0.0160
+    0.7735
+    0.6708
+    0.4385
+    0.0058
+    0.0040
+    0.8569
+    0.0193
+    0.6661
+    0.8067
+    0.7160
+    0.0319
+    0.6136
+    0.0180
+    0.5519
+    0.5252
+    0.0499
+    0.0193
+    0.7083
+    0.2317
+    0.1653
+    0.0160
+    0.1914
+    0.1266
+    0.2405
+    0.0102
+    0.3852
+    0.0270
+    0.0691
+    0.0691
+    0.1208
+    0.0691
+    0.0618
+    0.0254
+    0.0691
+    0.5703
+    0.5847
+    0.0798
+    0.0254
+    0.6136
+    0.0078
+    0.0058
+    0.0040
+    0.0129
+    0.6708
+    0.1529
+    0.0695
+    0.0407
+    0.9190
+    0.9281
+    0.4385
+    0.8025
+    0.2752
+    0.5504
+    0.7904
+    0.0102
+    0.0941
+    0.7083
+    0.4385
+    0.0125
+    0.0973
+    0.6703
+    0.0058
+    0.0058
+    0.2994
+    0.7075
+    0.7083
+    0.0078
+    0.0499
+    0.1321
+    0.0788
+    0.0026
+    0.2739
+    0.7160
+    0.0332
+    0.6341
+    0.2447
+    0.0245
+    0.0766
+    0.0040
+    0.0499
+    0.2476
+    0.0691
+    0.7075
+    0.0462
+
+norm(U'*U-eye(7))
+
+ans =
+
+    4.7322
+
+clear all
+load('Data_T.mat')
+idxg=double(gnd)';
+n=101;
+k=7;
+Comparison_Centroid_KindAP
+                 fg = 3.784258e+01  generated
+{Undefined function or variable 'run_1star'.
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('Comparison_Centroid_KindAP', '/Users/yangyc/Documents/Kind/matlab_data/utility/Comparison_Centroid_KindAP.m', 32)" style="font-weight:bold">Comparison_Centroid_KindAP</a> (<a href="matlab: opentoline('/Users/yangyc/Documents/Kind/matlab_data/utility/Comparison_Centroid_KindAP.m',32,0)">line 32</a>)
+if run_1star == 1
+} 
+run_1star: 0, run_kind: 1, correction: 1
+run_kmeans:   1,   No_kmeans:   10,   Phase_kmeans:   on
+run_kmedians: 0,   No_kmedians: 100,   Phase_kmedians: on
+run_kmedoids: 0,   No_kmedoids: 100,   Phase_kmedoids: on
+Comparison_Centroid_KindAP
+                 fg = 3.784258e+01  generated
+{'KindAP' is not found in the current folder or on the MATLAB path, but exists in:
+    /Users/yangyc/Documents/Kind/matlab_data
+    /Users/yangyc/Documents/MATLAB/code_KindAP_11_22_2018/utility
+
+Change the MATLAB current folder or add its folder to the MATLAB path.
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('Comparison_Centroid_KindAP', '/Users/yangyc/Documents/Kind/matlab_data/utility/Comparison_Centroid_KindAP.m', 80)" style="font-weight:bold">Comparison_Centroid_KindAP</a> (<a href="matlab: opentoline('/Users/yangyc/Documents/Kind/matlab_data/utility/Comparison_Centroid_KindAP.m',80,0)">line 80</a>)
+        idx3temp = KindAP(U*(s*v'),k,options);
+} 
+Comparison_Centroid_KindAP
+                 fg = 3.784258e+01  generated
+{'KindAP' is not found in the current folder or on the MATLAB path, but exists in:
+    /Users/yangyc/Documents/Kind/matlab_data
+    /Users/yangyc/Documents/MATLAB/code_KindAP_11_22_2018/utility
+
+Change the MATLAB current folder or add its folder to the MATLAB path.
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('Comparison_Centroid_KindAP', '/Users/yangyc/Documents/Kind/matlab_data/utility/Comparison_Centroid_KindAP.m', 80)" style="font-weight:bold">Comparison_Centroid_KindAP</a> (<a href="matlab: opentoline('/Users/yangyc/Documents/Kind/matlab_data/utility/Comparison_Centroid_KindAP.m',80,0)">line 80</a>)
+        idx3temp = KindAP(U*(s*v'),k,options);
+} 
+Comparison_Centroid_KindAP
+                 fg = 3.784258e+01  generated
+{'KindAP' is not found in the current folder or on the MATLAB path, but exists in:
+    /Users/yangyc/Documents/Kind/matlab_data
+    /Users/yangyc/Documents/MATLAB/code_KindAP_11_22_2018/utility
+
+Change the MATLAB current folder or add its folder to the MATLAB path.
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('Comparison_Centroid_KindAP', '/Users/yangyc/Documents/Kind/matlab_data/utility/Comparison_Centroid_KindAP.m', 80)" style="font-weight:bold">Comparison_Centroid_KindAP</a> (<a href="matlab: opentoline('/Users/yangyc/Documents/Kind/matlab_data/utility/Comparison_Centroid_KindAP.m',80,0)">line 80</a>)
+        idx3temp = KindAP(U*(s*v'),k,options);
+} 
+Comparison_Centroid_KindAP
+                 fg = 3.784258e+01  generated
+SR   10:         fm = -6.392092e+00  fi = 9.271821e+00  AC =  60.40%  MI =  60.07%  t =   0.03s
+KindAP:          fm = -6.854149e+00  fi = 1.310138e+01  AC =  52.48%  MI =  61.65%  t =   0.02s
+KindAP+Kms:      fm = 8.955573e+00  fi = 1.329400e+01  AC =  52.48%  MI =  62.18%  t =   0.35s
+Kmeans   10:     fm = 8.950360e+00  fi = 1.055417e+01  AC =  60.40%  MI =  62.97%  t =   0.34s
+                 fg = 3.784258e+01  generated
+Comparison_Centroid_KindAP
+                 fg = 3.784258e+01  generated
+SR   10:         fm = -6.392092e+00  fi = 9.271821e+00  AC =  60.40%  MI =  60.07%  t =   0.03s
+KindAP:          fm = -6.854149e+00  fi = 1.310138e+01  AC =  52.48%  MI =  61.65%  t =   0.02s
+KindAP+Kms:      fm = 8.955573e+00  fi = 1.329400e+01  AC =  52.48%  MI =  62.18%  t =   0.04s
+Kmeans   10:     fm = 8.940425e+00  fi = 1.521684e+01  AC =  52.48%  MI =  62.65%  t =   0.06s
+                 fg = 3.784258e+01  generated
+Comparison_Centroid_KindAP
+                 fg = 3.784258e+01  generated
+SR   10:         fm = -6.313997e+00  fi = 8.412620e+00  AC =  60.40%  MI =  66.00%  t =   0.04s
+KindAP:          fm = -6.854149e+00  fi = 1.310138e+01  AC =  52.48%  MI =  61.65%  t =   0.01s
+KindAP+Kms:      fm = 8.955573e+00  fi = 1.329400e+01  AC =  52.48%  MI =  62.18%  t =   0.06s
+Kmeans   10:     fm = 9.037762e+00  fi = 1.140270e+01  AC =  56.44%  MI =  61.61%  t =   0.05s
+                 fg = 3.784258e+01  generated
+Comparison_Centroid_KindAP
+                 fg = 3.784258e+01  generated
+SR   10:         fm = -6.462745e+00  fi = 8.405039e+00  AC =  60.40%  MI =  65.77%  t =   0.02s
+KindAP:          fm = -6.854149e+00  fi = 1.310138e+01  AC =  52.48%  MI =  61.65%  t =   0.00s
+KindAP+Kms:      fm = 8.955573e+00  fi = 1.329400e+01  AC =  52.48%  MI =  62.18%  t =   0.02s
+Kmeans   10:     fm = 8.940425e+00  fi 

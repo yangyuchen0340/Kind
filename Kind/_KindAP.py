@@ -177,8 +177,7 @@ class KindAP(BaseEstimator, ClusterMixin, TransformerMixin):
         k = int(self.n_clusters)
         if k > X.shape[1]:
             raise ValueError("KindAP can only solve cases where dim > n_clusters")
-#        S,D,V=la.svd(X,full_matrices=False)
-#        Ud = S[:,:k]
+
         self.labels_, self.H, err, self.n_iter = \
         kindAP(X,k,self.init,self.tol_in, self.tol_out,self.max_iter_in,self.max_iter_out, 
                self.disp,self.do_inner,self.post_SR, self.isnrm_row_U, self.isnrm_col_H, 
