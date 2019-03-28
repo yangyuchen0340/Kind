@@ -98,7 +98,6 @@ def kindAP(Ud,n_clusters,init,tol_in,tol_out,max_iter_in, max_iter_out, disp,
 
         if disp == True :
             print ("\nOuter Iteration %3d: "% (n_iter_out+1))
-#        N,Z,err,itr = nonneg_proj(Ud,Z,tol_in,max_iter_in, disp)
         # inner iterations
         if do_inner:
             for itr in range(max_iter_in):
@@ -210,21 +209,6 @@ class KindAP(BaseEstimator, ClusterMixin, TransformerMixin):
     def fit_predict_L(self,X):
         self.fit_L(X)
         return self.labels_
-        
-        
-        
-#        H = normalize((H!=0),axis=0,norm='l1').transpose()
-#        self.cluster_centers_ = np.matmul(H.todense(),X)
-#        if self.algorithm == 'simple':
-#            return self
-#        else:
-#            self.algorithm == 'L'
-#            km = cluster.KMeans(n_clusters=k,init=self.cluster_centers_)
-#            km.fit(X)
-#            self.labels_ = km.labels_
-#            self.cluster_centers_ = km.cluster_centers_
-#            self.inertia_ = km.inertia_
-#            return self
         
             
     

@@ -9,12 +9,9 @@ Created on Tue Feb 27 15:36:07 2018
 import numpy as np
 from Kind import KindAP
 
-from numpy import linalg as la
-import matplotlib.pyplot as plt
 import scipy.io
 from munkres import Munkres
 
-from sklearn.decomposition import PCA
 from sklearn.neighbors import kneighbors_graph
 from sklearn.manifold import spectral_embedding
 from sklearn.cluster import AgglomerativeClustering,KMeans
