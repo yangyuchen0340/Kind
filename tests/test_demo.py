@@ -7,10 +7,9 @@ Created on Tue Feb 27 15:36:07 2018
 """
 #%% import libraries and data
 import numpy as np
-from Kind import KindAP
+from Kind import KindAP,KindR,KindJoint,best_map
 
 import scipy.io
-from munkres import Munkres
 
 from sklearn.neighbors import kneighbors_graph
 from sklearn.manifold import spectral_embedding
@@ -34,29 +33,6 @@ import time
 #Data = np.vstack((train_data,test_data))
 #ground_truth = np.vstack((train_labels,test_labels))[:,0]
 
-def best_map(L1,L2):
-	#L1 should be the labels and L2 should be the clustering number we got
-	Label1 = np.unique(L1)
-	nClass1 = len(Label1)
-	Label2 = np.unique(L2)
-	nClass2 = len(Label2)
-	nClass = np.maximum(nClass1,nClass2)
-	G = np.zeros((nClass,nClass))
-	for i in range(nClass1):
-		ind_cla1 = L1 == Label1[i]
-		ind_cla1 = ind_cla1.astype(float)
-		for j in range(nClass2):
-			ind_cla2 = L2 == Label2[j]
-			ind_cla2 = ind_cla2.astype(float)
-			G[i,j] = np.sum(ind_cla2 * ind_cla1)
-	m = Munkres()
-	index = m.compute(-G.T)
-	index = np.array(index)
-	c = index[:,1]
-	newL2 = np.zeros(L2.shape)
-	for i in range(nClass2):
-		newL2[L2 == Label2[i]] = Label1[c[i]]
-	return newL2
 
 #%% Loading data setup
 #datadir = '/Users/yangyc/Documents/Kind/matlab_data/real_data/'
@@ -68,6 +44,7 @@ filename = ['australian','auto','balance','breast','cars',
             'german','glass','heart','ionosphere','iris','isolet',
             'lenses','monk1','pima','segment','solar',
             'vehicle','vote','waveform-21','wine','yeast','zoo']
+
 n_files = len(filename)
 KindAP_accuracy = np.zeros((n_files,6))
 Kmeans_accuracy = np.zeros((n_files,6))
@@ -120,8 +97,10 @@ for i in range(n_files):
     #Data_transformed = embedding.fit_transform(Data)
     #%% KindAP
     t_start=time.time()
-    ki = KindAP(n_clusters = N_cluster,isnrm_row_U=True,isnrm_col_H=False, isbinary_H=True)
-    pred_kindAP = ki.fit_predict(Data_transformed)
+#    ki = KindJoint(n_clusters = N_cluster,isnrm_row_U=True,isnrm_col_H=False, isbinary_H=True)
+#    pred_kindAP = ki.fit_predict(Data_transformed)
+    ki = KindJoint(n_clusters = N_cluster,disp=True)
+    pred_kindAP = ki.fit_predict(affinity_matrix)
     t_end=time.time()
     print('--------------------------------')
     kindAP_t = t_end-t_start

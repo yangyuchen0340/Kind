@@ -51,7 +51,7 @@ idx = ones(n,1);
 hist = zeros(maxit1,1); 
 numiter = zeros(maxit1,1);
 N = zeros(n,k); H = N; dUH = 2*k;
-skip_N = 0;crit1 = zeros(3,1);crit2 = zeros(4,1);
+crit1 = zeros(3,1);crit2 = zeros(4,1);
 Z = eye(k);
 % Outer iterations:
 for Outer = 1:maxit1

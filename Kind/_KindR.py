@@ -1,14 +1,10 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Created on Wed Feb 28 11:22:33 2018
+Created on Thu Mar 28 15:19:55 2019
 
 @author: yangyc
 """
-
-# K-indicators with two-layered alternating projection algorithm
-# Yuchen Yang 
-# prototype version of KindAP
 
 #%% library
 import numpy as np
@@ -18,12 +14,23 @@ from sklearn.base import BaseEstimator, ClusterMixin, TransformerMixin
 from sklearn.preprocessing import normalize
 from six import string_types
 from sklearn import cluster
-import warnings
 from .utils import proj_Ud,proj_H
 
-
-#%% KindAP draft
-def kindAP(Ud,n_clusters,init,tol_in,tol_out,max_iter_in, max_iter_out, disp,
+import warnings
+try:
+    from pymanopt import Problem
+    from pymanopt.manifolds import Stiefel, Rotations
+    from pymanopt.solvers import SteepestDescent
+except ImportError:
+    raise ValueError("KindR needs pymanopt, which is unavailable.")
+#                warnings.warn("KindR solver is unavailable. Transfer to"
+#                                 "KindAP instead.")
+try:
+    import autograd.numpy as anp
+except ImportError:
+    raise ValueError("Pymanopt needs autograd, which is unavailable.")
+#%% KindR
+def kindR(Ud,n_clusters,init,tol_in,tol_out,max_iter_in, max_iter_out, disp,
            do_inner,post_SR,isnrm_row_U, isnrm_col_H, isbinary_H):# row version only
     if max_iter_out <= 0:
         raise ValueError('Number of iterations should be a positive number,'
@@ -65,12 +72,11 @@ def kindAP(Ud,n_clusters,init,tol_in,tol_out,max_iter_in, max_iter_out, disp,
     dUH = float('inf')
     numiter,gerr = [],[]
     idx = np.ones(n)
-    crit1,crit2 = np.zeros(3),np.zeros(4)
+    crit2 = np.zeros(4)
     
     
     for n_iter_out in range(max_iter_out):
         idxp, Up, Np, Hp = idx, U, N, H
-        dUN = float('inf')
         ci = -1
         itr = 0
 
@@ -78,21 +84,21 @@ def kindAP(Ud,n_clusters,init,tol_in,tol_out,max_iter_in, max_iter_out, disp,
             print ("\nOuter Iteration %3d: "% (n_iter_out+1))
         # inner iterations
         if do_inner:
-            for itr in range(max_iter_in):
-                N = np.maximum(U,0)
-                U = proj_Ud(N,Ud)
-                dUNp = dUN
-                dUN = la.norm(U-N,'fro')
-                if disp:
-                    print('iter: %4d, dUN = %11.8e'% (itr+1,dUN))
-                # stopping criteria of inner iterations
-                crit1[0] = dUN < 1e-12
-                crit1[1] = abs(dUN-dUNp) < dUNp * tol_in
-                crit1[2] = dUN > dUNp
-                if any(crit1):
-                    numiter.append(itr)
-                    ci = np.nonzero(crit1)[0][0]
-                    break
+            if d==k:
+                manifold=Rotations(k)
+            else:
+                manifold=Stiefel(d,k)
+            def cost(Z):
+                return 0.5*anp.sum(anp.minimum(anp.matmul(Ud,Z),0)**2)
+            
+            problem = Problem(manifold=manifold,cost=cost,verbosity=0)
+            solver = SteepestDescent(logverbosity=2)
+            Z,optlog = solver.solve(problem)
+            U = np.matmul(Ud,Z)
+            N = np.maximum(U,0)
+            numiter.append(len(optlog['iterations']['iteration']))
+            if disp:
+                print(optlog['iterations']['f(x)'])
         else:
             N = U
             numiter.append(0)
@@ -120,15 +126,15 @@ def kindAP(Ud,n_clusters,init,tol_in,tol_out,max_iter_in, max_iter_out, disp,
             if crit2[2] and not crit2[1]:
                 idx, H, U, N, dUH = idxp, Hp, Up, Np, dUHp
             if disp:
-                print('\t stop criteria:', np.nonzero(crit1)[0])
+                print('\t stop reason:', optlog['stoppingreason'])
             break
 
     return idx, H, gerr, numiter
 
 
-class KindAP(BaseEstimator, ClusterMixin, TransformerMixin):
-    """ K-indicators model with alternating projection algorithm
-    Author: Yuchen Yang, Feiyu Chen, Yin Zhang
+class KindR(BaseEstimator, ClusterMixin, TransformerMixin):
+    """ K-indicators model with Riemann optimization algorithm
+    Author: Yuchen Yang, Yin Zhang
     """
     
     def __init__(self, n_clusters, init = 'eye', tol_in = 1e-3, 
@@ -153,10 +159,10 @@ class KindAP(BaseEstimator, ClusterMixin, TransformerMixin):
 
         k = int(self.n_clusters)
         if k > X.shape[1]:
-            raise ValueError("KindAP can only solve cases where dim > n_clusters")
+            raise ValueError("KindR can only solve cases where dim > n_clusters")
 
         self.labels_, self.H, err, self.n_iter = \
-        kindAP(X,k,self.init,self.tol_in, self.tol_out,self.max_iter_in,self.max_iter_out, 
+        kindR(X,k,self.init,self.tol_in, self.tol_out,self.max_iter_in,self.max_iter_out, 
                self.disp,self.do_inner,self.post_SR, self.isnrm_row_U, self.isnrm_col_H, 
                self.isbinary_H)
         if len(err)>0:
@@ -173,7 +179,7 @@ class KindAP(BaseEstimator, ClusterMixin, TransformerMixin):
     def fit_L(self,X):
         self.fit(X) 
         k = int(self.n_clusters)
-        if k > X.shape[1]:
+        if k > X.shape[0]:
             raise ValueError("n_clusters is greater than the number of observations")
         H = normalize((self.H!=0),axis=0,norm='l1').T.todense()
         self.cluster_centers_ = np.dot(H,X)
