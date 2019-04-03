@@ -9,17 +9,31 @@ import pandas as pd
 import numpy as np
 from scipy.sparse import hstack
 import matplotlib.pyplot as plt
-from sklearn.decomposition import KernelPCA,PCA
-from sklearn.preprocessing import LabelBinarizer,MultiLabelBinarizer, normalize
-#from cbrain import utils
+from sklearn.decomposition import KernelPCA
+from sklearn.preprocessing import LabelBinarizer, MultiLabelBinarizer, normalize
+# from cbrain import utils
 import re
-from sklearn.feature_extraction.text import CountVectorizer,TfidfVectorizer
+from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
 import sys
+# from cbrain import utils
+import re
+import sys
+
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+from scipy.sparse import hstack
+from sklearn.decomposition import KernelPCA
+from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
+from sklearn.preprocessing import LabelBinarizer, MultiLabelBinarizer, normalize
+
 sys.path.append('..')
-import KindAP
-#%% Data Loading
+import Kind
+
+
+# %% Data Loading
 def load_df():
-    df=pd.read_csv('test_df.csv')
+    df = pd.read_csv('test_df.csv')
     df = df.fillna('')
     return df
 
@@ -216,6 +230,7 @@ def msgid_encoder(df):
     X_train_msgid = lb.fit_transform(df.msgid.tolist())
     return X_train_msgid
 
+
 # version encoder
 def version_transform(df):
     """
@@ -242,6 +257,7 @@ def version_transform(df):
     X_transform[nonzeros, :] = X
     return X_transform
 
+
 def pde_version_encoder(df):
     """
     Transform and encode pde_version
@@ -260,6 +276,7 @@ def dbs_version_encoder(df):
     """
     X_train_dbs_version = version_transform(df.dbs_version)
     return X_train_dbs_version
+
 
 # group all training encoders
 def get_distance_matrix(df):
@@ -309,96 +326,110 @@ def get_distance_matrix(df):
     X_train = tsvd.fit_transform(X_train)
     return X_train
 
-#label
-def get_solution_id_label(df): 
-    y=df.xrefdb+df.xrefid
+
+# label
+def get_solution_id_label(df):
+    y = df.xrefdb + df.xrefid
     return y
+
+
 # dimension reduction to visualize
 from sklearn.manifold import TSNE
+
 
 def vis_distance_matrix_2D(X_train):
     X_embedded = TSNE(n_components=2).fit_transform(X_train)
     return X_embedded
+
+
 # plot
-def plot_2D_matrix(X,y,label):
+def plot_2D_matrix(X, y, label):
     plt.close()
     if X.shape[1] == 2:
-        plt.scatter(X[:,0],X[:,1])
-        if label == True :
+        plt.scatter(X[:, 0], X[:, 1])
+        if label:
             for i, txt in enumerate(y):
-                plt.annotate(txt,(X[i,0],X[i,1]))       
+                plt.annotate(txt, (X[i, 0], X[i, 1]))
         plt.show()
     else:
         raise ValueError("Wrong input matrix")
-        
-#%% Tests
+
+
+# %% Tests
 df = load_df()
 
 y = get_solution_id_label(df)
 X_train = get_distance_matrix(df)
-        
-#%% Clustering
-def get_cluster(X_train,method,k=1000):
-    from sklearn import cluster 
+
+
+# %% Clustering
+def get_cluster(X_train, method, k=1000):
+    from sklearn import cluster
     if method == 'kmeans':
         km = cluster.KMeans(n_clusters=k)
         km = km.fit(X_train)
         labels = km.labels_
-#        inertia = km.inertia_
-#        centers = km.cluster_centers_
+    #        inertia = km.inertia_
+    #        centers = km.cluster_centers_
     elif method == 'DBSCAN':
-        af = cluster.DBSCAN(min_samples=1,eps=2.25)
+        af = cluster.DBSCAN(min_samples=1, eps=2.25)
         af = af.fit(X_train)
         labels = af.labels_
-    elif method == 'Ward':    
-        hie = cluster.AgglomerativeClustering(n_clusters=k,linkage="ward")
+    elif method == 'Ward':
+        hie = cluster.AgglomerativeClustering(n_clusters=k, linkage="ward")
         hie = hie.fit(X_train)
         labels = hie.labels_
     elif method == 'avr':
-        hie = cluster.AgglomerativeClustering(n_clusters=k,linkage="average")
+        hie = cluster.AgglomerativeClustering(n_clusters=k, linkage="average")
         hie = hie.fit(X_train)
         labels = hie.labels_
     elif method == 'KindAP':
-        ki = KindAP.KindAP(n_clusters = k, algorithm = 'L', tol_in = 1e-5, 
-                           max_iter_in = 500, if_print=True)
+        ki = Kind.KindAP(n_clusters=k, tol_in=1e-5, max_iter_in=500, disp=True)
         ki = ki.fit(X_train)
         labels = ki.labels_
     else:
-        raise ValueError('Invalid method %s!'% method)
+        raise ValueError('Invalid method %s!' % method)
     return labels
+
+
 #
 
 # adjust_mutual_info_score    
 from sklearn.metrics.cluster import adjusted_mutual_info_score
-def evaluate_cluster(y,labels):
-    score = adjusted_mutual_info_score(y,labels)
+
+
+def evaluate_cluster(y, labels):
+    score = adjusted_mutual_info_score(y, labels)
     return score
+
 
 # add label column to df
 # query labeled data
-def map_label_solution(df,labels):
+def map_label_solution(df, labels):
     temp = df
-    if 'C_label' not in df :
-        temp['C_label'] = pd.Series(labels,index=temp.index)
+    if 'C_label' not in df:
+        temp['C_label'] = pd.Series(labels, index=temp.index)
     return temp
 
+
 # explore the constitution of cluster #lb
-def explore_cluster(df,labels,lb):
-    y = (df.xrefdb+df.xrefid).value_counts()
-    x = (df.xrefdb+df.xrefid)[np.asarray(np.nonzero(labels==lb))[0]].value_counts()
+def explore_cluster(df, labels, lb):
+    y = (df.xrefdb + df.xrefid).value_counts()
+    x = (df.xrefdb + df.xrefid)[np.asarray(np.nonzero(labels == lb))[0]].value_counts()
     x.columns = lb
-    output_cluster = pd.concat([x,x.div(y).dropna()],axis=1).reindex(x.index)
-    output_cluster.columns=['multiplicity','perc_of_soln']
-    output_cluster['perc_of_cluster'] = pd.Series(x/x.sum(),index=x.index)
+    output_cluster = pd.concat([x, x.div(y).dropna()], axis=1).reindex(x.index)
+    output_cluster.columns = ['multiplicity', 'perc_of_soln']
+    output_cluster['perc_of_cluster'] = pd.Series(x / x.sum(), index=x.index)
     return output_cluster
 
-#%% Clustering Test
+
+# %% Clustering Test
 method_name = "KindAP"
-labels = get_cluster(X_train,method_name)
-print (evaluate_cluster(y,labels))
-#%% Output clustering stats
-f = open("cluster_stat_"+ method_name +".txt","w+")
-f.write("The evaluation score is %lf\n"%evaluate_cluster(y,labels))
+labels = get_cluster(X_train, method_name)
+print(evaluate_cluster(y, labels))
+# %% Output clustering stats
+f = open("cluster_stat_" + method_name + ".txt", "w+")
+f.write("The evaluation score is %lf\n" % evaluate_cluster(y, labels))
 
 C_count_ex = 0
 inc_count_ex = 0
@@ -411,91 +442,96 @@ C_ind_ex = []
 
 for lb in range(1500):
 
-    if np.asarray(np.nonzero(labels==lb))[0].shape[0]>0:
-        f.write ("------------------------------------------------------------\n")
-        f.write ("This is Cluster Number %d\n" % lb)
-        stat_cluster = explore_cluster(df,labels,lb)
-        f.write (stat_cluster.to_string())
-        f.write ("\n\n")
+    if np.asarray(np.nonzero(labels == lb))[0].shape[0] > 0:
+        f.write("------------------------------------------------------------\n")
+        f.write("This is Cluster Number %d\n" % lb)
+        stat_cluster = explore_cluster(df, labels, lb)
+        f.write(stat_cluster.to_string())
+        f.write("\n\n")
         if (stat_cluster.shape[0] == 1) and (stat_cluster.multiplicity[0] > 5):
-            f.write ("Excellent Cluster because the cluster contains a uniform soln_id.\n")
-            C_count_ex = C_count_ex+1
-            inc_count_ex = inc_count_ex+stat_cluster.multiplicity[0]
+            f.write("Excellent Cluster because the cluster contains a uniform soln_id.\n")
+            C_count_ex = C_count_ex + 1
+            inc_count_ex = inc_count_ex + stat_cluster.multiplicity[0]
             C_ind_ex.append(lb)
-        elif (stat_cluster.shape[0] == 1) and ((stat_cluster.multiplicity[0] > 1) or (stat_cluster.perc_of_soln[0] > 0.99)):
-            f.write ("Great Cluster because the cluster contains a uniform soln_id.\n")
-            C_count_gr = C_count_gr+1
-            inc_count_gr = inc_count_gr+stat_cluster.multiplicity[0]
+        elif (stat_cluster.shape[0] == 1) and (
+                (stat_cluster.multiplicity[0] > 1) or (stat_cluster.perc_of_soln[0] > 0.99)):
+            f.write("Great Cluster because the cluster contains a uniform soln_id.\n")
+            C_count_gr = C_count_gr + 1
+            inc_count_gr = inc_count_gr + stat_cluster.multiplicity[0]
         elif stat_cluster.shape[0] == 1:
-            f.write ("Good Cluster because the cluster contains a uniform soln_id.\n")
-            C_count_g = C_count_g+1
-            inc_count_g = inc_count_g+stat_cluster.multiplicity[0]
-        elif stat_cluster.perc_of_cluster[0]-stat_cluster.perc_of_cluster[1]>0.85:
-            f.write ("Excellent Cluster because almost all incidents in the cluster have a uniform soln_id.\n")
-            C_count_ex = C_count_ex+1
-            inc_count_ex = inc_count_ex+stat_cluster.multiplicity[0]
+            f.write("Good Cluster because the cluster contains a uniform soln_id.\n")
+            C_count_g = C_count_g + 1
+            inc_count_g = inc_count_g + stat_cluster.multiplicity[0]
+        elif stat_cluster.perc_of_cluster[0] - stat_cluster.perc_of_cluster[1] > 0.85:
+            f.write("Excellent Cluster because almost all incidents in the cluster have a uniform soln_id.\n")
+            C_count_ex = C_count_ex + 1
+            inc_count_ex = inc_count_ex + stat_cluster.multiplicity[0]
             C_ind_ex.append(lb)
-        elif stat_cluster.perc_of_cluster[0]-stat_cluster.perc_of_cluster[1]>0.5:
-            f.write ("Great Cluster because the vast majority incidents in the cluster have a uniform soln_id.\n")
-            C_count_gr = C_count_gr+1
-            inc_count_gr = inc_count_gr+stat_cluster.multiplicity[0]
-        elif (stat_cluster.multiplicity.div(stat_cluster.perc_of_soln)-stat_cluster.multiplicity).sum() < 0.05*stat_cluster.multiplicity.sum():
-            f.write ("Good Cluster because almost all the solutions with the same soln_id are found.\n")
-            C_count_g = C_count_g+1
-            inc_count_g = inc_count_g+stat_cluster[stat_cluster.perc_of_soln>0.95].multiplicity.sum()
-        elif (stat_cluster.multiplicity.sum()>10) and (stat_cluster[stat_cluster.perc_of_cluster>0.03].shape[0]<4) and (stat_cluster.perc_of_cluster[0]>0.1) :
-            f.write ("Good cluster because only a small number of solutions remain without considering outliers.\n")
-            C_count_g = C_count_g+1
-            inc_count_g = inc_count_g+stat_cluster[stat_cluster.perc_of_cluster>0.03].multiplicity.sum()
+        elif stat_cluster.perc_of_cluster[0] - stat_cluster.perc_of_cluster[1] > 0.5:
+            f.write("Great Cluster because the vast majority incidents in the cluster have a uniform soln_id.\n")
+            C_count_gr = C_count_gr + 1
+            inc_count_gr = inc_count_gr + stat_cluster.multiplicity[0]
+        elif (stat_cluster.multiplicity.div(
+                stat_cluster.perc_of_soln) - stat_cluster.multiplicity).sum() < 0.05 * stat_cluster.multiplicity.sum():
+            f.write("Good Cluster because almost all the solutions with the same soln_id are found.\n")
+            C_count_g = C_count_g + 1
+            inc_count_g = inc_count_g + stat_cluster[stat_cluster.perc_of_soln > 0.95].multiplicity.sum()
+        elif (stat_cluster.multiplicity.sum() > 10) and (
+                stat_cluster[stat_cluster.perc_of_cluster > 0.03].shape[0] < 4) and (
+                stat_cluster.perc_of_cluster[0] > 0.1):
+            f.write("Good cluster because only a small number of solutions remain without considering outliers.\n")
+            C_count_g = C_count_g + 1
+            inc_count_g = inc_count_g + stat_cluster[stat_cluster.perc_of_cluster > 0.03].multiplicity.sum()
         else:
-            f.write ("Not a good cluster.\n")
+            f.write("Not a good cluster.\n")
 f.write("*******************************************************\n")
-f.write("Excellent number clusters: %lf\n" %C_count_ex)
-f.write("Great number clusters: %lf \n" %C_count_gr)
-f.write("Good number clusters: %lf \n" %C_count_g)
+f.write("Excellent number clusters: %lf\n" % C_count_ex)
+f.write("Great number clusters: %lf \n" % C_count_gr)
+f.write("Good number clusters: %lf \n" % C_count_g)
 f.write("\n")
-f.write("Excellent number incidents: %lf \n" %inc_count_ex)
-f.write("Great number incidents: %lf \n" %inc_count_gr)
-f.write("Good number incidents: %lf \n" %inc_count_g)
+f.write("Excellent number incidents: %lf \n" % inc_count_ex)
+f.write("Great number incidents: %lf \n" % inc_count_gr)
+f.write("Good number incidents: %lf \n" % inc_count_g)
 f.close()
 
-#%% Plot Pie
+# %% Plot Pie
 from matplotlib.gridspec import GridSpec
-legends = ['Excellent','Great','Good','Not good']
-colors = ['chartreuse','gold','orange','red']
-frac_C = [C_count_ex,C_count_gr,C_count_g,len(np.unique(labels))-C_count_ex-C_count_gr-C_count_g]
-frac_inc = [inc_count_ex,inc_count_gr,inc_count_g,len(labels)-inc_count_ex-inc_count_gr-inc_count_g]
+
+legends = ['Excellent', 'Great', 'Good', 'Not good']
+colors = ['chartreuse', 'gold', 'orange', 'red']
+frac_C = [C_count_ex, C_count_gr, C_count_g, len(np.unique(labels)) - C_count_ex - C_count_gr - C_count_g]
+frac_inc = [inc_count_ex, inc_count_gr, inc_count_g, len(labels) - inc_count_ex - inc_count_gr - inc_count_g]
 
 the_grid = GridSpec(1, 2)
 fig = plt.figure()
 plt.subplot(the_grid[0, 0], aspect=1)
-plt.pie(frac_C, labels=legends,colors=colors, autopct='%1.1f%%', shadow=True)
+plt.pie(frac_C, labels=legends, colors=colors, autopct='%1.1f%%', shadow=True)
 plt.title("Clusters")
 
 plt.subplot(the_grid[0, 1], aspect=1)
-plt.pie(frac_inc, labels=legends,colors=colors, autopct='%1.1f%%', shadow=True)
+plt.pie(frac_inc, labels=legends, colors=colors, autopct='%1.1f%%', shadow=True)
 plt.title("Incidents")
 
-plt.suptitle("Clustering performace evaluation by "+ method_name, size=16)
-fig.savefig("cluster_eval_"+method_name+".png")
+plt.suptitle("Clustering performace evaluation by " + method_name, size=16)
+fig.savefig("cluster_eval_" + method_name + ".png")
 plt.close()
 
-#%% Plot
-#X_embedded = vis_distance_matrix_2D(X_train)
-#plot_2D_matrix(X_embedded,y,label=True)
-#plot_2D_matrix(X=X_embedded,y=labels,label=True)
-#%% Further Insight to Excellent Cluster
-df=map_label_solution(df,labels)
-fp = open('Suspicious_'+method_name+'.txt',"w+")
+# %% Plot
+# X_embedded = vis_distance_matrix_2D(X_train)
+# plot_2D_matrix(X_embedded,y,label=True)
+# plot_2D_matrix(X=X_embedded,y=labels,label=True)
+# %% Further Insight to Excellent Cluster
+df = map_label_solution(df, labels)
+fp = open('Suspicious_' + method_name + '.txt', "w+")
 for lb in range(200):
     if lb in C_ind_ex:
         fp.write("---------------------------------\n")
-        fp.write("This is cluster %d\n"%lb)
-        stat_cluster = explore_cluster(df,labels,lb)       
+        fp.write("This is cluster %d\n" % lb)
+        stat_cluster = explore_cluster(df, labels, lb)
         fp.write(stat_cluster.to_string())
-        fp.write ("\n\n")
-        if stat_cluster.shape[0]>1:
+        fp.write("\n\n")
+        if stat_cluster.shape[0] > 1:
             fp.write("The detailed information is :\n")
-            fp.write(df[df.C_label==lb].to_string())
-            fp.write ("\n\n")
+            fp.write(df[df.C_label == lb].to_string())
+            fp.write("\n\n")
 fp.close()

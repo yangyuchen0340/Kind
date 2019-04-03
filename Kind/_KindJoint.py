@@ -6,18 +6,19 @@ Created on Thu Mar 28 18:09:22 2019
 @author: yangyc
 """
 import warnings
+
 import numpy as np
-from .utils import _deterministic_vector_sign_flip
-from ._KindAP import KindAP
-from sklearn.neighbors import kneighbors_graph
-from sklearn.manifold import spectral_embedding
-from sklearn.cluster import KMeans
 from scipy import sparse
 from scipy.linalg import norm
-from scipy.sparse.linalg import eigsh
-from scipy.sparse.csgraph import connected_components
-from sklearn.base import BaseEstimator, ClusterMixin, TransformerMixin
 from scipy.sparse.csgraph import laplacian as csgraph_laplacian
+from scipy.sparse.linalg import eigsh
+from sklearn.base import BaseEstimator, ClusterMixin, TransformerMixin
+from sklearn.manifold import spectral_embedding
+from sklearn.neighbors import kneighbors_graph
+
+from ._KindAP import KindAP
+from .utils import _deterministic_vector_sign_flip
+
 
 def _set_diag(laplacian, value, norm_laplacian):
     """Set the diagonal of the laplacian matrix and convert it to a
@@ -60,7 +61,8 @@ def _set_diag(laplacian, value, norm_laplacian):
             laplacian = laplacian.tocsr()
     return laplacian
 
-def kind_joint(K,n_clusters,init,maxit,disp,tol,norm_laplacian):
+
+def kind_joint(K, n_clusters, init, maxit, disp, tol, norm_laplacian):
     if maxit <= 0:
         raise ValueError('Number of iterations should be a positive number,'
                          ' got %d instead' % maxit)
@@ -72,65 +74,67 @@ def kind_joint(K,n_clusters,init,maxit,disp,tol,norm_laplacian):
                       'graph now')
         X = kneighbors_graph(K)
     else:
-        X = (K+K.T)/2
+        X = (K + K.T) / 2
 
     # set initial V
-    V = spectral_embedding(X,n_components=n_clusters,
-                           drop_first=False,norm_laplacian=norm_laplacian)
+    V = spectral_embedding(X, n_components=n_clusters,
+                           drop_first=False, norm_laplacian=norm_laplacian)
     # set initial idx
     n = X.shape[0]
     if hasattr(init, '__array__'):
-        idx = np.array(init).reshape(max(init.shape()),)
-        if idx.shape[0] != n :
+        idx = np.array(init).reshape(max(init.shape()), )
+        if idx.shape[0] != n:
             raise ValueError('The init should be the same as the total'
                              'observations, got %d instead.' % idx.shape[0])
     else:
         km = KindAP(n_clusters=n_clusters)
         idx = km.fit_predict_L(V)
     # set rho
-    rho = 1/n
+    rho = 1 / n
     # set history info
     hist = [0 for i in range(maxit)]
     for itr in range(maxit):
-        Vp,idxp = V,idx
-        
+        Vp, idxp = V, idx
+
         laplacian, dd = csgraph_laplacian(X, normed=norm_laplacian,
-                                      return_diag=True)
+                                          return_diag=True)
         laplacian = _set_diag(laplacian, 1, norm_laplacian)
         laplacian *= -1
         v0 = np.random.uniform(-1, 1, laplacian.shape[0])
         I = np.arange(n)
         V = np.ones(n)
-        H = sparse.csc_matrix((V,(I,idx)),shape=(n,n_clusters))
-        lambdas, diffusion_map = eigsh(laplacian+rho*sparse.csc_matrix.dot(H,H.T), 
-                                        k=n_clusters,sigma=1.0, which='LM', v0=v0)
+        H = sparse.csc_matrix((V, (I, idx)), shape=(n, n_clusters))
+        lambdas, diffusion_map = eigsh(laplacian + rho * sparse.csc_matrix.dot(H, H.T),
+                                       k=n_clusters, sigma=1.0, which='LM', v0=v0)
         embedding = diffusion_map.T[n_clusters::-1]
         V = _deterministic_vector_sign_flip(embedding)
         if norm_laplacian:
             V = embedding / dd
-        obj = rho * np.sum(sparse.csc_matrix.dot(V,H)**2) + np.trace(np.dot(sparse.csc_matrix.dot(V,laplacian),V.T))
-        hist[itr] = 0.5*obj
+        obj = rho * np.sum(sparse.csc_matrix.dot(V, H) ** 2) + np.trace(
+            np.dot(sparse.csc_matrix.dot(V, laplacian), V.T))
+        hist[itr] = 0.5 * obj
         V = V.T
         ki = KindAP(n_clusters=n_clusters)
         idx = ki.fit_predict_L(V)
-        
+
         # stopping criteria
-        idxchg = norm(idx-idxp,1)
-        Vrel = norm(V-Vp,'fro')/norm(Vp,'fro')
+        idxchg = norm(idx - idxp, 1)
+        Vrel = norm(V - Vp, 'fro') / norm(Vp, 'fro')
         if disp:
-            print('iter: %3d, Obj: %6.2e,  Vrel: %6.2e, idxchg: %6d'%(itr,obj, Vrel,idxchg))
-        if not idxchg or Vrel<tol:
+            print('iter: %3d, Obj: %6.2e,  Vrel: %6.2e, idxchg: %6d' % (itr, obj, Vrel, idxchg))
+        if not idxchg or Vrel < tol:
             break
-        
-    return idx, V, hist[:min(maxit,itr+1)]
+
+    return idx, V, hist[:min(maxit, itr + 1)]
+
 
 class KindJoint(BaseEstimator, ClusterMixin, TransformerMixin):
     """ K-indicators model with Joint optimization
     Author: Yuchen Yang, Yin Zhang
     """
-    
-    def __init__(self, n_clusters, init = None, tol=1e-5, maxit = 200, disp = False,
-                 norm_laplacian = True):
+
+    def __init__(self, n_clusters, init=None, tol=1e-5, maxit=200, disp=False,
+                 norm_laplacian=True):
         self.n_clusters = n_clusters
         self.init = init
         self.maxit = maxit
@@ -138,25 +142,27 @@ class KindJoint(BaseEstimator, ClusterMixin, TransformerMixin):
         self.disp = disp
         self.norm_laplacian = norm_laplacian
 
-    
-    def fit(self,X):
+    def fit(self, X):
 
         k = int(self.n_clusters)
         if k > X.shape[0]:
             raise ValueError("n_clusters is greater than the number of observations")
 
         self.labels_, self.embedding_, hist = \
-        kind_joint(X,k,self.init,self.maxit,self.disp, self.tol, 
-               self.norm_laplacian)
-        if len(hist)>0:
+            kind_joint(X, k, self.init, self.maxit, self.disp, self.tol,
+                       self.norm_laplacian)
+        if len(hist) > 0:
             self.inertia_ = hist[-1]
             self.iter = len(hist)
         else:
-            raise ValueError("Insufficent error array.")
+            raise ValueError("Insufficient error array.")
         return self
-    
-    def fit_predict(self,X):
+
+    def fit_predict(self, X, y=None):
+        """
+
+        :param X:
+        :type y: Ignored
+        """
         self.fit(X)
         return self.labels_
-        
-        
