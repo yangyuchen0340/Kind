@@ -15,6 +15,7 @@ from sklearn.preprocessing import normalize
 from six import string_types
 from sklearn import cluster
 from .utils import proj_ud, proj_h
+from ._KindAP import kindap
 
 import warnings
 
@@ -39,7 +40,10 @@ def kindr(Ud, n_clusters, init, tol_in, tol_out, max_iter_in, max_iter_out, disp
     try:
         import autograd.numpy as anp
     except ImportError:
-        raise ValueError("Pymanopt needs autograd, which is unavailable,try KindAP instead.")
+        warnings.warn("Pymanopt needs autograd, which is unavailable,try KindAP instead.")
+        idx, center, gerr, numiter = kindap(Ud, n_clusters, init, tol_in, tol_out, max_iter_in, max_iter_out,
+                                            disp, True, post_SR, isnrm_row_U, isnrm_col_H, isbinary_H)
+        return idx, center, gerr, numiter
 
     n, d = Ud.shape
     k = n_clusters
@@ -68,13 +72,29 @@ def kindr(Ud, n_clusters, init, tol_in, tol_out, max_iter_in, max_iter_out, disp
         Z_0 = np.matmul(S, V)
         U = np.matmul(Ud, Z_0)
     else:
-        raise ValueError("the init parameter for KindAP should be 'eye','random',"
+        raise ValueError("The init parameter for KindAP should be 'eye','random',"
                          "or an array. Got a %s with type %s instead." % (init, type(init)))
+    if isinstance(do_inner, bool) or isinstance(do_inner, int):
+        do_inner = bool(do_inner)
+    elif isinstance(do_inner, string_types) and (do_inner in ["relu", "softmax"]):
+        pass
+    else:
+        raise ValueError("Invalid put do_inner")
+
     H, N = sparse.csc_matrix((n, k)), sparse.csc_matrix((n, k))
     dUH = float('inf')
     numiter, gerr = [], []
     idx = np.ones(n)
     crit2 = np.zeros(4)
+
+    def cost_n(rotation):
+        return 0.5 * anp.sum(anp.minimum(anp.matmul(Ud, rotation), 0) ** 2)
+
+    def cost_softmax(rotation):
+        umat = anp.matmul(Ud, rotation)
+        exp_umat = anp.exp(umat)
+        mat = exp_umat / exp_umat.sum(axis=1).reshape(Ud.shape[0], 1)
+        return 0.5 * anp.sum((umat - mat) ** 2)
 
     for n_iter_out in range(max_iter_out):
         idxp, Up, Np, Hp = idx, U, N, H
@@ -82,17 +102,17 @@ def kindr(Ud, n_clusters, init, tol_in, tol_out, max_iter_in, max_iter_out, disp
         itr = 0
 
         if disp:
-            print("\nOuter Iteration %3d: " % (n_iter_out + 1))
+            print("Outer Iteration %3d: " % (n_iter_out + 1))
         # inner iterations
         if do_inner:
             if d == k:
                 manifold = Rotations(k)
             else:
                 manifold = Stiefel(d, k)
-
-            def cost(Z):
-                return 0.5 * anp.sum(anp.minimum(anp.matmul(Ud, Z), 0) ** 2)
-
+            if do_inner == "softmax":
+                cost = cost_softmax
+            else:
+                cost = cost_n
             problem = Problem(manifold=manifold, cost=cost, verbosity=0)
             solver = SteepestDescent(maxiter=max_iter_in, mingradnorm=tol_in, logverbosity=2)
             Z, optlog = solver.solve(problem)
