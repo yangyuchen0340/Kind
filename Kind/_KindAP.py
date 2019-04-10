@@ -19,11 +19,11 @@ from sklearn.preprocessing import normalize
 from six import string_types
 from sklearn import cluster
 import warnings
-from .utils import proj_H, proj_Ud
+from .utils import proj_h, proj_ud
 
 
 # %% KindAP draft
-def kindAP(Ud, n_clusters, init, tol_in, tol_out, max_iter_in, max_iter_out, disp,
+def kindap(Ud, n_clusters, init, tol_in, tol_out, max_iter_in, max_iter_out, disp,
            do_inner, post_SR, isnrm_row_U, isnrm_col_H, isbinary_H):  # row version only
     """
     run KindAP algorithm, Yuchen Yang, Feiyu Chen, Yin Zhang
@@ -96,7 +96,7 @@ def kindAP(Ud, n_clusters, init, tol_in, tol_out, max_iter_in, max_iter_out, dis
         if do_inner:
             for itr in range(max_iter_in):
                 N = np.maximum(U, 0)
-                U = proj_Ud(N, Ud)
+                U = proj_ud(N, Ud)
                 dUNp = dUN
                 dUN = la.norm(U - N, 'fro')
                 if disp:
@@ -114,11 +114,11 @@ def kindAP(Ud, n_clusters, init, tol_in, tol_out, max_iter_in, max_iter_out, dis
             numiter.append(0)
 
         # project onto H            
-        H, idx = proj_H(N, isnrm_col_H, isbinary_H)
+        H, idx = proj_h(N, isnrm_col_H, isbinary_H)
         idxchg = la.norm(idx - idxp, 1)
 
         # project back to Ud
-        U = proj_Ud(H, Ud)
+        U = proj_ud(H, Ud)
         dUHp = dUH
         dUH = la.norm(U - H, 'fro')
         gerr.append(dUH)
@@ -181,7 +181,7 @@ class KindAP(BaseEstimator, ClusterMixin, TransformerMixin):
             raise ValueError("KindAP can only deal with d>=k as inputs, may need another type of preprocessing")
 
         self.labels_, self.cluster_centers_, err, self.n_iter = \
-            kindAP(X, k, self.init, self.tol_in, self.tol_out, self.max_iter_in, self.max_iter_out,
+            kindap(X, k, self.init, self.tol_in, self.tol_out, self.max_iter_in, self.max_iter_out,
                    self.disp, self.do_inner, self.post_SR, self.isnrm_row_U, self.isnrm_col_H,
                    self.isbinary_H)
         if len(err) > 0:

@@ -7,7 +7,7 @@ Created on Tue Feb 27 15:36:07 2018
 """
 # %% import libraries and data
 import numpy as np
-from Kind import KindAP, KindJoint, best_map
+from Kind import KindAP, KindJoint, KindOD, best_map
 
 import scipy.io
 
@@ -97,10 +97,9 @@ for i in range(n_files):
     # Data_transformed = embedding.fit_transform(Data)
     # %% KindAP
     t_start = time.time()
-    #    ki = KindJoint(n_clusters = N_cluster,isnrm_row_U=True,isnrm_col_H=False, isbinary_H=True)
-    #    pred_kindAP = ki.fit_predict(Data_transformed)
-    ki = KindJoint(n_clusters=N_cluster, disp=True)
-    pred_kindAP = ki.fit_predict(affinity_matrix)
+    ki = KindOD(n_clusters=N_cluster, disp=True, mu='adaptive')
+    pred_kindAP = ki.fit_predict(Data_transformed)
+    print(ki.outliers_)
     t_end = time.time()
     print('--------------------------------')
     kindAP_t = t_end - t_start

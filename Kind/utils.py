@@ -37,7 +37,7 @@ def purity(clusters, classes_gt):
 	return pur
 
 
-def proj_Ud(N, Ud):
+def proj_ud(N, Ud):
 	if sparse.issparse(N):
 		S, D, V = la.svd(sparse.csc_matrix.dot(Ud.T, N), full_matrices=False)
 	else:
@@ -47,7 +47,7 @@ def proj_Ud(N, Ud):
 	return U
 
 
-def proj_H(N, isnrm_col_H, isbinary_H):
+def proj_h(N, isnrm_col_H, isbinary_H):
 	n, k = N.shape
 	I = np.arange(n)
 	J = np.array(np.argmax(N, axis=1)).reshape((n,))

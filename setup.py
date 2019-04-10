@@ -11,7 +11,7 @@ from setuptools import setup
 
 setup(
     name='Kind',
-    version='0.2.0',
+    version='0.3.1',
     description="Toolbox for data clustering based on K-indicators model",
     url='https://github.com/yangyuchen0340/Kind',
     author='Yuchen Yang, Feiyu Chen and Yin Zhang',
@@ -29,5 +29,5 @@ setup(
     ],
     keywords='clustering, machine learning,numpy,scipy,sklearn, optimization',
     packages=['Kind'],
-    install_requires=['numpy>=1.15', 'scipy>=0.17', 'scikit-learn>=0.19', 'six>=1.10'],
+    install_requires=['numpy>=1.15', 'scipy>=0.17', 'scikit-learn>=0.19', 'six>=1.10', 'munkres>=1.1.0'],
 )

@@ -12013,4 +12013,123 @@ Eigenspace_generation(K,3,Type)
 ans =
 
     0.5000   -0.7071   -0.5000
-    0.7
+    0.7071    0.0000    0.7071
+    0.5000    0.7071   -0.5000
+
+Eigenspace_generation(K,3,Type)
+<a href="matlab: opentoline('/Users/yangyc/Documents/Kind/matlab_data/utility/Eigenspace_generation.m',54,1)">54  </a>        [V,Diag] = eigs(L,k,'sr');
+L
+
+L =
+
+    1.0000   -0.7071         0
+   -0.7071    1.0000   -0.7071
+         0   -0.7071    1.0000
+
+K=[[0,2,0];[2,0,1];[0,1,0]]
+
+K =
+
+     0     2     0
+     2     0     1
+     0     1     0
+
+Eigenspace_generation(K,3,Type)
+{Undefined function or variable 'Type'.
+} 
+Eigenspace_generation(K,3,type)
+{Error using <a href="matlab:matlab.internal.language.introspective.errorDocCallback('type')" style="font-weight:bold">type</a>
+Too many output arguments.
+} 
+Type='Normalized Laplacian'
+
+Type =
+
+    'Normalized Laplacian'
+
+Eigenspace_generation(K,3,Type)
+<a href="matlab: opentoline('/Users/yangyc/Documents/Kind/matlab_data/utility/Eigenspace_generation.m',54,1)">54  </a>        [V,Diag] = eigs(L,k,'sr');
+G
+
+G =
+
+         0    0.8165         0
+    0.8165         0    0.5774
+         0    0.5774         0
+
+L
+
+L =
+
+    1.0000   -0.8165         0
+   -0.8165    1.0000   -0.5774
+         0   -0.5774    1.0000
+
+if system_dependent('IsDebugMode')==1, dbquit; end
+if system_dependent('IsDebugMode')==1, dbquit; end
+spring_ode
+[s,~,v]=svd(rand(5,4),0)
+
+s =
+
+   -0.1985    0.6365    0.0094    0.7014
+   -0.4325    0.3768    0.6856   -0.4352
+   -0.4335   -0.6089    0.3485    0.5117
+   -0.5206    0.1860   -0.5841   -0.0978
+   -0.5609   -0.2179   -0.2592   -0.2173
+
+
+v =
+
+   -0.4806    0.8683   -0.0364    0.1171
+   -0.4732   -0.2111   -0.6345   -0.5736
+   -0.5236   -0.2141    0.7571   -0.3267
+   -0.5205   -0.3944   -0.1513    0.7420
+
+s'*s
+
+ans =
+
+    1.0000   -0.0000   -0.0000   -0.0000
+   -0.0000    1.0000    0.0000   -0.0000
+   -0.0000    0.0000    1.0000   -0.0000
+   -0.0000   -0.0000   -0.0000    1.0000
+
+s*s'
+
+ans =
+
+    0.9366    0.0269    0.0607    0.1476   -0.1822
+    0.0269    0.9886   -0.0257   -0.0626    0.0773
+    0.0607   -0.0257    0.9420   -0.1412    0.1743
+    0.1476   -0.0626   -0.1412    0.6564    0.4241
+   -0.1822    0.0773    0.1743    0.4241    0.4764
+
+eigs(s*s')
+
+ans =
+
+    1.0000
+    1.0000
+    1.0000
+    1.0000
+    0.0000
+
+svds(s*s')
+
+ans =
+
+    1.0000
+    1.0000
+    1.0000
+    1.0000
+    0.0000
+
+Exception "java.lang.ClassNotFoundException: com/intellij/codeInsight/editorActions/FoldingData"while constructing DataFlavor for: application/x-java-jvm-local-objectref; class=com.intellij.codeInsight.editorActions.FoldingData
+Exception "java.lang.ClassNotFoundException: com/intellij/codeInsight/editorActions/FoldingData"while constructing DataFlavor for: application/x-java-jvm-local-objectref; class=com.intellij.codeInsight.editorActions.FoldingData
+1*1
+
+ans =
+
+     1
+

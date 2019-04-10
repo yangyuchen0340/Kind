@@ -14,33 +14,32 @@ from sklearn.base import BaseEstimator, ClusterMixin, TransformerMixin
 from sklearn.preprocessing import normalize
 from six import string_types
 from sklearn import cluster
-from .utils import proj_Ud, proj_H
+from .utils import proj_ud, proj_h
 
 import warnings
 
-try:
-    from pymanopt import Problem
-    from pymanopt.manifolds import Stiefel, Rotations
-    from pymanopt.solvers import SteepestDescent
-except ImportError:
-    raise ValueError("KindR needs pymanopt, which is unavailable.")
-#                warnings.warn("KindR solver is unavailable. Transfer to"
-#                                 "KindAP instead.")
-try:
-    import autograd.numpy as anp
-except ImportError:
-    raise ValueError("Pymanopt needs autograd, which is unavailable.")
-
 
 # %% KindR
-def kindR(Ud, n_clusters, init, tol_in, tol_out, max_iter_in, max_iter_out, disp,
-          do_inner, post_SR, isnrm_row_U, isnrm_col_H, isbinary_H):  # row version only
+def kindr(Ud, n_clusters, init, tol_in, tol_out, max_iter_in, max_iter_out, disp,
+          do_inner, post_SR, isnrm_row_U, isnrm_col_H, isbinary_H):
     if max_iter_out <= 0:
         raise ValueError('Number of iterations should be a positive number,'
                          ' got %d instead' % max_iter_out)
     if tol_out <= 0:
         raise ValueError('The tolerance should be a positive number,'
                          ' got %d instead' % tol_out)
+    try:
+        from pymanopt import Problem
+        from pymanopt.manifolds import Stiefel, Rotations
+        from pymanopt.solvers import SteepestDescent
+    except ImportError:
+        raise ValueError("KindR needs pymanopt, which is unavailable, try KindAP instead.")
+    #                warnings.warn("KindR solver is unavailable. Transfer to"
+    #                                 "KindAP instead.")
+    try:
+        import autograd.numpy as anp
+    except ImportError:
+        raise ValueError("Pymanopt needs autograd, which is unavailable,try KindAP instead.")
 
     n, d = Ud.shape
     k = n_clusters
@@ -65,7 +64,7 @@ def kindR(Ud, n_clusters, init, tol_in, tol_out, max_iter_in, max_iter_out, disp
         J = np.random.randint(0, k, (n,))
         V = np.ones((n,))
         H = sparse.csc_matrix((V, (I, J)), shape=(n, k))
-        S, D, V = la.svd(sparse.csc_matrix.dot(Ud.transpose(), H), full_matrices=False)
+        S, D, V = la.svd(sparse.csc_matrix.dot(Ud.T, H), full_matrices=False)
         Z_0 = np.matmul(S, V)
         U = np.matmul(Ud, Z_0)
     else:
@@ -95,7 +94,7 @@ def kindR(Ud, n_clusters, init, tol_in, tol_out, max_iter_in, max_iter_out, disp
                 return 0.5 * anp.sum(anp.minimum(anp.matmul(Ud, Z), 0) ** 2)
 
             problem = Problem(manifold=manifold, cost=cost, verbosity=0)
-            solver = SteepestDescent(logverbosity=2)
+            solver = SteepestDescent(maxiter=max_iter_in, mingradnorm=tol_in, logverbosity=2)
             Z, optlog = solver.solve(problem)
             U = np.matmul(Ud, Z)
             N = np.maximum(U, 0)
@@ -107,11 +106,11 @@ def kindR(Ud, n_clusters, init, tol_in, tol_out, max_iter_in, max_iter_out, disp
             numiter.append(0)
 
         # project onto H            
-        H, idx = proj_H(N, isnrm_col_H, isbinary_H)
+        H, idx = proj_h(N, isnrm_col_H, isbinary_H)
         idxchg = la.norm(idx - idxp, 1)
 
         # project back to Ud
-        U = proj_Ud(H, Ud)
+        U = proj_ud(H, Ud)
         dUHp = dUH
         dUH = la.norm(U - H, 'fro')
         gerr.append(dUH)
@@ -131,8 +130,8 @@ def kindR(Ud, n_clusters, init, tol_in, tol_out, max_iter_in, max_iter_out, disp
             if disp:
                 print('\t stop reason:', optlog['stoppingreason'])
             break
-
-    return idx, H, gerr, numiter
+    center = sparse.csc_matrix.dot(normalize((H != 0), axis=0, norm='l1').T, Ud)
+    return idx, center, gerr, numiter
 
 
 class KindR(BaseEstimator, ClusterMixin, TransformerMixin):
@@ -156,6 +155,10 @@ class KindR(BaseEstimator, ClusterMixin, TransformerMixin):
         self.isbinary_H = isbinary_H
         self.do_inner = do_inner
         self.post_SR = post_SR
+        self.labels_ = []
+        self.n_iter = 0
+        self.inertia_ = float('inf')
+        self.cluster_centers_ = []
 
     def fit(self, X):
 
@@ -163,8 +166,8 @@ class KindR(BaseEstimator, ClusterMixin, TransformerMixin):
         if k > X.shape[1]:
             raise ValueError("KindR can only solve cases where dim > n_clusters")
 
-        self.labels_, self.H, err, self.n_iter = \
-            kindR(X, k, self.init, self.tol_in, self.tol_out, self.max_iter_in, self.max_iter_out,
+        self.labels_, self.cluster_centers_, err, self.n_iter = \
+            kindr(X, k, self.init, self.tol_in, self.tol_out, self.max_iter_in, self.max_iter_out,
                   self.disp, self.do_inner, self.post_SR, self.isnrm_row_U, self.isnrm_col_H,
                   self.isbinary_H)
         if len(err) > 0:
@@ -184,8 +187,6 @@ class KindR(BaseEstimator, ClusterMixin, TransformerMixin):
             raise ValueError("Clustering algorithms have more clusters than observations")
         if k > X.shape[1]:
             raise ValueError("KindAP can only deal with d>=k as inputs, may need another type of preprocessing")
-        H = normalize((self.H != 0), axis=0, norm='l1').T.todense()
-        self.cluster_centers_ = np.dot(H, X)
         km = cluster.KMeans(n_clusters=k, init=self.cluster_centers_)
         km.fit(X)
         self.labels_ = km.labels_
