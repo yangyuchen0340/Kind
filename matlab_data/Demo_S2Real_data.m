@@ -46,7 +46,7 @@ filename = {'australian','auto','balance','breast','cars',...,
     'lenses','monk1','pima','segment','solar',...,
     'vehicle','vote','waveform-21','wine','yeast','zoo'};
 
-filename = {'COIL100_xce'};
+% filename = {'iris'};
 len = length(filename);
 
 

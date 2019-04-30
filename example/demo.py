@@ -92,13 +92,13 @@ for i in range(n_files):
 
     print('Embedding......')
     affinity_matrix = kneighbors_graph(Data, n_neighbors=5)
-    Data_transformed = spectral_embedding(affinity_matrix, n_components=N_cluster,
+    Data_transformed = spectral_embedding(affinity_matrix, n_components=N_cluster+2,
                                           drop_first=False)
     # Data_transformed = embedding.fit_transform(Data)
     # %% KindAP
     t_start = time.time()
-    # ki = KindOD(n_clusters=N_cluster, disp=True, mu='adaptive')
-    ki = KindR(n_clusters=N_cluster, disp=True)
+    ki = KindOD(n_clusters=N_cluster, disp=True, mu='adaptive')
+    #ki = KindR(n_clusters=N_cluster, disp=True)
     pred_kindAP = ki.fit_predict(Data_transformed)
     # print(ki.outliers_)
     t_end = time.time()

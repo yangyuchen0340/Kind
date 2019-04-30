@@ -34,10 +34,10 @@ def prox_l2(tmat, mu):
     return xmat
 
 
-def kindod(uk, n_clusters, mu, disp, maxit, tol_rel, tol_abs):
+def kindod(umat, n_clusters, mu, disp, maxit, tol_rel, tol_abs):
     """
     K-indicators with outlier detections, author: Yuchen Yang
-    :param uk: input data, currently supports n*n_clusters
+    :param umat: input data, currently supports n*n_clusters
     :param n_clusters: the number of clusters estimated
     :param mu: mu can be a given real non-negative number, a 'XX%' percentage, a 'Furthest X' number of points,
                 or simply adaptive. Default = 'adaptive'
@@ -54,7 +54,7 @@ def kindod(uk, n_clusters, mu, disp, maxit, tol_rel, tol_abs):
     dual: dual residuals
     W: corrected data
     """
-    n, k = uk.shape
+    n, d = umat.shape
     if maxit <= 0:
         raise ValueError('Number of iterations should be a positive number,'
                          ' got %d instead' % maxit)
@@ -80,23 +80,19 @@ def kindod(uk, n_clusters, mu, disp, maxit, tol_rel, tol_abs):
         raise ValueError('Unknown mu input')
     idx, lagrangian, primal, dual = [], [], [], []
 
-    if k != n_clusters:
-        raise ValueError('Current version only supports the situations where'
-                         'the number of features and the number of clusters are'
-                         'equal, got %d instead' % n_clusters)
     rho = 1
-    W, Wp = uk, np.zeros(shape=(n, k))
-    V = L = np.zeros(shape=(n, k))
-    centers = np.zeros(shape=(k, k))  # will be k*d in the future
+    W, Wp = umat, np.zeros(shape=(n, d))
+    V = L = np.zeros(shape=(n, d))
+    centers = np.zeros(shape=(n_clusters, d))  # will be k*d in the future
     for i in range(maxit):
-        ki = KindAP(n_clusters=k, isnrm_row_U=True, isnrm_col_H=False, isbinary_H=True)
+        ki = KindAP(n_clusters=n_clusters, isnrm_row_U=True, isnrm_col_H=False, isbinary_H=True)
         ki.fit(W)
         idx, centers = ki.labels_, ki.cluster_centers_
-        H = sparse.csc_matrix((np.ones((n,)), (np.arange(n), idx.flatten())), shape=(n, k))
+        H = sparse.csc_matrix((np.ones((n,)), (np.arange(n), idx.flatten())), shape=(n, n_clusters))
         H = normalize(H, axis=0)
         s, sigma, v = la.svd(sparse.csc_matrix.dot(W.T, H), full_matrices=False)
         Z = np.matmul(s, v)
-        B = W - uk
+        B = W - umat
         if num_parameter != -1:
             temp = la.norm(B + L / rho, axis=1)
             mu = np.partition(temp, -num_parameter)[-num_parameter]  # Select k-th largest values
@@ -122,7 +118,7 @@ def kindod(uk, n_clusters, mu, disp, maxit, tol_rel, tol_abs):
             mu = np.partition(temp, -int(perc_parameter * n))[-int(perc_parameter * n)]
             mu = mu * rho / 2.0001
         V = prox_l2(B + L / rho, 2 * mu / rho)
-        A = V + uk
+        A = V + umat
         s, sigma, v = la.svd(rho * A - L + sparse.csc_matrix.dot(H, Z.T), full_matrices=False)
         W = np.matmul(s, v)
         L = L + rho * (W - A)
@@ -134,8 +130,8 @@ def kindod(uk, n_clusters, mu, disp, maxit, tol_rel, tol_abs):
         primal.append(prim_res)
         dual.append(dual_res)
         lagrangian.append(obj)
-        prim_feasible = prim_res <= np.sqrt(n * k) * tol_abs + max(k, la.norm(V, 'fro')) * tol_rel
-        dual_feasible = dual_res <= np.sqrt(n * k) * tol_abs + la.norm(L, 'fro') * tol_rel
+        prim_feasible = prim_res <= np.sqrt(n * d) * tol_abs + max(d, la.norm(V, 'fro')) * tol_rel
+        dual_feasible = dual_res <= np.sqrt(n * d) * tol_abs + la.norm(L, 'fro') * tol_rel
         if disp:
             print("Step: %2d, Primal Residual: %1.5e, Dual Residual: %1.5e, Obj: %1.5e" % (i + 1, prim_res,
                                                                                            dual_res, obj))
@@ -172,17 +168,16 @@ class KindOD(BaseEstimator, ClusterMixin, TransformerMixin):
 
     def fit(self, X):
         k = int(self.n_clusters)
-        if k != X.shape[1]:
-            raise ValueError('Current version only supports the situations where '
-                             'the number of features and the number of clusters are '
-                             'equal, got %d instead' % self.n_clusters)
-        if X.shape[0] < k:
+        n, d = X.shape
+        if d < k:
+            raise ValueError('Invalid X, expect more features than clusters, got %d instead' % X.shape[1])
+        if n < k:
             raise ValueError('Invalid X, expect more observations than clusters, got %d instead' % X.shape[0])
-        if not np.allclose(np.dot(X.T, X), np.eye(k)):
+        if not np.allclose(np.dot(X.T, X), np.eye(d)):
             U, R = la.qr(X, mode='economic')
             warnings.warn('Current version only supports the input data is orthonormal, transferred by QR instead.')
         else:
-            U, R = X, np.eye(k)
+            U, R = X, np.eye(d)
         self.labels_, self.outliers_, self.cluster_centers_, lagrangian, primal, dual, W = kindod(U, self.n_clusters,
                                                                                                   self.mu_,
                                                                                                   self.disp, self.maxit,
@@ -197,6 +192,7 @@ class KindOD(BaseEstimator, ClusterMixin, TransformerMixin):
             print('The primal residuals are ', primal)
             print('The dual residuals are ', dual)
             print('The Lagrangian objectives are ', lagrangian)
+            print('The outliers are ', self.outliers_)
         return self
 
     def fit_predict(self, X, y=None):
