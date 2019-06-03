@@ -11,7 +11,7 @@ from setuptools import setup
 
 setup(
     name='Kind',
-    version='0.4.1',
+    version='0.4.2',
     description="Toolbox for data clustering based on K-indicators model",
     url='https://github.com/yangyuchen0340/Kind/tree/dev',
     author='Yuchen Yang, Feiyu Chen and Yin Zhang',
