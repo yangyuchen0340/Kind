@@ -108,3 +108,5 @@ venv.bak/
 *.m~
 /matlab_data/*.mat
 /matlab_data/real_data/
+/matlab_data/UCI/
+/matlab_data/*.txt
