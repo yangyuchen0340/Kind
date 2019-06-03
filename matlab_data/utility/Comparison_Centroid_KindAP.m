@@ -75,7 +75,7 @@ if run_SR == 1
 % Our version: SR
     options.isnrmrowU = 1; options.binary = 1;options.do_inner = 0;
     for restart = 1:No_SR
-        G0 = sparse(1:n,randi(k,n,1),ones(n,1));    
+        G0 = sparse(1:n,randi(k,n,1),ones(n,1),n,k);    
         [s,~,v] = svd(U'*G0,0);
         idx3temp = KindAP(U*(s*v'),k,options);
         curr_obj_sr = Objective_Centers(idx3temp,k,U);

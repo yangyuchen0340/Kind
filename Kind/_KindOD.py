@@ -199,6 +199,6 @@ class KindOD(BaseEstimator, ClusterMixin, TransformerMixin):
         self.fit(X)
         return self.labels_
 
-    def fit_predict_outliers(self,X,y=None):
+    def fit_predict_outliers(self, X, y=None):
         self.fit(X)
         return self.outliers_
