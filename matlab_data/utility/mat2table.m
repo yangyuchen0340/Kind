@@ -96,10 +96,10 @@ for i = 1 : m
         if strcmp(bfmethod,'min')
             bfizer = min(A(i,:));
         end
-        bf_id = find(abs((A(i,:)- bfizer))<10^(-precision-2));
+        bf_id = find(abs((A(i,:)- bfizer))<10^(-precision));
     end
     for j = 1 : n
-        if ismember(j,bf_id)      
+        if ismember(j,bf_id) && length(bf_id) ~= n
             temp = [sprintf('{\\bf  ') sprintf(['%0.' precision 'f'],A(i, j)), sprintf('} &')];
         else
             temp = sprintf(out_num, A(i, j));

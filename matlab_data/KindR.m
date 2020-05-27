@@ -39,8 +39,8 @@ if isfield(options,'maxit2'), maxit2=options.maxit2; else, maxit2=200; end
 if isfield(options,'disp'), idisp = options.disp; else, idisp = 0; end
 if isfield(options,'runkm'), runkm = options.runkm; else, runkm = 0; end
 if isfield(options,'idxg'), idxg = options.idxg; else, idxg = []; end
-if isfield(options,'isnrmU'), isnrmrowU = options.isnrmrowU; else, isnrmrowU = 0; end
-if isfield(options,'isnrmH'), isnrmcolH = options.isnrmcolH; else, isnrmcolH = ~isnrmrowU; end
+if isfield(options,'isnrmU'), isnrmrowU = options.isnrmU; else, isnrmrowU = 0; end
+if isfield(options,'isnrmH'), isnrmcolH = options.isnrmH; else, isnrmcolH = ~isnrmrowU; end
 if isfield(options,'postSR'), postSR = options.postSR; else, postSR = 1; end
 if isfield(options,'do_inner'), do_inner = options.do_inner; else, do_inner = 1; end
 if isfield(options,'binary'), binary = options.binary; else, binary = 0; end
@@ -51,7 +51,7 @@ idx = ones(n,1);
 hist = zeros(maxit1,1); 
 numiter = zeros(maxit1,1);
 N = zeros(n,k); H = N; dUH = 2*k;
-crit1 = zeros(3,1);crit2 = zeros(4,1);
+crit2 = zeros(4,1);
 Z = eye(k);
 % Outer iterations:
 for Outer = 1:maxit1
@@ -73,7 +73,7 @@ for Outer = 1:maxit1
     end
     %% Step 2:  N  ---> H
     [idx,H] = Projection_H(N,isnrmcolH,binary);
-    idxchg = norm(idx-idxp,1);
+    idxchg = sum(idx~=idxp);%norm(idx-idxp,1);
     if ~isempty(idxg) && idisp > 1
         AC = 100*sum(idxg==bestMap(idxg,idx))/n; 
     end
