@@ -120,27 +120,3 @@ for j = 1:len
     AC = [AC; ac]; NMI = [NMI; nmi]; PC = [PC; pc]; RC = [RC; rc];
     
 end
-
-% %% Create a table
-% Rh = {'Algorithms','SR10','KindAP','KindAP+L','Joint','Kmeans10'};
-% Ch = {'australian','auto','balance','breast','cars',...,
-%     'control','crx','dermatology','diabetes','ecoli',...,
-%     'german','glass','heart','ionosphere','iris','isolet',...,
-%     'lenses','monk1','pima','segment','solar',...,
-%     'vehicle','vote','waveform-21','wine','yeast','zoo',...,
-%      'FERET','JAFFE','USPS','mnist6000','COIL20',...,
-%      'Yale64x64','YaleB32x32','ORL64x64','PIE32x32',...,
-%      'Reuters21578','TDT2','COIL100','AR'};
-% 
-% %Ch = filename;
-% precision = 3;
-% 
-% outFM = mat2table(FM(:,[3,4,5,7,8]),Rh,Ch,precision,'min');
-% disp(outFM)
-% outAC = mat2table(AC(:,[3,4,5,7,8]),Rh,Ch,precision,'max');
-% disp(outAC)
-% % outNMI = mat2table(NMI(:,[4,5,8,3]),Rh,Ch,precision);
-% % disp(outNMI)
-% 
-% diary off;
-% save result_UKBench4096_data.mat T FM FI AC PC RC mu ido

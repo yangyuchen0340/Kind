@@ -5,4 +5,4 @@ from ._KindOD import KindOD
 from .utils import best_map
 
 __all__ = ['KindAP', 'KindJoint', 'KindR', 'KindOD', 'best_map']
-__version__ = '0.4.2'
+__version__ = '1.0.0'

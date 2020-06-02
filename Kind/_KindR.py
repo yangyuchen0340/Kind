@@ -64,10 +64,7 @@ def kindr(Ud, n_clusters, init, tol_in, tol_out, max_iter_in, max_iter_out, disp
             raise ValueError('The column size of init should be the same as the total'
                              'clusters, got %d instead.' % U.shape[1])
     elif isinstance(init, string_types) and init == 'random':
-        I = np.arange(n)
-        J = np.random.randint(0, k, (n,))
-        V = np.ones((n,))
-        H = sparse.csc_matrix((V, (I, J)), shape=(n, k))
+        H = sparse.csc_matrix((np.ones((n,)), (np.arange(n), np.random.randint(0, k, (n,)))), shape=(n, k))
         S, D, V = la.svd(sparse.csc_matrix.dot(Ud.T, H), full_matrices=False)
         Z_0 = np.matmul(S, V)
         U = np.matmul(Ud, Z_0)

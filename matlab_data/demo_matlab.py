@@ -8,26 +8,19 @@ Created on Tue Mar  6 19:43:05 2018
 Run in ./matlab_data
 """
 
+import time
+
 # %% import libraries and data
 import numpy as np
 import pandas as pd
-from numpy import linalg as la
-import matplotlib.pyplot as plt
 import scipy.io
-import sys
 
-sys.path.append('..')
-import KindAP
-# from sklearn.decomposition import PCA
-# from sklearn.preprocessing import LabelEncoder
-# from sklearn.neighbors import DistanceMetric
 from sklearn.cluster import AgglomerativeClustering
-from sklearn.cluster import KMeans, AffinityPropagation, SpectralClustering
-
+from sklearn.cluster import KMeans
 from sklearn.metrics.cluster import adjusted_mutual_info_score
-from sklearn.metrics.cluster import v_measure_score, adjusted_rand_score
 from sklearn.metrics.cluster import completeness_score, homogeneity_score
-import time
+from sklearn.metrics.cluster import v_measure_score, adjusted_rand_score
+import Kind
 
 # %% Prepossessing
 # Load data from .mat files
@@ -40,7 +33,7 @@ N, N_cluster = Uk.shape
 # S,D,V=la.svd(Data,full_matrices=False)
 print('--------------------------------')
 t_start = time.time()
-kindap = KindAP.KindAP(n_clusters=N_cluster)
+kindap = Kind.KindAP(n_clusters=N_cluster)
 pred_kindAP = kindap.fit(Uk).labels_
 t_end = time.time()
 print('KindAP timing is ', t_end - t_start)

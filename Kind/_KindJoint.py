@@ -72,7 +72,7 @@ def kind_joint(K, n_clusters, init, maxit, disp, tol, norm_laplacian):
     if K.shape[0] != K.shape[1]:
         warnings.warn('Input is not an affinity matrix. Kernelize using KNN'
                       'graph now')
-        X = kneighbors_graph(K)
+        X = kneighbors_graph(K, n_neighbors=5)
     else:
         X = (K + K.T) / 2
 
@@ -93,6 +93,7 @@ def kind_joint(K, n_clusters, init, maxit, disp, tol, norm_laplacian):
     rho = 1 / n
     # set history info
     hist = [0 for i in range(maxit)]
+    itr = 0
     for itr in range(maxit):
         Vp, idxp = V, idx
 
@@ -101,9 +102,7 @@ def kind_joint(K, n_clusters, init, maxit, disp, tol, norm_laplacian):
         laplacian = _set_diag(laplacian, 1, norm_laplacian)
         laplacian *= -1
         v0 = np.random.uniform(-1, 1, laplacian.shape[0])
-        I = np.arange(n)
-        V = np.ones(n)
-        H = sparse.csc_matrix((V, (I, idx)), shape=(n, n_clusters))
+        H = sparse.csc_matrix((np.ones(n), (np.arange(n), idx)), shape=(n, n_clusters))
         lambdas, diffusion_map = eigsh(laplacian + rho * sparse.csc_matrix.dot(H, H.T),
                                        k=n_clusters, sigma=1.0, which='LM', v0=v0)
         embedding = diffusion_map.T[n_clusters::-1]
@@ -141,6 +140,10 @@ class KindJoint(BaseEstimator, ClusterMixin, TransformerMixin):
         self.tol = tol
         self.disp = disp
         self.norm_laplacian = norm_laplacian
+        self.labels_ = []
+        self.embedding_ = []
+        self.iter_ = 0
+        self.inertia_ = float('inf')
 
     def fit(self, X):
 
@@ -153,7 +156,7 @@ class KindJoint(BaseEstimator, ClusterMixin, TransformerMixin):
                        self.norm_laplacian)
         if len(hist) > 0:
             self.inertia_ = hist[-1]
-            self.iter = len(hist)
+            self.iter_ = len(hist)
         else:
             raise ValueError("Insufficient error array.")
         return self

@@ -7,36 +7,18 @@ Created on Tue Feb 27 15:36:07 2018
 """
 # %% import libraries and data
 import numpy as np
-from Kind import KindAP, KindR, KindOD, best_map
+from Kind import KindAP, KindOD, best_map
 
 import scipy.io
 
 from sklearn.neighbors import kneighbors_graph
 from sklearn.manifold import spectral_embedding
 from sklearn.cluster import AgglomerativeClustering, KMeans
-# from sklearn.cluster import KMeans,AffinityPropagation
 
 from sklearn.metrics.cluster import normalized_mutual_info_score
 from sklearn.metrics.cluster import v_measure_score, adjusted_rand_score
 from sklearn.metrics.cluster import completeness_score, homogeneity_score
 import time
-
-# train_data = pd.read_csv('/Users/yangyc/Documents/statML/kaggle/training_data.csv',
-#                         sep = ',',header = None).as_matrix()
-# test_data = pd.read_csv('/Users/yangyc/Documents/statML/kaggle/test_data.csv',
-#                        sep = ',', header = None).as_matrix()
-#
-# train_labels = pd.read_csv('/Users/yangyc/Documents/statML/kaggle/training_labels.csv',
-#                         sep = ',',header = None).as_matrix()
-# test_labels = pd.read_csv('/Users/yangyc/Documents/statML/kaggle/test_labels.csv').as_matrix()
-#
-# Data = np.vstack((train_data,test_data))
-# ground_truth = np.vstack((train_labels,test_labels))[:,0]
-
-
-# %% Loading data setup
-# datadir = '/Users/yangyc/Documents/Kind/matlab_data/real_data/'
-# filename = ['COIL100']
 
 datadir = '/Users/yangyc/Documents/Kind/matlab_data/UCI/'
 filename = ['australian', 'auto', 'balance', 'breast', 'cars',
@@ -92,15 +74,12 @@ for i in range(n_files):
 
     print('Embedding......')
     affinity_matrix = kneighbors_graph(Data, n_neighbors=5)
-    Data_transformed = spectral_embedding(affinity_matrix, n_components=N_cluster+2,
+    Data_transformed = spectral_embedding(affinity_matrix, n_components=N_cluster,
                                           drop_first=False)
-    # Data_transformed = embedding.fit_transform(Data)
     # %% KindAP
     t_start = time.time()
-    ki = KindOD(n_clusters=N_cluster, disp=True, mu='adaptive')
-    #ki = KindR(n_clusters=N_cluster, disp=True)
+    ki = KindOD(n_clusters=N_cluster, disp=True, mu='5%')
     pred_kindAP = ki.fit_predict(Data_transformed)
-    # print(ki.outliers_)
     t_end = time.time()
     print('--------------------------------')
     kindAP_t = t_end - t_start
@@ -180,12 +159,6 @@ for i in range(n_files):
     print('K-means completeness_score is ', kmeans_accuracy[3])
     print('K-means adjusted_rand_score is ', kmeans_accuracy[4])
     print('K-means homogeneity_score is ', kmeans_accuracy[5])
-    # sp = SpectralClustering(n_clusters=N_cluster)
-    # pred_sp = sp.fit_predict(Data)
-    # sp_accuracy[1] = normalized_mutual_info_score(pred_sp,ground_truth)
-    # sp_accuracy[2] = v_measure_score(pred_sp,ground_truth)
-    # print('Spectral Clustering normalized_mutual_info_score is ', sp_accuracy[1])
-    # print('Spectral Clustering v_measure_score is ', sp_accuracy[2])
     # %% Hierarchy Clustering
     if run_hie:
         print('--------------------------------')
@@ -227,7 +200,6 @@ for i in range(n_files):
         print('Complete linkage completeness_score is ', complete_accuracy[3])
         print('Complete linkage adjusted_rand_score is ', complete_accuracy[4])
         print('Complete linkage homogeneity_score is ', complete_accuracy[5])
-
         print('--------------------------------')
         t_start = time.time()
         hier = AgglomerativeClustering(n_clusters=N_cluster, linkage='average')

@@ -34,9 +34,12 @@ def prox_l2(tmat, mu):
     return xmat
 
 
-def kindod(umat, n_clusters, mu, disp, maxit, tol_rel, tol_abs):
+def kindod(umat, n_clusters, mu, disp, maxit, tol_rel, tol_abs, isnrm_col_H, isnrm_row_U, isbinary_H):
     """
     K-indicators with outlier detections, author: Yuchen Yang
+    :param isnrm_col_H:
+    :param isnrm_row_U:
+    :param isbinary_H:
     :param umat: input data, currently supports n*n_clusters
     :param n_clusters: the number of clusters estimated
     :param mu: mu can be a given real non-negative number, a 'XX%' percentage, a 'Furthest X' number of points,
@@ -79,17 +82,32 @@ def kindod(umat, n_clusters, mu, disp, maxit, tol_rel, tol_abs):
     else:
         raise ValueError('Unknown mu input')
     idx, lagrangian, primal, dual = [], [], [], []
-
+    if isnrm_row_U:
+        umat = normalize(umat, axis=1)
     rho = 1
     W, Wp = umat, np.zeros(shape=(n, d))
     V = L = np.zeros(shape=(n, d))
+    if d > n_clusters:
+        Z = np.concatenate(np.identity(n_clusters), np.zeros(shape=(d - n_clusters, n_clusters)), axis=0)
+    elif d == n_clusters:
+        Z = np.identity(n_clusters)
+    else:
+        raise ValueError('Insufficient features, get %d but need %d at least' % (d, n_clusters))
     centers = np.zeros(shape=(n_clusters, d))  # will be k*d in the future
     for i in range(maxit):
-        ki = KindAP(n_clusters=n_clusters, isnrm_row_U=True, isnrm_col_H=False, isbinary_H=True)
+        # J = np.argmax(np.abs(V), axis=1)
+        # H = sparse.csc_matrix((np.ones((n,)), (np.arange(n), J)), shape=(n, n_clusters))
+        # if isnrm_col_H:
+        #     H = normalize(H, axis=0)
+        # s, sigma, v = la.svd(sparse.csc_matrix.dot(W.T, H), full_matrices=False)
+        # Z = np.matmul(s, v)
+        ki = KindAP(n_clusters=n_clusters, init=Z, max_iter_out=2, isnrm_row_U=isnrm_row_U, isnrm_col_H=isnrm_col_H,
+                    isbinary_H=isbinary_H)
         ki.fit(W)
         idx, centers = ki.labels_, ki.cluster_centers_
         H = sparse.csc_matrix((np.ones((n,)), (np.arange(n), idx.flatten())), shape=(n, n_clusters))
-        H = normalize(H, axis=0)
+        if isnrm_col_H:
+            H = normalize(H, axis=0)
         s, sigma, v = la.svd(sparse.csc_matrix.dot(W.T, H), full_matrices=False)
         Z = np.matmul(s, v)
         B = W - umat
@@ -119,13 +137,14 @@ def kindod(umat, n_clusters, mu, disp, maxit, tol_rel, tol_abs):
             mu = mu * rho / 2.0001
         V = prox_l2(B + L / rho, 2 * mu / rho)
         A = V + umat
-        s, sigma, v = la.svd(rho * A - L + sparse.csc_matrix.dot(H, Z.T), full_matrices=False)
-        W = np.matmul(s, v)
+        #        s, sigma, v = la.svd(rho * A - L + sparse.csc_matrix.dot(H, Z.T), full_matrices=False)
+        #        W = np.matmul(s, v)
+        W = (rho * A - L + sparse.csc_matrix.dot(H, Z.T)) / (1 + rho)
         L = L + rho * (W - A)
         S = -rho * (W - Wp)
         Wp = W
         obj = 0.5 * la.norm(np.matmul(W, Z) - H, 'fro') + mu * sum(la.norm(V, axis=1)) \
-              + np.trace(np.dot(L.T, W - A)) + rho / 2 * sum(sum(abs(W - A) ** 2))
+            + np.trace(np.dot(L.T, W - A)) + rho / 2 * sum(sum(abs(W - A) ** 2))
         prim_res, dual_res = la.norm(W - A, 'fro'), la.norm(S, 'fro')
         primal.append(prim_res)
         dual.append(dual_res)
@@ -135,7 +154,6 @@ def kindod(umat, n_clusters, mu, disp, maxit, tol_rel, tol_abs):
         if disp:
             print("Step: %2d, Primal Residual: %1.5e, Dual Residual: %1.5e, Obj: %1.5e" % (i + 1, prim_res,
                                                                                            dual_res, obj))
-
         if prim_feasible or dual_feasible:
             break
         if prim_res > 10 * dual_res:
@@ -153,12 +171,16 @@ class KindOD(BaseEstimator, ClusterMixin, TransformerMixin):
     Author: Yuchen Yang, Feiyu Chen, Yin Zhang
     """
 
-    def __init__(self, n_clusters, mu="adaptive", maxit=100, disp=False, tol_rel=1e-6, tol_abs=1e-3):
+    def __init__(self, n_clusters, mu="adaptive", maxit=100, disp=False, tol_rel=1e-6, tol_abs=1e-3,
+                 isnrm_col_H=False, isnrm_row_U=True, isbinary_H=True):
         self.disp = disp
         self.n_clusters = n_clusters
         self.maxit = maxit
         self.tol_rel = tol_rel
         self.tol_abs = tol_abs
+        self.isnrm_col_H = isnrm_col_H
+        self.isnrm_row_U = isnrm_row_U
+        self.isbinary_H = isbinary_H
         self.mu_ = mu
         self.labels_ = []
         self.outliers_ = []
@@ -173,7 +195,7 @@ class KindOD(BaseEstimator, ClusterMixin, TransformerMixin):
             raise ValueError('Invalid X, expect more features than clusters, got %d instead' % X.shape[1])
         if n < k:
             raise ValueError('Invalid X, expect more observations than clusters, got %d instead' % X.shape[0])
-        if not np.allclose(np.dot(X.T, X), np.eye(d)):
+        if not self.isnrm_row_U and not np.allclose(np.dot(X.T, X), np.eye(d)):
             U, R = la.qr(X, mode='economic')
             warnings.warn('Current version only supports the input data is orthonormal, transferred by QR instead.')
         else:
@@ -182,7 +204,10 @@ class KindOD(BaseEstimator, ClusterMixin, TransformerMixin):
                                                                                                   self.mu_,
                                                                                                   self.disp, self.maxit,
                                                                                                   self.tol_rel,
-                                                                                                  self.tol_abs)
+                                                                                                  self.tol_abs,
+                                                                                                  self.isnrm_col_H,
+                                                                                                  self.isnrm_row_U,
+                                                                                                  self.isbinary_H)
         self.corrected_data_ = np.dot(W, R)
         if len(lagrangian) > 0:
             self.inertia_ = lagrangian[-1]

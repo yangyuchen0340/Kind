@@ -60,21 +60,19 @@ def kindap(Ud, n_clusters, init, tol_in, tol_out, max_iter_in, max_iter_out, dis
         # Z_0 = -np.identity(k)
         U = Ud[:, :k]
     elif hasattr(init, '__array__'):
-        U = np.array(init)
-        if U.shape[0] != n:
+        if init.shape[0] != d:
             raise ValueError('The row size of init should be the same as the total'
-                             'observations, got %d instead.' % U.shape[0])
-        if U.shape[1] != k:
+                             'features, got %d instead.' % init.shape[0])
+        if init.shape[1] != k:
             raise ValueError('The column size of init should be the same as the total'
-                             'clusters, got %d instead.' % U.shape[1])
+                             'clusters, got %d instead.' % init.shape[1])
+        U = np.matmul(Ud, np.array(init))
     elif isinstance(init, string_types) and init == 'random':
-        I = np.arange(n)
-        J = np.random.randint(0, k, (n,))
-        V = np.ones((n,))
-        H = sparse.csc_matrix((V, (I, J)), shape=(n, k))
-        S, D, V = la.svd(sparse.csc_matrix.dot(Ud.T, H), full_matrices=False)
-        Z_0 = np.matmul(S, V)
-        U = np.matmul(Ud, Z_0)
+        H = sparse.csc_matrix((np.ones((n,)), (np.arange(n), np.random.randint(0, k, (n,)))), shape=(n, k))
+        smat, sigma, vmat = la.svd(sparse.csc_matrix.dot(Ud.T, H), full_matrices=False)
+        z_init = np.matmul(smat, vmat)
+        U = np.matmul(Ud, z_init)
+    #    elif isinstance(init, string_types) and init == 'adaptive':
     else:
         raise ValueError("the init parameter for KindAP should be 'eye','random',"
                          "or an array. Got a %s with type %s instead." % (init, type(init)))
@@ -149,8 +147,8 @@ class KindAP(BaseEstimator, ClusterMixin, TransformerMixin):
 
     def __init__(self, n_clusters, init='eye', tol_in=1e-3,
                  tol_out=1e-6, max_iter_in=200, max_iter_out=50, disp=False,
-                 do_inner=True, post_SR=True, isnrm_row_U=False, isnrm_col_H=True,
-                 isbinary_H=False):
+                 do_inner=True, post_SR=True, isnrm_row_U=True, isnrm_col_H=False,
+                 isbinary_H=True):
         self.n_clusters = n_clusters
         self.init = init
         self.max_iter_in = max_iter_in
