@@ -107,8 +107,8 @@ def kind_joint(K, n_clusters, init, maxit, disp, tol, norm_laplacian):
                                        k=n_clusters, sigma=1.0, which='LM', v0=v0)
         embedding = diffusion_map.T[n_clusters::-1]
         V = _deterministic_vector_sign_flip(embedding)
-        if norm_laplacian:
-            V = embedding / dd
+        # if norm_laplacian:
+        #     V = embedding / dd
         obj = rho * np.sum(sparse.csc_matrix.dot(V, H) ** 2) + np.trace(
             np.dot(sparse.csc_matrix.dot(V, laplacian), V.T))
         hist[itr] = 0.5 * obj
@@ -117,7 +117,7 @@ def kind_joint(K, n_clusters, init, maxit, disp, tol, norm_laplacian):
         idx = ki.fit_predict_L(V)
 
         # stopping criteria
-        idxchg = norm(idx - idxp, 1)
+        idxchg = sum(idx != idxp)
         Vrel = norm(V - Vp, 'fro') / norm(Vp, 'fro')
         if disp:
             print('iter: %3d, Obj: %6.2e,  Vrel: %6.2e, idxchg: %6d' % (itr, obj, Vrel, idxchg))
@@ -132,7 +132,7 @@ class KindJoint(BaseEstimator, ClusterMixin, TransformerMixin):
     Author: Yuchen Yang, Yin Zhang
     """
 
-    def __init__(self, n_clusters, init=None, tol=1e-5, maxit=200, disp=False,
+    def __init__(self, n_clusters, init=None, tol=1e-5, maxit=50, disp=False,
                  norm_laplacian=True):
         self.n_clusters = n_clusters
         self.init = init
@@ -149,7 +149,7 @@ class KindJoint(BaseEstimator, ClusterMixin, TransformerMixin):
 
         k = int(self.n_clusters)
         if k > X.shape[0]:
-            raise ValueError("n_clusters is greater than the number of observations")
+            raise ValueError("n_clusters is greater than the number of observations.")
 
         self.labels_, self.embedding_, hist = \
             kind_joint(X, k, self.init, self.maxit, self.disp, self.tol,

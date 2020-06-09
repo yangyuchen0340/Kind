@@ -113,7 +113,7 @@ def kindap(Ud, n_clusters, init, tol_in, tol_out, max_iter_in, max_iter_out, dis
 
         # project onto H            
         H, idx = proj_h(N, isnrm_col_H, isbinary_H)
-        idxchg = la.norm(idx - idxp, 1)
+        idxchg = sum(idx != idxp)
 
         # project back to Ud
         U = proj_ud(H, Ud)
@@ -146,7 +146,7 @@ class KindAP(BaseEstimator, ClusterMixin, TransformerMixin):
     """
 
     def __init__(self, n_clusters, init='eye', tol_in=1e-3,
-                 tol_out=1e-6, max_iter_in=200, max_iter_out=50, disp=False,
+                 tol_out=1e-5, max_iter_in=200, max_iter_out=50, disp=False,
                  do_inner=True, post_SR=True, isnrm_row_U=True, isnrm_col_H=False,
                  isbinary_H=True):
         self.n_clusters = n_clusters

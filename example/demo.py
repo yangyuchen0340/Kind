@@ -7,7 +7,7 @@ Created on Tue Feb 27 15:36:07 2018
 """
 # %% import libraries and data
 import numpy as np
-from Kind import KindAP, KindOD, best_map
+from Kind import KindAP, KindOD, best_map, KindR
 
 import scipy.io
 
@@ -78,7 +78,7 @@ for i in range(n_files):
                                           drop_first=False)
     # %% KindAP
     t_start = time.time()
-    ki = KindOD(n_clusters=N_cluster, disp=True, mu='5%')
+    ki = KindR(n_clusters=N_cluster, disp=True)
     pred_kindAP = ki.fit_predict(Data_transformed)
     t_end = time.time()
     print('--------------------------------')
