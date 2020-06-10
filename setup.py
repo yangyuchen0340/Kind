@@ -11,7 +11,7 @@ from setuptools import setup
 
 setup(
     name='Kind',
-    version='0.4.1',
+    version='1.0.0',
     description="Toolbox for data clustering based on K-indicators model",
     url='https://github.com/yangyuchen0340/Kind/tree/dev',
     author='Yuchen Yang, Feiyu Chen and Yin Zhang',
@@ -25,7 +25,7 @@ setup(
         'License :: OSI Approved :: MIT License',
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.4',
-        'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3.7',
     ],
     keywords='clustering, machine learning, numpy, scipy, sklearn, optimization',
     packages=['Kind'],
