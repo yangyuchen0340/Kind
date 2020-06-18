@@ -30,15 +30,20 @@ function [idx,member_id,outlier_id,err,data_err]=kind_ot_admm(Uk,mu,options)
     if isfield(options,'maxitr'), max_itr=options.maxitr; else, max_itr=50; end 
     if isfield(options,'isnrmU'), isnrmrowU = options.isnrmU; else, isnrmrowU = 1; end
     if isfield(options,'isnrmH'), isnrmcolH = options.isnrmH; else, isnrmcolH = ~isnrmrowU; end
-    if ~isfield(options,'maxit1'), options.maxit1=2; end
-    if ~isfield(options,'maxit2'), options.maxit2=100; end
-    if ~isfield(options,'Z'), options.Z = eye(size(Uk,2)); end
+    if isfield(options,'maxit1'), maxit1 = options.maxit1; else, maxit1=2; end
+    if isfield(options,'maxit2'), maxit2 = options.maxit2; else, maxit2=100;end
+    if isfield(options,'Z'), Z = options.Z; else, Z=eye(size(Uk,2)); end
     if isfield(options,'e_abs'), e_abs = options.e_abs; else, e_abs = 1e-3; end
     if isfield(options,'e_rel'), e_rel = options.e_rel; else, e_rel = 1e-6; end
     if isfield(options,'update_rho'), update_rho = options.update_rho; else update_rho = 1; end
     % initialization  
     err = [];
     P = []; D = []; clust_err = []; data_err = [];
+    kindap_options.maxit1 = maxit1;
+    kindap_options.maxit2 = maxit2;
+    kindap_options.isnrmU = isnrmrowU;
+    kindap_options.isnrmH = isnrmcolH;
+    kindap_options.prt = prt;
     if isnrmrowU
         Uk=normr(Uk);
     end
@@ -56,8 +61,8 @@ function [idx,member_id,outlier_id,err,data_err]=kind_ot_admm(Uk,mu,options)
             H=normc(H);
         end
         [s,~,v] = svd(W'*H);
-        Z = s*v'; options.Z = Z;
-        [index,H] = KindAP(W,k,options);
+        Z = s*v'; kindap_options.Z = Z;
+        [index,H] = KindAP(W,k,kindap_options);
         if isnrmcolH
             H=normc(H);
         end
@@ -66,7 +71,7 @@ function [idx,member_id,outlier_id,err,data_err]=kind_ot_admm(Uk,mu,options)
         B=W-Uk;
         % minimize V by soft thresholding
 %         V=prox_l2(B+L/rho,2*mu/rho);
-        [V,x]=prox_l2_adaptive(B+L/rho,mu);
+        [V,x]=prox_l2_adaptive(B+L/rho);
         % minimize W by Procrustes subproblem
         A=V+Uk;
 %         [s,~,v]=svd((rho*A-L+H*Z')/(rho+1),0);

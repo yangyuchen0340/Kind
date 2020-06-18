@@ -45,10 +45,9 @@ for k=10:10:100
     ts=cputime;
     % prepossessing svd
     [s,D,~]=svd(M,'econ');
-    Uk=s(:,1:k);
+    Uk=s(:,1:k+1);
     % call KindAP (my version: kind_ap)
-    %[~,idx]=kind_ap(Uk,0,0);
-    idx=KindAP(Uk,k,[]);
+    [idx,~,~,out]=KindAP(Uk,k+1,[]);
     % store time and accuracy
     tc=[tc,cputime-ts];
     ac = [ac sum(idxg == bestMap(idxg,idx(1:end)))/size(M,1)];
@@ -65,7 +64,7 @@ for k=10:10:100
         Uk=s(:,1:k);
         % The selection of mu is interesting, depending on n and k
         % Set the last parameter to be 1 if you want detailed results
-        [idx,idc]=kind_ot_admm(Uk,0.03,1,1);
+        [idx,idc]=kind_ot_admm(Uk);
         fprintf('k=%d, outlier-tolerant KindAP finished.\n',k);
         % means of all added outliers, how many of them can be discovered
         ot_recall = length(find(ismember(size(M,1)-addoutliers+1:size(M,1),idc)==1))/addoutliers;
